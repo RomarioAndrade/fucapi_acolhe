@@ -13,14 +13,10 @@ const router = require("./routes");
 
 var app = express();
 
-// Configuração da Sessão
 app.use(session({
-    secret: 'sua_chave_secreta_aqui', // Use uma string aleatória forte
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: false // true em produção com HTTPS
-    }
+    resave: false, // don't save session if unmodified
+    saveUninitialized: false, // don't create session until something stored
+    secret: 'shhhh, very secret'
 }));
 
 // view engine setup

@@ -14,11 +14,8 @@ const ensureAuthenticated = (req, res, next) => {
     }
 };
 
-
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    
     res.render('index', {title: 'Express'});
 });
 
@@ -46,7 +43,8 @@ router.post('/login', function (req, res) {
                 // Senha correta, crie a sessão
                 req.session.userId = user.id;
                 req.session.username = user.username;
-                res.render('home', {title: 'Express'});
+                //res.render('home', {title: user.username});
+                res.redirect('home');
             } else {
                 res.status(401).send('Email ou senha incorretos.');
             }
@@ -54,10 +52,8 @@ router.post('/login', function (req, res) {
     });
 });
 
-
- router.get('/home', function (req, res) {
-    console.log(usuario);
-    res.render('home', {title: usuario.login});
+ router.get('/home',ensureAuthenticated,function (req, res) {
+    res.render('home', {title: req.session.username});
 });
 
 router.post('/register', function (req, res) {
@@ -80,5 +76,11 @@ router.post('/register', function (req, res) {
         });
     });
 });
+
+router.get('/logout', function (req, res) {
+    req.session.destroy(function(){
+        res.redirect('/');
+    });
+})
 
 module.exports = router;
