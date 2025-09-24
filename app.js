@@ -1,14 +1,27 @@
 //\. "$HOME/.nvm/nvm.sh"
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const router = require("./routes");
 
 var app = express();
+
+// Configuração da Sessão
+app.use(session({
+    secret: 'sua_chave_secreta_aqui', // Use uma string aleatória forte
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false // true em produção com HTTPS
+    }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
