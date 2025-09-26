@@ -3,6 +3,7 @@ var router = express.Router();
 
 const db = require('../database/db');
 const bkfd2Password = require('pbkdf2-password');
+const path = require("path");
 const hasher = bkfd2Password();
 
 // Middleware de proteção de rotas
@@ -16,10 +17,10 @@ const ensureAuthenticated = (req, res, next) => {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('index', {title: 'Express',message: ''});
 });
 
-router.post('/login', function (req, res) {
+router.post('/login', function (req, res,next) {
     const { email, password } = req.body;
 
     const query = 'SELECT * FROM users WHERE email = ?';
@@ -29,7 +30,8 @@ router.post('/login', function (req, res) {
             return res.status(500).send('Erro no servidor.');
         }
         if (results.length === 0) {
-            return res.status(401).send('Email ou senha incorretos.');
+            //return res.status(401).send('Email ou senha incorretos.');
+            return next(err);
         }
         const user = results[0];
 
@@ -67,7 +69,7 @@ router.post('/register', function (req, res) {
         db.query(query, [username, email, hash, salt], (err, result) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
-                    return res.status(409).send('Usuário ou email já cadastrado.');
+                    return res.status(409).send({message:'Usuário ou email já cadastrado.'});
                 }
                 console.error('Erro ao inserir usuário:', err);
                 return res.status(500).send('Erro no servidor.');
@@ -81,6 +83,10 @@ router.get('/logout', function (req, res) {
     req.session.destroy(function(){
         res.redirect('/');
     });
+});
+
+router.get('/conecta', function (req, res) {
+    res.render('conecta',{title: 'FUCAPI Acolhe - Dashboard',message: ''});
 })
 
 module.exports = router;

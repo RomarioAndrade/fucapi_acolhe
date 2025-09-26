@@ -1,8 +1,150 @@
+/* Estilos Gerais */
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eff0f2;
 }
 
-a {
-  color: #00B7FF;
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Painel Lateral (Sidebar) */
+.sidebar {
+    width: 250px;
+    background-color: #383f45;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ededed;
+    /*padding: 20px 0;*/
+}
+
+.logo-container {
+    display: flex;
+    text-align: left;
+    padding: 5px;
+    /*margin: 20px 0;*/
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+}
+
+.logo-container h3 {
+    margin-bottom: 0;
+}
+
+.logo-container h3.side {
+    color: #258ee6;
+}
+
+.logo {
+    max-width: 45px;
+    max-height: 50px;
+    padding: 20px 0 20px 20px;
+}
+
+.logo-text {
+    padding: 20px 20px 20px 5px;
+}
+
+.logo-text h3 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.logo-text .side {
+    font-weight: 400;
+    font-size: 23px;
+}
+
+.main-menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #eee;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background-color: #258ee6;
+    color: #ffffff;
+}
+
+.menu-item i {
+    margin-right: 15px;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 400;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    flex-grow: 1;
+    /*padding: 20px;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 16px 16px 30px;
+    min-height: 67.81px;
+    background-color: #fff;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    /*border-bottom: 1px solid #b7b7b7 ;
+    /*margin-bottom: 20px;*/
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.pulseira-status, .calm-status {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px 15px;
+    /*display: flex;*/
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 15px;
+}
+
+.pulseira-status i {
+    color: #258ee6;
+    margin: 5px 10px;
+}
+
+.pulseira-connected i {
+    color: #dddddd;
+}
+
+/* Grid de Conteúdo */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
