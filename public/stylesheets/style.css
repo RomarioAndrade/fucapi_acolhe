@@ -26,6 +26,7 @@ body {
     display: flex;
     text-align: left;
     padding: 5px;
+    height: 93px;
     /*margin: 20px 0;*/
     border-bottom: 1px solid #eee;
     background-color: #fff;
@@ -102,7 +103,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 16px 16px 16px 30px;
-    min-height: 67.81px;
+    max-height: 72px;
     background-color: #fff;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     /*border-bottom: 1px solid #b7b7b7 ;
