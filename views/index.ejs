@@ -10,7 +10,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<%= message %>
+
 <div class="container">
     <div style="display:table;margin: 5px auto 5px auto;">
         <form action="/login" method="post">
@@ -28,8 +28,12 @@
                 </div>
             </div>
             <div class="mb-3">
+                <%= message %>
+            </div>
+            <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
+
         </form>
     </div>
 </div>

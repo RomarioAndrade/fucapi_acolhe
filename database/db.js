@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     port: 3306,
     database: 'fucapi_acolhe',
     multipleStatements: true
-})
+});
 
 connection.connect(function(err) {
     if (err) {

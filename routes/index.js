@@ -16,12 +16,16 @@ const ensureAuthenticated = (req, res, next) => {
 };
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express',message: ''});
+router.get('/login', function (req, res, next) {
+    res.render('index', {title: 'Express', message: ''});
 });
 
-router.post('/login', function (req, res,next) {
-    const { email, password } = req.body;
+router.get('/',function (req, res, next) {
+    res.redirect('/login')
+});
+
+router.post('/login', function (req, res, next) {
+    const {email, password} = req.body;
 
     const query = 'SELECT * FROM users WHERE email = ?';
     db.query(query, [email], (err, results) => {
@@ -30,13 +34,12 @@ router.post('/login', function (req, res,next) {
             return res.status(500).send('Erro no servidor.');
         }
         if (results.length === 0) {
-            //return res.status(401).send('Email ou senha incorretos.');
-            return next(err);
+            return res.status(401).render('index', {title: 'Express', message: 'Email ou senha incorretos.'});
         }
         const user = results[0];
 
         // Comparar a senha fornecida com o hash armazenado
-        hasher({ password, salt: user.salt }, (err, pass, salt, hash) => {
+        hasher({password, salt: user.salt}, (err, pass, salt, hash) => {
             if (err) {
                 return res.status(500).send('Erro ao verificar a senha.');
             }
@@ -48,20 +51,20 @@ router.post('/login', function (req, res,next) {
                 //res.render('home', {title: user.username});
                 res.redirect('home');
             } else {
-                res.status(401).send('Email ou senha incorretos.');
+                res.status(401).render('index', {title: 'Express', message: 'Email ou senha incorretos.'});
             }
         });
     });
 });
 
- router.get('/home',ensureAuthenticated,function (req, res) {
+router.get('/home', ensureAuthenticated, function (req, res) {
     res.render('home', {title: req.session.username});
 });
 
 router.post('/register', function (req, res) {
-    const { username, email, password } = req.body;
+    const {username, email, password} = req.body;
     // Hash da senha com salt
-    hasher({ password }, (err, pass, salt, hash) => {
+    hasher({password}, (err, pass, salt, hash) => {
         if (err) {
             return res.status(500).send('Erro ao hashear a senha.');
         }
@@ -69,7 +72,7 @@ router.post('/register', function (req, res) {
         db.query(query, [username, email, hash, salt], (err, result) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
-                    return res.status(409).send({message:'Usuário ou email já cadastrado.'});
+                    return res.status(409).send({message: 'Usuário ou email já cadastrado.'});
                 }
                 console.error('Erro ao inserir usuário:', err);
                 return res.status(500).send('Erro no servidor.');
@@ -80,13 +83,13 @@ router.post('/register', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
-    req.session.destroy(function(){
+    req.session.destroy(function () {
         res.redirect('/');
     });
 });
 
 router.get('/conecta', function (req, res) {
-    res.render('conecta',{title: 'FUCAPI Acolhe - Dashboard',message: ''});
+    res.render('conecta', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
 })
 
 module.exports = router;
