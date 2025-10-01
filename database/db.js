@@ -90,4 +90,4 @@ const initializeDatabase = async () => {
     }
 };
 
-module.exports = {createConnection};
+module.exports = {createConnection,initializeDatabase};

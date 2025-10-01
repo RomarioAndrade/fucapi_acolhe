@@ -137,7 +137,7 @@ body {
 /* Grid de Conteúdo */
 .content-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 710px 345px;
     gap: 20px;
     flex-grow: 1;
     padding: 20px;
