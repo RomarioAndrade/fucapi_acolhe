@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const userModel = require('../model/userModel');
 const db = require('../database/db');
 const bkfd2Password = require('pbkdf2-password');
 const path = require("path");
@@ -24,9 +25,38 @@ router.get('/',function (req, res, next) {
     res.redirect('/login')
 });
 
-router.post('/login', function (req, res, next) {
-    const {email, password} = req.body;
+router.post('/login', async  (req, res) =>{
+    try{
+        const {email, password} = req.body;
 
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Username and password required' });
+        }
+
+        const user = await userModel.findUserByEmail(email);
+        console.log(user);
+
+        hasher({password, salt: user.salt}, (err, pass, salt, hash) => {
+            if (err) {
+                return res.status(500).send('Erro ao verificar a senha.');
+            }
+
+            if (hash === user.hash) {
+                // Senha correta, crie a sessão
+                req.session.userId = user.id;
+                req.session.username = user.username;
+                //res.render('home', {title: user.username});
+                res.redirect('home');
+            } else {
+                res.status(401).render('index', {title: 'Express', message: 'Email ou senha incorretos.'});
+            }
+        });
+
+    }catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+
+    /*
     const query = 'SELECT * FROM users WHERE email = ?';
     db.query(query, [email], (err, results) => {
         if (err) {
@@ -54,7 +84,7 @@ router.post('/login', function (req, res, next) {
                 res.status(401).render('index', {title: 'Express', message: 'Email ou senha incorretos.'});
             }
         });
-    });
+    });*/
 });
 
 router.get('/home', ensureAuthenticated, function (req, res) {

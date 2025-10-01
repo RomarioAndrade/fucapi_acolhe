@@ -1,18 +1,15 @@
-const mysql = require('mysql2');
-const connection = mysql.createConnection({
+const mysql = require('mysql2/promise');
+
+const dbConfig = {
     host: 'localhost',
     user: 'root',
     password: 'root',
-    port: 3306,
-    database: 'fucapi_acolhe',
-    multipleStatements: true
-});
+    database: 'fucapi_acolhe'
+};
 
-connection.connect(function(err) {
-    if (err) {
-        throw err;
-    }
-})
 
-global.db = connection;
-module.exports = db;
+const createConnection = async () => {
+    return await mysql.createConnection(dbConfig);
+};
+
+module.exports = {createConnection};
