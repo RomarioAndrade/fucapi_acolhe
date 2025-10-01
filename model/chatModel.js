@@ -1,4 +1,4 @@
-const { createConnection } = require('../config/database');
+const { createConnection } = require('../database/db');
 
 class ChatModel {
     // Conversation methods
@@ -94,3 +94,4 @@ class ChatModel {
         await connection.end();
     }
 }
+module.exports = new ChatModel();
