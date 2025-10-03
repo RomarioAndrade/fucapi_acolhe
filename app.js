@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var errorsRouter = require('./routes/errors');
 var agendaRouter = require('./routes/agenda');
 const router = require("./routes");
+const {initializeDatabase} = require('./database/db');
 
 var app = express();
 
@@ -52,5 +53,7 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+initializeDatabase();
 
 module.exports = app;
