@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
+const bcrypt = require('bcrypt');
 const userModel = require('../model/userModel');
 const db = require('../database/db');
-const bkfd2Password = require('pbkdf2-password');
-const hasher = bkfd2Password();
 
 // Middleware de proteção de rotas
 const ensureAuthenticated = (req, res, next) => {
@@ -16,76 +14,61 @@ const ensureAuthenticated = (req, res, next) => {
 };
 
 /* GET home page. */
-router.get('/fucapi-acolhe/login', function (req, res, next) {
+router.get('/login', function (req, res, next) {
     res.render('index', {title: 'Fucapi Acolhe', message: ''});
 });
 
 router.get('/',function (req, res, next) {
-    res.redirect('/fucapi-acolhe/login')
+    res.redirect('/login')
 });
 
 router.post('/login', async  (req, res) =>{
     try{
         const {email, password} = req.body;
-
         if (!email || !password) {
-            return res.status(400);
+            return res.status(400).json({ error: 'Username and password required' });
         }
-
         const user = await userModel.findUserByEmail(email);
         console.log(user);
 
-        hasher({password, salt: user.salt}, (err, pass, salt, hash) => {
-            if (err) {
-                return res.status(500).send('Erro ao verificar a senha.');
-            }
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
 
-            if (hash === user.hash) {
-                // Senha correta, crie a sessão
-                req.session.userId = user.id;
-                req.session.username = user.username;
-                //res.render('home', {title: user.username});
-                res.redirect('/fucapi-acolhe/home');
-            } else {
-                res.status(401).render('index', {title: 'Express', message: 'Email ou senha incorretos.'});
-            }
-        });
+        req.session.userId = user.id;
+        req.session.username = user.username;
+        res.redirect('/home');
 
     }catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-router.get('/fucapi-acolhe/home', ensureAuthenticated, function (req, res) {
+router.get('/home', ensureAuthenticated, function (req, res) {
     res.render('home', {title: req.session.username});
 });
 
-router.post('/fucapi-acolhe/register', function (req, res) {
+router.post('/register', async function (req, res) {
     try {
+        const {username, email, password, type} = req.body;
 
-    }catch (error) {
-
-    }
-    const {username, email, password} = req.body;
-    // Hash da senha com salt
-    hasher({password}, (err, pass, salt, hash) => {
-        if (err) {
-            return res.status(500).send('Erro ao hashear a senha.');
+        if (!username || !email || !password) {
+            return res.status(400).json({error: 'All fields are required'});
         }
 
+        const existingUser = await userModel.findUserByUsername(username);
+        if (existingUser) {
+            return res.status(400).json({error: 'Username already exists'});
+        }
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const userId = await userModel.createUser(username, email, hashedPassword, type);
 
-        const query = 'INSERT INTO users (username, email, hash, salt) VALUES (?, ?, ?, ?)';
-        db.query(query, [username, email, hash, salt], (err, result) => {
-            if (err) {
-                if (err.code === 'ER_DUP_ENTRY') {
-                    return res.status(409).send({message: 'Usuário ou email já cadastrado.'});
-                }
-                console.error('Erro ao inserir usuário:', err);
-                return res.status(500).send('Erro no servidor.');
-            }
-            res.status(201).send('Usuário registrado com sucesso!');
-        });
-    });
+        res.json({ user: { id: userId, username, email } });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: 'Internal server error'});
+    }
 });
 
 router.get('/logout', function (req, res) {
@@ -97,6 +80,17 @@ router.get('/logout', function (req, res) {
 router.get('/conecta', function (req, res) {
     res.render('conecta', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
 })
+
+router.get('/chat/users', async function (req, res) {
+    try {
+        const users = await userModel.findUserByType(1);
+        console.log(users);
+        res.json(users);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
 
 
 module.exports = router;

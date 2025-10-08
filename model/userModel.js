@@ -2,11 +2,11 @@ const { createConnection } = require('../database/db');
 
 class UserModel {
 
-    async createUser(username, email, password) {
+    async createUser(username, email, password, user_type) {
         const connection = await createConnection();
         const [result] = await connection.execute(
-            'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-            [username, email, password]
+            'INSERT INTO users (username, email, password, id_tipo_usuario) VALUES (?, ?, ?, ?)',
+            [username, email, password, user_type]
         );
         await connection.end();
         return result.insertId;
@@ -25,13 +25,9 @@ class UserModel {
     async findUserByEmail(email) {
         const connection = await createConnection();
         const [rows] = await connection.execute(
-            'SELECT u.*,ut.type FROM users u LEFT JOIN user_type ut ON u.id = ut.user WHERE u.email = ?',
-            [email]
-        );
-        /*const [rows] = await connection.execute(
             'SELECT * FROM users WHERE email = ?',
             [email]
-        );*/
+        );
         await connection.end();
         return rows[0];
     }
@@ -45,5 +41,16 @@ class UserModel {
         await connection.end();
         return rows[0];
     }
+
+    async findUserByType(id) {
+        const connection = await createConnection();
+        const [rows] = await connection.execute(
+            'SELECT * FROM users WHERE id_tipo_usuario = ?',
+            [id]
+        );
+        await connection.end();
+        return rows;
+    }
 }
+
 module.exports = new UserModel();

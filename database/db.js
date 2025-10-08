@@ -16,24 +16,26 @@ const initializeDatabase = async () => {
     try {
         const connection = await createConnection();
 
+        await connection.execute(`
+          CREATE TABLE IF NOT EXISTS user_type (
+            id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+            descricao VARCHAR(255) NOT NULL,
+            nivel_acesso INT DEFAULT 1,
+            ativo BOOLEAN DEFAULT TRUE,
+            data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+
         // Create users table
         await connection.execute(`
           CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
             username VARCHAR(50) UNIQUE NOT NULL,
             email VARCHAR(100) UNIQUE NOT NULL,
-            hash VARCHAR(255) NOT NULL,
-            salt VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          )
-        `);
-
-        await connection.execute(`
-          CREATE TABLE IF NOT EXISTS users_type (
-            id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-            user_id INT UNIQUE NOT NULL,
-            user_type VARCHAR(255) NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id)
+            password VARCHAR(255) NOT NULL,
+            id_tipo_usuario INT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (id_tipo_usuario) REFERENCES user_type(id)
           )
         `);
 
