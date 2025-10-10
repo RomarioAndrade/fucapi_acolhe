@@ -6,9 +6,7 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -30,7 +28,7 @@
             <ul>
                 <li class="menu-item">
                     <i class="fas fa-home"></i>
-                    <a href="/agenda/minha-agenda">Meu Dia FUCAPI</a>
+                    <a href="#">Meu Dia FUCAPI</a>
                 </li>
                 <li class="menu-item active">
                     <i class="fas fa-comments"></i>
@@ -71,99 +69,26 @@
         </div>
 
         <div class="content-grid">
-            <div class="chat-section card">
-                <div class="card-title">
-                    <h4>Chat Direto e Assíncrono</h4>
+            <section class="chat-section card">
+                <h4>Chat Direto e Assíncrono</h4>
+                <div class="chat-list">
                 </div>
-                <div class="chat-list" id="chat-users">
-                    <div class="chat-grid">
-                        <div class="chat-user-cart">
-                            <div class="chat-user-row" onclick="alerta()">
-                                <a href="" >
-                                    <span>A</span>
-                                </a>
-                                <div class="chat-user-info">
-                                    <div class="chat-user-name">Prof. Gabriel Oliveira</div>
-                                    <div class="chat-user-sub">Calculo II</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
+            </section>
 
-                    </div>
+            <section class="translator-section card">
+                <h4>Tradutor de Contexto Social (IA)</h4>
+                <div class="translator-content">
                 </div>
-            </div>
+            </section>
 
             <aside class="profile-section card">
-                <div class="card-title">
-                    <h4>Meu Perfil Necessidades</h4>
-                </div>
+                <h4>Meu Perfil Necessidades</h4>
                 <div class="profile-content">
                 </div>
             </aside>
         </div>
     </main>
 </div>
-<script>
-    let users = [];
-    function alerta(){
-        alert(users);
-    }
-    /*
-
-
-    document.addEventListener('DOMContentLoaded', async () => {
-        await loadusers();
-    });
-
-    async function loadusers() {
-        try {
-            const response = await fetch('/chat/users');
-
-            if (response.ok) {
-                users = await response.json();
-                displayConversations();
-            } else if (response.status === 401) {
-                // Token inválido, faz logout
-                logout();
-            } else {
-                throw new Error('Failed to load conversations');
-            }
-        } catch (error) {
-            console.error('Error loading conversations:', error);
-            alert('Erro ao carregar conversas: ' + error.message);
-        }
-    }
-
-    function displayConversations() {
-        const container = document.getElementById('chat-users');
-
-        if (users.length === 0) {
-            container.innerHTML = '<div style="padding: 15px; text-align: center; color: #ccc;">Nenhuma conversa iniciada</div>';
-            return;
-        }
-
-        console.log(users.length);
-
-        container.innerHTML = users.map((user)=>`
-            <div style="">
-                    <div style="height: 50px;width: 50px;border-radius: 25px;background: #258ee6 ">
-                        <a style="display:block;font-size: 20px;text-align: center;padding: 8px;color: white">${user.username.charAt(0)}</a>
-
-                    </div>
-                    <div>
-                        <a>${user.username}</a>
-                    </div>
-            </div>
-            `
-        ).join('');
-    }
-
-    function logout() {
-
-    }*/
-</script>
 
 </body>
 </html>
