@@ -92,5 +92,9 @@ router.get('/chat/users', async function (req, res) {
     }
 });
 
+router.get('/temp', function (req, res) {
+    res.render('temp', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
+});
+
 
 module.exports = router;
