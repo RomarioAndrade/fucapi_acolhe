@@ -77,6 +77,18 @@
             padding: 0;
         }
 
+        .contato{
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .contato:hover{
+            background: rgb(234, 234, 234);
+        }
+
+        #contatos_lista{
+            padding: 5px;
+        }
+
 
     </style>
 </head>
@@ -134,12 +146,47 @@
                     Chat Assincrono
                 </div>
                 <div class="card-body">
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="width: 250px;border-right: solid 1px rgb(200,200,200);">
-                            contatos
+                    <div style="display: flex;flex-direction: row;flex-grow:1;">
+                        <div style="width: 300px;border-right: solid 1px rgb(200,200,200);">
+                            <div style="padding: 10px 10px 10px 15px;
+                                        border-bottom: solid 1px rgb(200,200,200);">Contatos</div>
+                            <div id="contatos_lista">
+                                <div class="contato">
+                                    <div style="display: flex;flex-direction: row;
+                                                justify-content: space-between;
+                                                align-items: center;">
+                                        <div style="display: flex;
+                                                    flex-direction: row;
+                                                    justify-content: space-between;
+                                                    align-items: center;">
+                                            <div style="width: 40px;height: 40px;background-color: rgb(200,200,200);
+                                                    border-radius: 25px;
+                                                    text-align: center;
+                                                    align-content: center;">
+                                                A
+                                            </div>
+                                            <div style="margin-left: 5px">
+                                                <div>Prof. Adriana Fernandes</div>
+                                                <div>Calculo II</div>
+                                            </div>
+                                        </div>
+                                        <div style="width: 30px;height: 25px;background-color: rgb(255,140,95);
+                                                    border-radius: 12px;
+                                                    text-align: center;
+                                                    align-content: center;
+                                                    font-size: 13px;
+                                                    margin-left: 5px;">
+                                            1
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div style="flex-grow: 1">
-                            chat
+                            <div style="padding: 10px 10px 10px 15px;
+                                        border-bottom: solid 1px rgb(200,200,200);font-weight: bold;">
+                                chat
+                            </div>
                         </div>
                     </div>
                 </div>
