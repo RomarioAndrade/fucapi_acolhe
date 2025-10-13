@@ -52,7 +52,7 @@
             font-weight: 400;
         }
 
-        .menu-item i{
+        .menu-item i {
             margin-right: 10px;
             font-size: 16px;
         }
@@ -68,32 +68,35 @@
             border: solid 1.5px rgba(0, 32, 251, 0.16);
         }
 
-        .c-height{
+        .c-height {
             height: 87vh;
         }
 
-        .card-body{
+        .card-body {
             display: flex;
             padding: 0;
             overflow: hidden;
         }
 
-        .contato{
+        .contato {
 
         }
-        #contatos_lista{
+
+        #contatos_lista {
             padding: 5px;
         }
 
-        .c-user{
-            display: flex;flex-direction: row;
+        .c-user {
+            display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
             padding: 10px;
             border-radius: 5px;
         }
-        .c-user:hover{
+
+        .c-user:hover {
             background: rgb(234, 234, 234);
         }
 
@@ -157,7 +160,8 @@
                     <div style="display: flex;flex-direction: row;flex-grow:1;">
                         <div style="width: 300px;border-right: solid 1px rgb(200,200,200);">
                             <div style="padding: 10px 10px 10px 15px;
-                                        border-bottom: solid 1px rgb(200,200,200);">Contatos</div>
+                                        border-bottom: solid 1px rgb(200,200,200);">Contatos
+                            </div>
                             <div id="contatos_lista">
                                 <div class="contato">
                                     <div class="c-user" style="">
@@ -231,7 +235,7 @@
 
                                         <div style="flex-direction: row;display: flex;">
                                             <div style="margin-right: 10px;font-size: 13px;color: #707070; font-weight: normal;">
-                                                12/10/2024  04:54
+                                                12/10/2024 04:54
                                             </div>
                                             <div style="font-weight: bold;font-size: 14px;margin-right: 10px">
                                                 <div>
@@ -264,7 +268,7 @@
                                                 </div>
                                             </div>
                                             <div style="margin-left: 10px;font-size: 13px;color: #707070; font-weight: normal;">
-                                                12/10/2024  04:54
+                                                12/10/2024 04:54
                                             </div>
                                         </div>
                                         <div style="width: fit-content;padding: 15px;
@@ -289,7 +293,7 @@
                                                 </div>
                                             </div>
                                             <div style="margin-left: 10px;font-size: 13px;color: #707070; font-weight: normal;">
-                                                12/10/2024  04:54
+                                                12/10/2024 04:54
                                             </div>
                                         </div>
                                         <div style="width: fit-content;padding: 15px;
@@ -314,7 +318,7 @@
                                                 </div>
                                             </div>
                                             <div style="margin-left: 10px;font-size: 13px;color: #707070; font-weight: normal;">
-                                                12/10/2024  04:54
+                                                12/10/2024 04:54
                                             </div>
                                         </div>
                                         <div style="width: fit-content;padding: 15px;
@@ -339,7 +343,7 @@
                                                 </div>
                                             </div>
                                             <div style="margin-left: 10px;font-size: 13px;color: #707070; font-weight: normal;">
-                                                12/10/2024  04:54
+                                                12/10/2024 04:54
                                             </div>
                                         </div>
                                         <div style="width: fit-content;padding: 15px;
@@ -358,7 +362,7 @@
 
                                         <div style="flex-direction: row;display: flex;">
                                             <div style="margin-right: 10px;font-size: 13px;color: #707070; font-weight: normal;">
-                                                12/10/2024  04:54
+                                                12/10/2024 04:54
                                             </div>
                                             <div style="font-weight: bold;font-size: 14px;margin-right: 10px">
                                                 <div>
@@ -391,7 +395,7 @@
                                                 </div>
                                             </div>
                                             <div style="margin-left: 10px;font-size: 13px;color: #707070; font-weight: normal;">
-                                                12/10/2024  04:54
+                                                12/10/2024 04:54
                                             </div>
                                         </div>
                                         <div style="width: fit-content;padding: 15px;
@@ -401,18 +405,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div style="padding: 10px 10px 10px 15px;display: flex;flex-direction: row;">
-                                    <div style="margin-right: 10px;align-items: center;display: flex;">
-                                        <i class="fa-solid fa-paperclip"></i>
-                                    </div>
-                                    <div style="flex-grow: 1;flex-shrink: 0;margin-right: 10px">
-                                        <input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-                                    </div>
-                                    <div >
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fa-solid fa-paper-plane"></i> Enviar
-                                        </button>
-                                    </div>
+                                <div style="padding: 10px 10px 10px 15px;">
+                                    <form id="message" style="display: flex;flex-direction: row;">
+                                        <div style="margin-right: 10px;align-items: center;display: flex;">
+                                            <i class="fa-solid fa-paperclip"></i>
+                                        </div>
+                                        <div style="flex-grow: 1;flex-shrink: 0;margin-right: 10px">
+                                            <input class="form-control" type="text" placeholder="Default input"
+                                                   aria-label="default input example">
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fa-solid fa-paper-plane"></i> Enviar
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

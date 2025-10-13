@@ -1,52 +1,66 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const userModel = require('../model/userModel');
-const db = require('../database/db');
 
-// Middleware de proteção de rotas
-const ensureAuthenticated = (req, res, next) => {
-    if (req.session.userId) {
-        next();
-    } else {
-        res.status(401).send('Acesso não autorizado. Faça login.');
+const JWT_SECRET = 'your-secret-key';
+
+// Authentication middleware
+const authenticateToken = (req, res, next) => {
+    const token = req.cookies?.token ||
+        req.headers['authorization']?.split(' ')[1];
+    console.log(token);
+
+    if (!token) {
+        return res.status(401).json({error: 'Access token required'});
     }
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) {
+            return res.status(403).json({error: 'Invalid token'});
+        }
+        req.user = user;
+        next();
+    });
 };
 
-/* GET home page. */
-router.get('/login', function (req, res, next) {
+router.get('/', function (req, res) {
     res.render('index', {title: 'Fucapi Acolhe', message: ''});
 });
 
-router.get('/',function (req, res, next) {
-    res.redirect('/login')
-});
-
-router.post('/login', async  (req, res) =>{
-    try{
+router.post('/login', async (req, res) => {
+    try {
         const {email, password} = req.body;
         if (!email || !password) {
-            return res.status(400).json({ error: 'Username and password required' });
+            return res.status(400).json({error: 'Username and password required'});
         }
         const user = await userModel.findUserByEmail(email);
         console.log(user);
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({error: 'Invalid credentials'});
         }
 
-        req.session.userId = user.id;
-        req.session.username = user.username;
-        res.redirect('/home');
+        const token = jwt.sign({id: user.id, username: user.username}, JWT_SECRET, {
+            expiresIn: '24h'
+        });
 
-    }catch (error) {
-        console.log(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 24 * 60 * 60 * 1000 // 24 horas
+        });
+
+        res.json({ message: "Login realizado com sucesso" });
+
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
-router.get('/home', ensureAuthenticated, function (req, res) {
-    res.render('home', {title: req.session.username});
+router.get('/home', authenticateToken, function (req, res) {
+    res.render('home', {title: req.cookies['username']});
 });
 
 router.post('/register', async function (req, res) {
@@ -64,17 +78,16 @@ router.post('/register', async function (req, res) {
         const hashedPassword = await bcrypt.hash(password, 12);
         const userId = await userModel.createUser(username, email, hashedPassword, type);
 
-        res.json({ user: { id: userId, username, email } });
+        res.json({user: {id: userId, username, email}});
     } catch (error) {
         console.log(error);
         res.status(500).json({error: 'Internal server error'});
     }
 });
 
-router.get('/logout', function (req, res) {
-    req.session.destroy(function () {
-        res.redirect('/');
-    });
+router.post('/logout', function (req, res) {
+    res.clearCookie("token");
+    res.json({message: "Logout realizado com sucesso"});
 });
 
 router.get('/conecta', function (req, res) {
@@ -96,5 +109,9 @@ router.get('/temp', function (req, res) {
     res.render('temp', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
 });
 
+
+router.get('/error', function (req, res) {
+    res.render('error');
+})
 
 module.exports = router;
