@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../model/userModel');
+const chatModel = require('../model/chatModel');
 
 const JWT_SECRET = 'your-secret-key';
 
@@ -60,14 +61,15 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/home', authenticateToken, function (req, res) {
-    res.render('home', {title: req.cookies['username']});
+    res.render('home', {title: req.user.username});
 });
 
 router.post('/register', async function (req, res) {
     try {
         const {username, email, password, type} = req.body;
+        console.log(req.body);
 
-        if (!username || !email || !password) {
+        if (!email || !password) {
             return res.status(400).json({error: 'All fields are required'});
         }
 
@@ -113,5 +115,115 @@ router.get('/temp', function (req, res) {
 router.get('/error', function (req, res) {
     res.render('error');
 })
+
+router.get('/agenda', function (req, res) {
+    res.render('agenda', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
+})
+
+router.get('/users/searchfixed', authenticateToken,async function (req, res) {
+    try {
+        const users = await userModel.findFixedUsers(1, 2, 3);
+        res.json(users);
+
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Rota POST para criar nova conversa
+router.post('/conversations', authenticateToken, async (req, res) => {
+    try {
+        const { otherUserId } = req.body;
+
+        console.log(req.body);
+
+        if (!otherUserId) {
+            return res.status(400).json({ error: 'otherUserId é obrigatório' });
+        }
+
+        // Verifica se o outro usuário existe
+        const otherUser = await userModel.findUserById(otherUserId);
+        if (!otherUser) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+
+        // Verifica se não está tentando criar conversa consigo mesmo
+        if (parseInt(otherUserId) === req.user.id) {
+            return res.status(400).json({ error: 'Não é possível criar conversa consigo mesmo' });
+        }
+
+        // Cria ou obtém a conversa existente
+        const conversationId = await chatModel.createConversation(req.user.id, otherUserId);
+
+        if (!conversationId) {
+            return res.status(500).json({ error: 'Erro ao criar conversa' });
+        }
+
+        // Obtém os dados completos da conversa
+        //const conversation = await chatModel.getConversation(req.user.id, otherUserId);
+        const conversations = await chatModel.getUserConversations(req.user.id);
+        const newConversation = conversations.find(c => c.id === conversationId);
+
+        res.status(201).json({
+            id: conversationId,
+            other_user: otherUser.username,
+            other_user_id: otherUser.id,
+            last_message: null,
+            last_message_time: null,
+            ...newConversation
+        });
+
+    } catch (error) {
+        console.error('Error creating conversation:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+});
+
+router.get('/users/:userId', authenticateToken, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await userModel.findUserById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+});
+
+router.get('/current', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        console.log(req.user.id);
+        const user = await userModel.findUserById(userId);
+
+        if (!user) {
+            console.log(req);
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+});
+
+// Get messages for a conversation
+router.get('/conversations/:conversationId/messages', authenticateToken, async (req, res) => {
+    try {
+        const {conversationId}  = req.params;
+        console.log("conversationId: "+conversationId);
+        const messages = await chatModel.getMessages(conversationId);
+
+        res.json(messages);
+    } catch (error) {
+        console.log(error);
+        //console.log(conversationId);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 module.exports = router;

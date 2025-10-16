@@ -1,4 +1,4 @@
-const { createConnection } = require('../database/db');
+const {createConnection} = require('../database/db');
 
 class UserModel {
 
@@ -47,6 +47,16 @@ class UserModel {
         const [rows] = await connection.execute(
             'SELECT * FROM users WHERE id_tipo_usuario = ?',
             [id]
+        );
+        await connection.end();
+        return rows;
+    }
+
+    async findFixedUsers(type1, type2, type3) {
+        const connection = await createConnection();
+        const [rows] = await connection.execute(
+            'SELECT u.id,u.username,u.email,tu.descricao as user_type,tu.nivel_acesso FROM users u INNER JOIN user_type tu ON u.id_tipo_usuario = tu.id WHERE tu.nivel_acesso = ? or tu.nivel_acesso = ? or tu.nivel_acesso = ?;',
+            [type1, type2, type3]
         );
         await connection.end();
         return rows;
