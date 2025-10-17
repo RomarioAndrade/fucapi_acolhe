@@ -115,7 +115,7 @@ async function selectConversation(conversationId, otherUserId) {
                     conversationId,
                     userId: currentUser.id
                 });
-                displayConversations();
+                //displayConversations();
             }
 
         } else {
@@ -166,7 +166,7 @@ function handleKeyPress(event) {
 }
 
 function scrollToBottom() {
-    const container = document.getElementById('messages-container');
+    const container = document.getElementById('scroll-messages');
     container.scrollTop = container.scrollHeight;
 }
 

@@ -158,6 +158,7 @@ html, body {
     flex-direction: column;
 }
 .chat-conversation-input{
+    display: flex;
     padding: 10px 10px 10px 15px;
 }
 .chat-file{
