@@ -3,12 +3,14 @@ let currentUser;
 let currentConversation = null;
 let conversations = [];
 
+const caminho = window.location.pathname;
+
 // Initialize the chat
 document.addEventListener('DOMContentLoaded', async () => {
 
     getCurrentUser();
     searchFixedUsers();
-        // Connect to Socket.io
+    // Connect to Socket.io
     socket = io("http://localhost:3000");
 
     // Load conversations
@@ -27,10 +29,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
+
 async function loadConversations() {
     try {
         const response = await fetch('/api/conversations', {
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
         });
 
         if (response.ok) {
@@ -147,7 +150,7 @@ function displayMessage(message) {
                 <div class="message-avatar">${message.sender_name.charAt(0).toUpperCase()}</div>
             </div>
         </div>`;
-    }else {
+    } else {
         messageDiv.innerHTML = `
         <div class="chat-message">
             <div class="chat-message-info">
@@ -200,7 +203,7 @@ async function searchUsers(query) {
 
     try {
         const response = await fetch(`/api/users/search?query=${encodeURIComponent(query)}`, {
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
         });
 
         if (response.ok) {
@@ -257,7 +260,7 @@ async function searchFixedUsers() {
             }
         }
 
-    }catch(error) {
+    } catch (error) {
         console.error('Search error:', error);
     }
 
@@ -272,9 +275,9 @@ async function startConversation(userId, username) {
             // Cria nova conversa via API
             const response = await fetch('/conversations', {
                 method: 'POST',
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 credentials: "include",
-                body: JSON.stringify({ otherUserId: userId })
+                body: JSON.stringify({otherUserId: userId})
             });
 
             if (!response.ok) {
@@ -296,40 +299,6 @@ async function startConversation(userId, username) {
         console.error('Error starting conversation:', error);
         alert('Erro ao iniciar conversa: ' + error.message);
     }
-}
-
-async function login() {
-    const email = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
-
-    const response = await fetch('/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, password})
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-        window.location.href = '/home';
-    } else {
-        alert(data.error);
-    }
-}
-
-async function logout() {
-    const res = await fetch("/logout", {
-        method: "POST",
-        credentials: "include"
-    });
-    const data = await res.json();
-    /*document.getElementById("msg").innerText = data.message || data.error;*/
-    window.location.href = '/';
-}
-
-function getRandomElement(arr) {
-    const randomIndex = Math.floor(Math.random() * arr.length);
-    return arr[randomIndex];
 }
 
 async function getCurrentUser() {

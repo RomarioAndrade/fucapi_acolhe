@@ -14,7 +14,7 @@ const authenticateToken = (req, res, next) => {
     console.log(token);
 
     if (!token) {
-        return res.status(401).json({error: 'Access token required'});
+        return res.redirect('/');
     }
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
@@ -107,7 +107,7 @@ router.get('/chat/users', async function (req, res) {
     }
 });
 
-router.get('/temp', function (req, res) {
+router.get('/temp', authenticateToken,function (req, res) {
     res.render('temp', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
 });
 
