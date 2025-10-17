@@ -5,6 +5,7 @@ let conversations = [];
 
 // Initialize the chat
 document.addEventListener('DOMContentLoaded', async () => {
+
     getCurrentUser();
     searchFixedUsers();
         // Connect to Socket.io
@@ -91,7 +92,8 @@ async function selectConversation(conversationId, otherUserId) {
         }
 
         // Update UI
-        document.getElementById('chat-user-title').appendChild(document.createTextNode(`Chat with ${otherUserName || 'Unknown User'}`));
+        //document.getElementById('chat-user-title').appendChild(document.createTextNode(`Chat with ${otherUserName || 'Unknown User'}`));
+        document.getElementById('chat-user-title').innerHTML = `Chat with ${otherUserName || 'Unknown User'}`;
         document.getElementById('message-text').disabled = false;
         document.getElementById('messages-container').innerHTML = '';
 
@@ -134,12 +136,30 @@ async function selectConversation(conversationId, otherUserId) {
 function displayMessage(message) {
     const container = document.getElementById('messages-container');
     const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${message.sender_id === currentUser.id ? 'sent' : 'received'}`;
-    messageDiv.innerHTML = `
-                <strong>${message.sender_name}</strong>
-                <p>${message.message}</p>
-                <small>${new Date(message.created_at).toLocaleString()}</small>
-            `;
+    messageDiv.className = `chat-message ${message.sender_id === currentUser.id ? 'sent' : 'recipient'}`;
+    if (message.sender_id === currentUser.id) {
+        messageDiv.innerHTML = `
+<div class="chat-message recipient">
+            <div class="message-text">${message.message}</div>
+            <div style="flex-direction: row;display: flex;">
+                <div class="message-date">${new Date(message.created_at).toLocaleString()}</div>
+                <div class="message-username">${message.sender_name}</div>
+                <div class="message-avatar">${message.sender_name.charAt(0).toUpperCase()}</div>
+            </div>
+        </div>`;
+    }else {
+        messageDiv.innerHTML = `
+        <div class="chat-message">
+            <div class="chat-message-info">
+                <div class="message-avatar">${message.sender_name.charAt(0).toUpperCase()}</div>
+                <div class="message-username">
+                    <div>${message.sender_name}</div>
+                </div>
+                <div class="message-date">${new Date(message.created_at).toLocaleString()}</div>
+            </div>
+            <div class="message-text">${message.message}</div>
+        </div>`;
+    }
     container.appendChild(messageDiv);
 }
 
