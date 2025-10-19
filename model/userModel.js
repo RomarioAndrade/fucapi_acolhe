@@ -2,11 +2,11 @@ const {createConnection} = require('../database/db');
 
 class UserModel {
 
-    async createUser(username, email, password, user_type) {
+    async createUser(username, email, password, papel) {
         const connection = await createConnection();
         const [result] = await connection.execute(
-            'INSERT INTO users (username, email, password, id_tipo_usuario) VALUES (?, ?, ?, ?)',
-            [username, email, password, user_type]
+            'INSERT INTO users (username, email, password, id_role) VALUES (?, ?, ?, ?)',
+            [username, email, password, papel]
         );
         await connection.end();
         return result.insertId;
@@ -25,7 +25,8 @@ class UserModel {
     async findUserByEmail(email) {
         const connection = await createConnection();
         const [rows] = await connection.execute(
-            'SELECT * FROM users WHERE email = ?',
+            //'SELECT * FROM users WHERE email = ?',
+            'SELECT u.id,u.username,u.email,u.password,tu.papel FROM users u INNER JOIN user_role tu ON u.id_role = tu.id WHERE u.email = ?;',
             [email]
         );
         await connection.end();
@@ -35,7 +36,7 @@ class UserModel {
     async findUserById(id) {
         const connection = await createConnection();
         const [rows] = await connection.execute(
-            'SELECT id, username, email, created_at FROM users WHERE id = ?',
+            'SELECT u.id,u.username,u.email,u.password,tu.papel FROM users u INNER JOIN user_role tu ON u.id_role = tu.id WHERE u.id = ?;',
             [id]
         );
         await connection.end();
@@ -45,18 +46,18 @@ class UserModel {
     async findUserByType(id) {
         const connection = await createConnection();
         const [rows] = await connection.execute(
-            'SELECT * FROM users WHERE id_tipo_usuario = ?',
+            'SELECT * FROM users WHERE id_role = ?',
             [id]
         );
         await connection.end();
         return rows;
     }
 
-    async findFixedUsers(type1, type2, type3) {
+    async findFixedUsers(admin, professor, secretaria) {
         const connection = await createConnection();
         const [rows] = await connection.execute(
-            'SELECT u.id,u.username,u.email,tu.descricao as user_type,tu.nivel_acesso FROM users u INNER JOIN user_type tu ON u.id_tipo_usuario = tu.id WHERE tu.nivel_acesso = ? or tu.nivel_acesso = ? or tu.nivel_acesso = ?;',
-            [type1, type2, type3]
+            'SELECT u.id,u.username,u.email,tu.descricao as user_type,tu.papel FROM users u INNER JOIN user_role tu ON u.id_role = tu.id WHERE tu.papel = ? or tu.papel = ? or tu.papel = ?;',
+            [admin, professor, secretaria]
         );
         await connection.end();
         return rows;

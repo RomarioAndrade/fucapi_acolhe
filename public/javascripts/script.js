@@ -3,18 +3,20 @@ let currentUser;
 let currentConversation = null;
 let conversations = [];
 
-const caminho = window.location.pathname;
-
 // Initialize the chat
 document.addEventListener('DOMContentLoaded', async () => {
 
-    getCurrentUser();
-    searchFixedUsers();
+    currentUser = await getCurrentUser();
+
     // Connect to Socket.io
     socket = io("http://localhost:3000");
 
     // Load conversations
-    //await loadConversations();
+    if(currentUser.papel !== 'aluno'){
+        await loadConversations();
+    }else {
+        loadFixedContacts();
+    }
 
     // Set up socket listeners
     socket.on('receive_message', (message) => {
@@ -32,8 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadConversations() {
     try {
-        const response = await fetch('/api/conversations', {
-            headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+        const response = await fetch('/conversations', {
+            method: 'GET',
+            credentials: 'include'
         });
 
         if (response.ok) {
@@ -96,7 +99,7 @@ async function selectConversation(conversationId, otherUserId) {
 
         // Update UI
         //document.getElementById('chat-user-title').appendChild(document.createTextNode(`Chat with ${otherUserName || 'Unknown User'}`));
-        document.getElementById('chat-user-title').innerHTML = `Chat with ${otherUserName || 'Unknown User'}`;
+        document.getElementById('chat-user-title').innerHTML = `Chat com ${otherUserName || 'Usuário Desconhecido'}`;
         document.getElementById('message-text').disabled = false;
         document.getElementById('messages-container').innerHTML = '';
 
@@ -139,8 +142,7 @@ async function selectConversation(conversationId, otherUserId) {
 function displayMessage(message) {
     const container = document.getElementById('messages-container');
     const messageDiv = document.createElement('div');
-    messageDiv.className = `chat-message ${message.sender_id === currentUser.id ? 'sent' : 'recipient'}`;
-    if (message.sender_id === currentUser.id) {
+    if (message.sender_id == currentUser.id) {
         messageDiv.innerHTML = `
 <div class="chat-message recipient">
             <div class="message-text">${message.message}</div>
@@ -230,7 +232,7 @@ async function searchUsers(query) {
     }
 }
 
-async function searchFixedUsers() {
+async function loadFixedContacts() {
     const resultsContainer = document.getElementById('contatos_lista');
 
     try {
@@ -243,15 +245,15 @@ async function searchFixedUsers() {
             const users = await response.json();
             if (users.length > 0) {
                 resultsContainer.innerHTML = users.map(user => `
-                <div class="contato"  onclick="startConversation(${user.id}, '${user.username.replace(/'/g, "\\'")}')">
-                    <div class="c-user">
+                <div class="contato" onclick="startConversation(${user.id}, '${user.username.replace(/'/g, "\\'")}')">
+                    <div class="c-user" id=${user.id}>
                         <div class="c-user-row">
                             <div class="c-user-icon">
                                 ${user.username.charAt(0).toUpperCase()}
                             </div>
                             <div class="c-user-name">
                                  <div>${user.username}</div>
-                                 <div>${user.user_type}</div>
+                                 <div>${user.papel}</div>
                             </div>
                         </div>
                     </div>
@@ -268,6 +270,13 @@ async function searchFixedUsers() {
 
 async function startConversation(userId, username) {
     try {
+        encontrarDivAtiva();
+
+        const contactDiv = document.getElementById(userId);
+        contactDiv.classList.add('active');
+
+
+
         // Verifica se a conversa já existe localmente
         let conversation = conversations.find(c => c.other_user_id === userId);
 
@@ -310,9 +319,18 @@ async function getCurrentUser() {
 
         if (response.ok) {
             const user = await response.json();
-            currentUser = JSON.parse(JSON.stringify(user));
+            return user;
         }
     } catch (error) {
         alert('Erro ao carregar usuario: ' + error.message);
     }
+}
+
+function encontrarDivAtiva() {
+    const container = document.getElementById('contatos_lista');
+    const divAtivaNoContainer = container.getElementsByClassName('active');
+    if (divAtivaNoContainer.length !== 0) {
+        divAtivaNoContainer[0].classList.remove('active');
+    }
+
 }

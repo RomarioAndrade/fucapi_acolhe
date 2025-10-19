@@ -91,6 +91,11 @@ html, body {
     padding: 10px 10px 10px 15px;
     border-bottom: solid 1px rgb(200,200,200);
 }
+.contato-chat-title label{
+    padding: 5px;
+    font-weight: 500;
+}
+
 .c-user {
     display: flex;
     flex-direction: row;
@@ -104,6 +109,10 @@ html, body {
 .c-user:hover {
     background: rgb(234, 234, 234);
     cursor: pointer;
+}
+.c-user.active{
+    background: rgb(230, 244, 254);
+    border-radius: 5px;
 }
 .c-user-row{
     display: flex;
