@@ -74,11 +74,11 @@ router.post('/login', async (req, res) => {
 router.get('/home', authenticateToken, function (req, res) {
     switch (req.user.papel) {
         case 'admin':
-            res.render('admin', {title: req.user.username});
+            res.render('admin', {title: 'Fucapi Acolhe'});
         case 'professor':
-            res.render('admin', {title: req.user.username});
+            res.render('admin', {title: 'Fucapi Acolhe'});
         case 'secretaria':
-            res.render('admin', {title: req.user.username});
+            res.render('admin', {title: 'Fucapi Acolhe'});
         default:
             res.render('home', {title: req.user.username});
 

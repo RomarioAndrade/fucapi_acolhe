@@ -62,14 +62,25 @@ function displayConversations() {
         return;
     }
 
-    console.log(conversations);
+    console.log(conversations[conversations.length - 1]);
 
     container.innerHTML = conversations.map(conv => `
         <div class="conversation ${currentConversation === conv.id ? 'active' : ''}"
              onclick="selectConversation(${conv.id}, ${conv.other_user_id})">
-          <strong>${conv.other_user}</strong>
-          <p>${conv.last_message || 'No messages yet'}</p>
-          <small>${conv.last_message_time ? new Date(conv.last_message_time).toLocaleString() : 'Nenhuma mensagem'}</small>
+             <div class="conversation-user"
+                 <div class="c-user-row">
+                    <div class="conversation-avatar">
+                        ${conv.other_user.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="conv-user-name">
+                        <div><strong>${conv.other_user}</strong></div>
+                        <div>
+                            <p id="${conv.other_user_id}"><i><strong>${conv.last_message || 'No messages yet'}</strong></i></p>
+                            <small>${conv.last_message_time ? new Date(conv.last_message_time).toLocaleString() : 'Nenhuma mensagem'}</small>
+                        </div>
+                    </div>
+                 </div>
+             </div>
         </div>
   `).join('');
 }
