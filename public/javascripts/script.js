@@ -1,5 +1,5 @@
 let socket;
-let currentUser;
+var currentUser;
 let currentConversation = null;
 let conversations = [];
 
@@ -11,11 +11,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Connect to Socket.io
     socket = io("http://localhost:3000");
 
-    // Load conversations
-    if(currentUser.papel !== 'aluno'){
-        await loadConversations();
-    }else {
-        loadFixedContacts();
+    const current_page = window.location.pathname;
+
+    console.log('Current page: ', current_page);
+    console.log('Current User: ', currentUser);
+
+    if(current_page === '/dashboard/chat'){
+        // Load conversations
+        if(currentUser.papel === 'aluno'){
+            await loadFixedContacts();
+        }else {
+            await loadConversations();
+        }
     }
 
     // Set up socket listeners

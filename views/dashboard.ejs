@@ -49,7 +49,6 @@
                             <i class="fa-solid fa-house-user"></i>
                             Dashboard
                         </a>
-
                     </li>
                     <% if(user.papel !== 'aluno'){ %>
                         <li class="menu-item">
@@ -63,47 +62,30 @@
                     <% } %>
                 </ul>
             </div>
-            <div style="height: 50px">
+            <div style="height: 50px;
+                        border-top: 1px solid rgba(0, 0, 0, 0.1);">
                 <div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-gear"></i><%=user.username%>
+                        </a>
 
-
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick="logout()" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="#">Configurações</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="main-content">
-            <div style="display: flex; flex-direction: row;">
-                <div class="col-7">
-                    <div style="display: flex;
-                                flex-direction: row;
-                                justify-content: space-between;
-                                align-items: center;
-                                padding: 10px;">
-                        <h5 class="card-title"style="font-weight: 500;">Minhas Tarefas</h5>
-                        <button type="button" class="btn btn-primary">
-                                <i class="fa-solid fa-plus"></i>
-                                Nova Tarefa</button>
-                    </div>
-                    <div class="card" style="padding: 10px;">
-<!--                        <h5 class="card-title"style="font-weight: 500;">Hoje</h5>-->
-                        <div style="border-radius: 5px;
-                                    padding: 10px;">
-                            <div><strong>Make Wireframe</strong></div>
-                            <div style="font-size: 14px">A wireframe is a simplified, two-dimensional visual guide that represents the skeletal
-                                framework of a website, application, or digital product.</div>
-                            <div style="display: flex;flex-direction: row;align-items: center;">
-                                <div><span class="badge text-bg-primary">22/10/2025</span></div>
-                                <div><span class="badge text-bg-warning">AULA</span></div>
-                            </div>
-                        </div>
+            <div class="card">
 
-                    </div>
-                </div>
-                <div class="col-md-auto">
-
-                </div>
             </div>
+
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -27,3 +27,15 @@ async function logout() {
     /*document.getElementById("msg").innerText = data.message || data.error;*/
     window.location.href = '/';
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const myElement = document.getElementById('login-password');
+    if (myElement) { // Check if the element exists before adding the listener
+        myElement.addEventListener('keydown', function() {
+            if (event.key === 'Enter') {
+                login();
+            }
+        });
+    }
+});

@@ -74,13 +74,13 @@ router.post('/login', async (req, res) => {
 router.get('/home', authenticateToken, function (req, res) {
     switch (req.user.papel) {
         case 'admin':
-            res.render('admin', {title: 'Fucapi Acolhe'});
+            res.render('dashboard', {user: req.user});
         case 'professor':
-            res.render('admin', {title: 'Fucapi Acolhe'});
+            res.render('dashboard', {user:  req.user});
         case 'secretaria':
-            res.render('admin', {title: 'Fucapi Acolhe'});
+            res.render('dashboard', {user:  req.user});
         default:
-            res.render('home', {title: req.user.username});
+            res.render('home', {title: req.user});
 
     }
 
@@ -129,8 +129,11 @@ router.get('/chat/users', async function (req, res) {
     }
 });
 
-router.get('/temp', authenticateToken, function (req, res) {
+router.get('/dashboard/chat', authenticateToken, function (req, res) {
     console.log(req.user);
+    if (req.user.papel !== 'aluno') {
+        res.render('admin', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
+    }
     res.render('temp', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
 });
 
@@ -139,8 +142,8 @@ router.get('/error', function (req, res) {
     res.render('error');
 })
 
-router.get('/agenda', function (req, res) {
-    res.render('agenda', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
+router.get('/dashboard',authenticateToken, function (req, res) {
+    res.render('dashboard', {user: req.user});
 })
 
 router.get('/admin', authenticateToken, function (req, res) {
@@ -256,6 +259,10 @@ router.get('/conversations', authenticateToken, async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
+});
+
+router.get('/dashboard/agenda', authenticateToken, async (req, res) => {
+    res.render('agenda',{user: req.user});
 });
 
 module.exports = router;

@@ -39,6 +39,34 @@ const initializeDatabase = async () => {
           )
         `);
 
+        //Create categorias_tarefas table
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS categorias_tarefas (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                id_usuario INT NOT NULL,
+                nome VARCHAR(50) NOT NULL,
+                descricao TEXT,
+                ativo BOOLEAN DEFAULT TRUE,
+                FOREIGN KEY (id_usuario) REFERENCES users(id) ON DELETE CASCADE
+            )
+        `);
+
+        // Create tarefas  table
+        await connection.execute(`
+          CREATE TABLE IF NOT EXISTS tarefas  (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            id_usuario INT NOT NULL,
+            id_categoria  INT NOT NULL,
+            titulo VARCHAR(200) NOT NULL,
+            descricao TEXT,
+            status ENUM('PENDENTE', 'EM_ANDAMENTO', 'CONCLUIDA', 'CANCELADA', 'ADIADA') DEFAULT 'PENDENTE',
+            data_inicio DATETIME,
+            data_termino DATETIME,
+            FOREIGN KEY (id_usuario) REFERENCES users(id) ON DELETE CASCADE,
+            FOREIGN KEY (id_categoria) REFERENCES categorias_tarefas(id)
+          )
+        `);
+
         // Create conversations table
         await connection.execute(`
           CREATE TABLE IF NOT EXISTS conversations (
