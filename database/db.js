@@ -46,6 +46,7 @@ const initializeDatabase = async () => {
                 id_usuario INT NOT NULL,
                 nome VARCHAR(50) NOT NULL,
                 descricao TEXT,
+                cor VARCHAR(7) DEFAULT '#3498db',
                 ativo BOOLEAN DEFAULT TRUE,
                 FOREIGN KEY (id_usuario) REFERENCES users(id) ON DELETE CASCADE
             )

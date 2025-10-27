@@ -45,10 +45,8 @@
             <div class="sidebar-menu">
                 <ul class="nav flex-column">
                     <li class="menu-item active">
-                        <a href="/dashboard">
-                            <i class="fa-solid fa-house-user"></i>
-                            Dashboard
-                        </a>
+                        <i class="fa-solid fa-house-user"></i>
+                        Dashboard
                     </li>
                     <% if(user.papel !== 'aluno'){ %>
                         <li class="menu-item">
@@ -66,12 +64,13 @@
                         border-top: 1px solid rgba(0, 0, 0, 0.1);">
                 <div>
                     <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-gear"></i><%=user.username%>
+                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="fa-solid fa-gear"></i><%= user.username %>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" onclick="logout()" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" onclick="logout()">Logout</a></li>
                             <li><a class="dropdown-item" href="#">Configurações</a></li>
                         </ul>
                     </div>
@@ -87,5 +86,6 @@
         </div>
     </div>
 </div>
+<script src="/javascripts/navigation.js"></script>
 </body>
 </html>

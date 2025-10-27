@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/home', authenticateToken, function (req, res) {
+router.get('/dashboard', authenticateToken, function (req, res) {
     switch (req.user.papel) {
         case 'admin':
             res.render('dashboard', {user: req.user});
@@ -142,9 +142,9 @@ router.get('/error', function (req, res) {
     res.render('error');
 })
 
-router.get('/dashboard',authenticateToken, function (req, res) {
+/*router.get('/dashboard',authenticateToken, function (req, res) {
     res.render('dashboard', {user: req.user});
-})
+})*/
 
 router.get('/admin', authenticateToken, function (req, res) {
     res.render('admin', {title: 'FUCAPI Acolhe - Dashboard', message: ''});

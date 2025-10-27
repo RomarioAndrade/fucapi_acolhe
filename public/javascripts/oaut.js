@@ -12,7 +12,7 @@ async function login() {
     const data = await response.json();
 
     if (response.ok) {
-        window.location.href = '/home';
+        window.location.href = '/dashboard';
     } else {
         alert(data.error);
     }

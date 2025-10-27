@@ -11,10 +11,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/script.js"></script>
     <link rel="stylesheet" href="/stylesheets/temp.css">
 </head>
+
+
 <body>
 <div class="main-container">
     <nav class="navbar bg-body-tertiary">
@@ -27,7 +33,7 @@
                 </a>
             </div>
             <div>Dashboard</div>
-            <% if(user.papel === 'aluno'){ %>
+            <% if(user.papel === 'aluno' ){ %>
                 <div style="display:flex;align-items: center">
                     <div style="margin: auto 10px auto 10px">
                         Conected
@@ -39,19 +45,33 @@
             <% } %>
         </div>
 
+
     </nav>
     <div class="container-sub">
         <div class="sidebar">
             <div class="sidebar-menu">
                 <ul class="nav flex-column">
-                    <li class="menu-item active">
-                        <a href="/dashboard">
-                            <i class="fa-solid fa-house-user"></i>
-                            Dashboard
-                        </a>
-
+                    <li class="menu-item" onclick="navigation('dashboard')">
+                        <i class="fa-solid fa-house-user"></i>
+                        Dashboard
                     </li>
-                    <% if(user.papel !== 'aluno'){ %>
+                    <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">
+                        <i class="fa-solid fa-igloo"></i>
+                        Meu Dia FUCAPI
+                    </li>
+                    <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">
+                        <i class="fa-solid fa-people-arrows"></i>
+                        Conecta FUCAPI
+                    </li>
+                    <li id="espacocalma" class="menu-item">
+                        <i class="fa-solid fa-spa"></i>
+                        Espaço Calma
+                    </li>
+                    <li id="perfilusuario" class="menu-item">
+                        <i class="fa-solid fa-id-card-clip"></i>
+                        Perfil de Usuário
+                    </li>
+                    <% if(user.papel !== 'aluno' ){ %>
                         <li class="menu-item">
                             <i class="fa-solid fa-table-list"></i>
                             Lista Alunos
@@ -71,39 +91,355 @@
             </div>
         </div>
 
+
         <div class="main-content">
-            <div style="display: flex; flex-direction: row;">
-                <div class="col-7">
-                    <div style="display: flex;
-                                flex-direction: row;
-                                justify-content: space-between;
-                                align-items: center;
-                                padding: 10px;">
-                        <h5 class="card-title"style="font-weight: 500;">Minhas Tarefas</h5>
-                        <button type="button" class="btn btn-primary">
-                                <i class="fa-solid fa-plus"></i>
-                                Nova Tarefa</button>
-                    </div>
-                    <div class="card" style="padding: 10px;">
-<!--                        <h5 class="card-title"style="font-weight: 500;">Hoje</h5>-->
-                        <div style="border-radius: 5px;
+            <div class="c-height" style="display: flex;">
+                <div style="display: flex; flex-direction: row-reverse;flex-grow: 1;">
+                    <div class="col-8" style="margin-left: 10px;display: flex;flex-direction: column;">
+                        <div style="display: flex;
+                                    flex-direction: row;
+                                    /*justify-content: space-between*/;
+                                    align-items: center;
                                     padding: 10px;">
-                            <div><strong>Make Wireframe</strong></div>
-                            <div style="font-size: 14px">A wireframe is a simplified, two-dimensional visual guide that represents the skeletal
-                                framework of a website, application, or digital product.</div>
-                            <div style="display: flex;flex-direction: row;align-items: center;">
-                                <div><span class="badge text-bg-primary">22/10/2025</span></div>
-                                <div><span class="badge text-bg-warning">AULA</span></div>
+                            <h5 class="card-title" style="font-weight: 500;">Outubro, 2025</h5>
+                            <div style="margin-left: 10px;display: flex;">
+                                <button type="button" class="btn btn-outline-dark"
+                                style="margin: 0 5px 0 5px">
+                                <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-dark"
+                                        style="margin: 0 5px 0 5px">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+
                             </div>
                         </div>
-
+                        <div class="card" style="padding: 10px;flex-grow: 1;overflow-y: scroll;scrollbar-width: none">
+                            <div style="display: flex;flex-direction: row;">
+                                <div style="border-right: solid 1px rgb(200,200,200);
+                                            padding: 10px;">
+                                    00:00
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: row;">
+                                <div style="border-right: solid 1px rgb(200,200,200);
+                                            padding: 10px;">
+                                    01:00
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: row;">
+                                <div style="border-right: solid 1px rgb(200,200,200);
+                                            padding: 10px;">
+                                    01:00
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: row;">
+                                <div style="border-right: solid 1px rgb(200,200,200);
+                                            padding: 10px;">
+                                    01:00
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: row;">
+                                <div style="border-right: solid 1px rgb(200,200,200);
+                                            padding: 10px;">
+                                    01:00
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: row;">
+                                <div style="border-right: solid 1px rgb(200,200,200);
+                                            padding: 10px;">
+                                    01:00
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: row;">
+                                <div style="border-right: solid 1px rgb(200,200,200);
+                                            padding: 10px;">
+                                    01:00
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <div style="border-radius: 5px;
+                                                background-color: rgb(229,255,255);
+                                                padding: 10px;">
+                                        <div>Meeting With Stakeholder ERS</div>
+                                        <div>aula</div>
+                                        <div>00:35</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-auto">
+                    <div class="col-md-auto" style="flex-grow: 1;display: flex;flex-direction: column;">
+                        <div style="padding: 10px;">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                <i class="fa-solid fa-plus"></i>
+                                Nova Tarefa
+                            </button>
+                            <button type="button" class="btn btn-primary">
+                                <i class="fa-solid fa-plus"></i>
+                                Nova Meta
+                            </button>
+                        </div>
 
+                        <div style="flex-grow: 1;">
+                            <div class="calendar-container">
+                                <div class="calendar-header">
+                                    <button id="prev-month" class="btn btn-light">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <h2 id="month-year"></h2>
+                                    <button id="next-month" class="btn btn-light">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <table class="calendar-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Dom</th>
+                                        <th>Seg</th>
+                                        <th>Ter</th>
+                                        <th>Qua</th>
+                                        <th>Qui</th>
+                                        <th>Sex</th>
+                                        <th>Sáb</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="calendar-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="">
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Noma da Tarefa</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                           placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleDataList" class="form-label">Tipo de Tarefa</label>
+                    <input class="form-control" list="datalistOptions" id="exampleDataList"
+                           placeholder="Type to search...">
+                    <datalist id="datalistOptions">
+                        <option value="Aula">
+                        <option value="Trabalho em equipe">
+                        <option value="Prova Prática">
+                        <option value="Prova Téorica">
+                    </datalist>
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="input-date" class="form-label">Dia</label>
+                        <input type="date" class="form-control" id="input-date">
+                    </div>
+                    <div class="col-auto">
+                        <label for="input-date" class="form-label">Hora</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Selecione a hora</option>
+                            <option value="1">00:00</option>
+                            <option value="2">00:30</option>
+                            <option value="3">01:00</option>
+                            <option value="4">01:30</option>
+                            <option value="5">02:00</option>
+                            <option value="6">02:30</option>
+                            <option value="7">03:00</option>
+                            <option value="8">03:30</option>
+                            <option value="9">04:00</option>
+                            <option value="10">04:30</option>
+                            <option value="11">05:00</option>
+                            <option value="12">05:30</option>
+                            <option value="13">06:00</option>
+                            <option value="14">06:30</option>
+                            <option value="15">07:00</option>
+                            <option value="16">07:30</option>
+                            <option value="17">08:00</option>
+                            <option value="18">08:30</option>
+                            <option value="19">09:00</option>
+                            <option value="20">09:30</option>
+                            <option value="21">10:00</option>
+                            <option value="22">10:30</option>
+                            <option value="23">11:00</option>
+                            <option value="24">11:30</option>
+                            <option value="25">12:00</option>
+                            <option value="26">12:30</option>
+                            <option value="27">13:00</option>
+                            <option value="28">13:30</option>
+                            <option value="29">14:00</option>
+                            <option value="30">14:30</option>
+                            <option value="31">15:00</option>
+                            <option value="32">15:30</option>
+                            <option value="33">16:00</option>
+                            <option value="34">16:30</option>
+                            <option value="35">17:00</option>
+                            <option value="36">17:30</option>
+                            <option value="37">18:00</option>
+                            <option value="38">18:30</option>
+                            <option value="39">19:00</option>
+                            <option value="40">19:30</option>
+                            <option value="41">20:00</option>
+                            <option value="42">20:30</option>
+                            <option value="43">21:00</option>
+                            <option value="44">21:30</option>
+                            <option value="45">22:00</option>
+                            <option value="46">22:30</option>
+                            <option value="47">23:00</option>
+                            <option value="48">23:30</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Salvar Tarefa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/javascripts/agenda.js"></script>
+<script src="/javascripts/navigation.js"></script>
 </body>
 </html>
