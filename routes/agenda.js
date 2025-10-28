@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const authenticateToken = require('../middleware/auth');
 
-/*router.get('/agenda', (req, res) => {
-    console.log("teste");
-    res.render('agenda', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
-});*/
+router.get('/dashboard/agenda',authenticateToken, async (req, res) => {
+    //console.log(req.user);
+    res.render('agenda',{user: req.user});
+});
 
 module.exports = router;
