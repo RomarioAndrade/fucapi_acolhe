@@ -72,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+
     // Event listeners para os botões de navegação
     prevMonthBtn.addEventListener('click', () => {
         currentMonth--;
@@ -91,6 +93,31 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCalendar();
     });
 
+    async function loadTarefas() {
+        try {
+            const date = new Date(); // Or any other Date object
+            const formattedDate = date.toISOString().split('T')[0];
+            const response = await fetch(`/task/${formattedDate}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+
+            } else if (response.status === 401) {
+
+            } else {
+                throw new Error('Failed to load tasks');
+            }
+        } catch (error) {
+            console.error('Error loading tasks:', error);
+            alert('Erro ao carregar tarefas: ' + error.message);
+        }
+    }
+
+
     // Renderiza o calendário na carga inicial
     renderCalendar();
+    loadTarefas();
+
 });

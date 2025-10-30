@@ -1,6 +1,18 @@
-const pool = require('../config/database');
+const { createConnection } = require('../database/db');
 
 class Tarefa {
+
+    //Buscar todas as tarefas em uma data especifica
+    static async findTarefasByData(userId,data) {
+        const connection = await createConnection();
+        const [rows] = await connection.execute(
+            'SELECT * FROM tarefas WHERE data_inicio LIKE ? AND id_usuario = ?',
+            [`${data}%`,userId]
+        );
+        await connection.end();
+        return rows[0];
+    }
+
     // Buscar todas as categorias
     static async getCategorias(userId) {
         try {
