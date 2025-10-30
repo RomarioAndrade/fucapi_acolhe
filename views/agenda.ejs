@@ -87,16 +87,12 @@
 
 
         <div class="main-content">
-            <div class="c-height" style="display: flex;">
-                <div style="display: flex; flex-direction: row-reverse;flex-grow: 1;">
-                    <div class="col-8" style="margin-left: 10px;display: flex;flex-direction: column;">
-                        <div style="display: flex;
-                                    flex-direction: row;
-                                    /*justify-content: space-between*/;
-                                    align-items: center;
-                                    padding: 10px;">
-                            <h5 class="card-title" style="font-weight: 500;">Outubro, 2025</h5>
-                            <div style="margin-left: 10px;display: flex;">
+            <div class="c-height t-content">
+                <div class="t-container">
+                    <div class="col-8 t-agenda">
+                        <div class="t-agenda-title" >
+                            <h5 class="card-title title-agenda" >Outubro, 2025</h5>
+                            <div class="title-agenda-nav">
                                 <button type="button" class="btn btn-outline-dark"
                                 style="margin: 0 5px 0 5px">
                                 <i class="fa-solid fa-chevron-left"></i>
@@ -108,154 +104,134 @@
 
                             </div>
                         </div>
-                        <div class="card" style="padding: 10px;flex-grow: 1;overflow-y: scroll;scrollbar-width: none">
-                            <div style="display: flex;flex-direction: row;">
-                                <div style="border-right: solid 1px rgb(200,200,200);
-                                            padding: 10px;">
+                        <div id="task" class="card t-agenda-card" >
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
                                     00:00
                                 </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
+                                <div class="task-row">
+                                    <div class="task" >
+                                        <div class="event-chip">
+                                            <div>Meeting With Stakeholder ERS</div>
+                                            <div>aula</div>
+                                            <div>00:35</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style="display: flex;flex-direction: row;">
-                                <div style="border-right: solid 1px rgb(200,200,200);
-                                            padding: 10px;">
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
                                     01:00
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
                                 </div>
                             </div>
-                            <div style="display: flex;flex-direction: row;">
-                                <div style="border-right: solid 1px rgb(200,200,200);
-                                            padding: 10px;">
-                                    01:00
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    02:00
                                 </div>
                             </div>
-                            <div style="display: flex;flex-direction: row;">
-                                <div style="border-right: solid 1px rgb(200,200,200);
-                                            padding: 10px;">
-                                    01:00
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    03:00
                                 </div>
                             </div>
-                            <div style="display: flex;flex-direction: row;">
-                                <div style="border-right: solid 1px rgb(200,200,200);
-                                            padding: 10px;">
-                                    01:00
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    04:00
                                 </div>
                             </div>
-                            <div style="display: flex;flex-direction: row;">
-                                <div style="border-right: solid 1px rgb(200,200,200);
-                                            padding: 10px;">
-                                    01:00
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
-                                </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    05:00
                                 </div>
                             </div>
-                            <div style="display: flex;flex-direction: row;">
-                                <div style="border-right: solid 1px rgb(200,200,200);
-                                            padding: 10px;">
-                                    01:00
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    06:00
                                 </div>
-                                <div style="margin: 5px;">
-                                    <div class="event-chip">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    07:00
                                 </div>
-                                <div style="margin: 5px;">
-                                    <div style="border-radius: 5px;
-                                                background-color: rgb(229,255,255);
-                                                padding: 10px;">
-                                        <div>Meeting With Stakeholder ERS</div>
-                                        <div>aula</div>
-                                        <div>00:35</div>
-                                    </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    08:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    09:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    10:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    11:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    12:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    13:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    14:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    15:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    16:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    17:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    18:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    19:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    20:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    21:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    22:00
+                                </div>
+                            </div>
+                            <div class="t-agenda-row" >
+                                <div class="day-hora">
+                                    23:00
                                 </div>
                             </div>
                         </div>
@@ -263,7 +239,7 @@
                     <div class="col-md-auto" style="flex-grow: 1;display: flex;flex-direction: column;">
                         <div style="padding: 10px 0 10px 0;">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
+                                    data-bs-target="#exampleModal" style="width: 340px;">
                                 <i class="fa-solid fa-plus"></i>
                                 Nova Tarefa
                             </button>
@@ -313,29 +289,37 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Noma da Tarefa</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1"
-                           placeholder="name@example.com">
+                    <label for="tarefa-nome" class="form-label">Titulo da Tarefa</label>
+                    <input type="text" class="form-control" id="tarefa-nome"
+                           placeholder="Ex: Prova Calculo Diferencial">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                    <label for="tarefa-descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="tarefa-descricao" rows="2"></textarea>
                 </div>
                 <div class="mb-3">
                     <div class="col-auto">
                         <label for="exampleDataList" class="form-label">Tipo de Tarefa</label>
-                        <input class="form-control" id="exampleDataList"
-                               placeholder="Type to search...">
+                        <div class="btn-group" style="width: 100%" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa1" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="Customize Toolbar…">Aula</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="tipo-tarefa2">Trabalho</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="tipo-tarefa3">Pausa</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                        <label for="input-date" class="form-label">Dia</label>
-                        <input type="date" class="form-control" id="input-date">
+                        <label for="date-tarefa" class="form-label">Dia</label>
+                        <input type="date" class="form-control" id="date-tarefa">
                     </div>
                     <div class="col-auto">
                         <label for="input-date" class="form-label">Hora</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select id="hora-tarefa" class="form-select" aria-label="Default select example">
                             <option selected>Selecione a hora</option>
                             <option value="1">00:00</option>
                             <option value="2">00:30</option>
@@ -397,7 +381,7 @@
         </div>
     </div>
 </div>
-<script src="/javascripts/agenda.js"></script>
+<script src="/javascripts/tarefa.js"></script>
 <script src="/javascripts/navigation.js"></script>
 </body>
 </html>

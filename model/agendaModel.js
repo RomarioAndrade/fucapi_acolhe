@@ -1,9 +1,9 @@
 const { createConnection } = require('../database/db');
 
-class Tarefa {
+class agendaModel {
 
     //Buscar todas as tarefas em uma data especifica
-    static async findTarefasByData(userId,data) {
+    async findTarefasByData(userId,data) {
         const connection = await createConnection();
         const [rows] = await connection.execute(
             'SELECT * FROM tarefas WHERE data_inicio LIKE ? AND id_usuario = ?',
@@ -14,7 +14,7 @@ class Tarefa {
     }
 
     // Buscar todas as categorias
-    static async getCategorias(userId) {
+    async getCategorias(userId) {
         try {
             const [rows] = await pool.execute(
                 'SELECT * FROM categorias_tarefas WHERE id_usuario = ? AND ativo = TRUE ORDER BY nome',
@@ -27,7 +27,7 @@ class Tarefa {
     }
 
     // Criar nova tarefa
-    static async create(tarefaData) {
+    async create(tarefaData) {
         try {
             const {
                 id_usuario,
@@ -70,4 +70,4 @@ class Tarefa {
     }
 }
 
-module.exports = Tarefa;
+module.exports = new agendaModel();

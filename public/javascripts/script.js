@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const current_page = window.location.pathname;
 
-    console.log('Current page: ', current_page);
-    console.log('Current User: ', currentUser);
+    //console.log('Current page: ', current_page);
+    //console.log('Current User: ', currentUser);
 
     if(current_page === '/dashboard/chat'){
         // Load conversations

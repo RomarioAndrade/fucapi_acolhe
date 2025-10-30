@@ -1,9 +1,14 @@
+let tarefas = [];
+
 document.addEventListener('DOMContentLoaded', () => {
     // Referências para os elementos do HTML
     const monthYearEl = document.getElementById('month-year');
     const calendarBodyEl = document.getElementById('calendar-body');
     const prevMonthBtn = document.getElementById('prev-month');
     const nextMonthBtn = document.getElementById('next-month');
+
+    //Lista com as tarefas do aluno
+
 
     // Variáveis para a data atual
     let currentDate = new Date();
@@ -103,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-
-            } else if (response.status === 401) {
+                tarefas = await response.json();
+            } else if (response.status === 404) {
 
             } else {
                 throw new Error('Failed to load tasks');
@@ -115,9 +120,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function displayTask(){
+        const horas = Array.from({ length: 24 }, (_, i) => {
+            return i.toString().padStart(2, '0') + ':00';
+        });
+        const tasks = document.getElementById('task');
+
+        tasks.innerHTML = horas.map(i => `
+            <div class="t-agenda-row" >
+                <div class="day-hora">
+                    ${i}
+                </div>
+                <div class="task-row"></div>
+            </div>
+        `).join('');
+    }
+
 
     // Renderiza o calendário na carga inicial
     renderCalendar();
     loadTarefas();
+    displayTask();
 
 });

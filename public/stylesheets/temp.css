@@ -346,3 +346,62 @@ html, body {
 .event-chip:hover{
     background-color: rgb(255, 214, 214);
 }
+
+.t-content{
+    display: flex;
+}
+
+.t-container{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-grow: 1;
+}
+
+.t-agenda{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.t-agenda-title{
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between*/;
+    align-items: center;
+    padding: 10px;
+}
+
+.title-agenda{
+    font-weight: 500;
+}
+
+.title-agenda-nav{
+    margin-left: 10px;
+    display: flex;
+}
+
+.t-agenda-card{
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: scroll;
+    scrollbar-width: none
+}
+
+.t-agenda-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.day-hora{
+    border-right: solid 1px rgb(200,200,200);
+    padding: 10px;
+}
+
+.task-row{
+    flex-grow: 1;
+    border-bottom: 1px solid rgb(200,200,200);
+}
+
+.task{
+    margin: 5px;
+}

@@ -14,13 +14,21 @@ router.get('/task/:data', authenticateToken, async (req, res) => {
         const userId = req.user.id;
         const {data} = req.params;
         const tarefas = await agendaModel.findTarefasByData(userId,'2025-10-28');
-        console.log(tarefas);
-        res.json(tarefas);
+
+        //pode não ter nenhuma tarefa
+        if (tarefas) {
+            res.json(tarefas);
+        }else{
+            res.json({});
+        }
 
     }catch(err) {
         console.log(err);
         res.status(500).json({error: 'Internal server error'});
     }
+});
+
+router.post('/task', authenticateToken, async (req, res) => {
 
 });
 
