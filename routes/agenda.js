@@ -29,7 +29,7 @@ router.get('/task/:data', authenticateToken, async (req, res) => {
 });
 
 router.post('/task', authenticateToken, async (req, res) => {
-
+    const {titulo,descricao,data_inicio,hora,taskType} = req.body;
 });
 
 module.exports = router;

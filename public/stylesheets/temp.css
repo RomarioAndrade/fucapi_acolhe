@@ -42,7 +42,7 @@ html, body {
     margin: 0 0 3px 0;
     line-height: 29px;
     letter-spacing: -0.1px;
-    font-family: "Roboto", "sans-serif";
+    /*font-family: "Roboto", "sans-serif";*/
     font-weight: 400;
 }
 
@@ -63,8 +63,8 @@ html, body {
 .menu-item.active {
     background: rgb(230, 244, 254);
     color: rgb(13, 116, 206);
-    font-weight: bold;
-    border: solid 1.5px rgba(0, 32, 251, 0.16);
+    /*font-weight: bold;
+    border: solid 1.5px rgba(0, 32, 251, 0.16);*/
 }
 
 /*Css da pagina chat*/

@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    saveTask.addEventListener('click', event => {
+    saveTask.addEventListener('click', async event => {
         const titulo = document.getElementById('tarefa-nome').value.trim();
         const descricao = document.getElementById('tarefa-descricao').value.trim();
         const data_inicio = document.getElementById('date-tarefa').value;
@@ -146,7 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const hora = taskHours.options[taskHours.selectedIndex].text;
         const taskType = getRadioValue('btnradio');
 
-        alert(titulo+" "+descricao+" "+taskType+""+data_inicio+" "+hora);
+        const response = await fetch(`/task/`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({titulo,descricao,data_inicio,hora,taskType}),
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Erro ao criar conversa');
+        }
+
 
     });
 
