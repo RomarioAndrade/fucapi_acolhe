@@ -1,4 +1,5 @@
-let tarefas = [];
+let tasks = [];
+const saveTask = document.getElementById('save-task');
 
 document.addEventListener('DOMContentLoaded', () => {
     // Referências para os elementos do HTML
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadTarefas() {
         try {
-            const date = new Date(); // Or any other Date object
+            const date = new Date(); // o dia de hoje
             const formattedDate = date.toISOString().split('T')[0];
             const response = await fetch(`/task/${formattedDate}`, {
                 method: 'GET',
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                tarefas = await response.json();
+                tasks = await response.json();
             } else if (response.status === 404) {
 
             } else {
@@ -136,18 +137,32 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    async function newTask(){
-        const taskName = document.getElementById('tarefa-nome').value.trim();
-        const taskDesc = document.getElementById('tarefa-descricao').value.trim();
-        const taskDate = document.getElementById('date-tarefa').value;
 
+    saveTask.addEventListener('click', event => {
+        const titulo = document.getElementById('tarefa-nome').value.trim();
+        const descricao = document.getElementById('tarefa-descricao').value.trim();
+        const data_inicio = document.getElementById('date-tarefa').value;
+        const taskHours = document.getElementById('hora-tarefa');
+        const hora = taskHours.options[taskHours.selectedIndex].text;
+        const taskType = getRadioValue('btnradio');
 
-    }
+        alert(titulo+" "+descricao+" "+taskType+""+data_inicio+" "+hora);
 
+    });
 
     // Renderiza o calendário na carga inicial
     renderCalendar();
     loadTarefas();
     displayTask();
+
+    function getRadioValue(name) {
+        try {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            return selected ? selected.value : null;
+        } catch (error) {
+            console.error('Error getting radio value:', error);
+            return null;
+        }
+    }
 
 });

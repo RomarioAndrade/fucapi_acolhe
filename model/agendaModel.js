@@ -15,46 +15,66 @@ class agendaModel {
 
     // Buscar todas as categorias
     async getCategorias(userId) {
+        const connection = await createConnection();
         try {
-            const [rows] = await pool.execute(
+            const [rows] = await connection.execute(
                 'SELECT * FROM categorias_tarefas WHERE id_usuario = ? AND ativo = TRUE ORDER BY nome',
                 [userId]
             );
             return rows;
-        } catch (error) {
-            throw error;
+        } finally {
+            await connection.end();
+        }
+    }
+
+    async createCategoria(categoria) {
+        const connection = await createConnection();
+        try {
+            const {id_usuario,nome} = categoria;
+
+            const [result] = await connection.execute(`
+            INSERT INTO categorias_tarefas(id_usuario,nome) VALUES (?,?);
+            `,[id_usuario,nome]);
+
+            const categorioId = await connection.execute(`
+            SELECT id from categorias_tarefas WHERE id_usuario = ? AND nome = ?;
+            `,[id_usuario,nome]);
+
+            return result[0]?.id || null;
+        }finally {
+            await connection.end();
         }
     }
 
     // Criar nova tarefa
     async create(tarefaData) {
+        const connection = await createConnection();
         try {
             const {
                 id_usuario,
                 id_categoria,
                 titulo,
                 descricao,
-                data_inicio,
-                data_termino
+                data_inicio
             } = tarefaData;
 
-            const [result] = await pool.execute(
+            const [result] = await connection.execute(
                 `INSERT INTO tarefas (
-                    id_usuario, id_categoria, titulo, descricao,data_inicio, data_termino
-                ) VALUES (?, ?, ?, ?, ?, ?)`,
+                    id_usuario, id_categoria, titulo, descricao,data_inicio
+                ) VALUES (?, ?, ?, ?, ?)`,
                 [
-                    id_usuario, id_categoria, titulo, descricao, data_inicio, data_termino
+                    id_usuario, id_categoria, titulo, descricao, data_inicio
                 ]
             );
 
             return result.insertId;
-        } catch (error) {
-            throw error;
+        }finally {
+            await connection.end();
         }
     }
 
     // Buscar todas as tarefas
-    static async getAll(userId) {
+    async getAll(userId) {
         try {
             const [rows] = await pool.execute(
                 `SELECT t.*, c.nome as categoria_nome 

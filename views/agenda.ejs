@@ -301,13 +301,13 @@
                     <div class="col-auto">
                         <label for="exampleDataList" class="form-label">Tipo de Tarefa</label>
                         <div class="btn-group" style="width: 100%" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa1" autocomplete="off" checked>
+                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa1" value="Aula" autocomplete="off" checked>
                             <label class="btn btn-outline-primary" for="Customize Toolbar…">Aula</label>
 
-                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa2" autocomplete="off">
+                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa2" value="Trabalho" autocomplete="off">
                             <label class="btn btn-outline-primary" for="tipo-tarefa2">Trabalho</label>
 
-                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa3" autocomplete="off">
+                            <input type="radio" class="btn-check" name="btnradio" id="tipo-tarefa3"  value="Pausa" autocomplete="off">
                             <label class="btn btn-outline-primary" for="tipo-tarefa3">Pausa</label>
                         </div>
                     </div>
@@ -376,7 +376,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Salvar Tarefa</button>
+                <button id="save-task" type="button" class="btn btn-primary" >Salvar Tarefa</button>
             </div>
         </div>
     </div>
