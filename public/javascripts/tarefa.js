@@ -136,6 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
+    async function newTask(){
+        const taskName = document.getElementById('tarefa-nome').value.trim();
+        const taskDesc = document.getElementById('tarefa-descricao').value.trim();
+        const taskDate = document.getElementById('date-tarefa').value;
+
+
+    }
+
 
     // Renderiza o calendário na carga inicial
     renderCalendar();
