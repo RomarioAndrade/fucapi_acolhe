@@ -152,6 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({titulo,descricao,data_inicio,hora,taskType}),
             credentials: 'include'
         });
+        const taskDialog = document.querySelector('#exampleModal');
+        const modal = bootstrap.Modal.getInstance(taskDialog);
+        modal.hide();
 
         if (!response.ok) {
             const errorData = await response.json();
