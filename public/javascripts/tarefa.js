@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 tasks = await response.json();
+                console.log(tasks);
             } else if (response.status === 404) {
 
             } else {
@@ -160,8 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const errorData = await response.json();
             throw new Error(errorData.error || 'Erro ao criar conversa');
         }
-
-
+        await loadTarefas();
     });
 
     // Renderiza o calendário na carga inicial
