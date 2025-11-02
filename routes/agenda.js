@@ -13,7 +13,7 @@ router.get('/task/:data', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
         const {data} = req.params;
-        const tarefas = await agendaModel.findTarefasByData(userId,'2025-10-28');
+        const tarefas = await agendaModel.findTarefasByData(userId,data);
 
         //pode não ter nenhuma tarefa
         if (tarefas) {
@@ -29,7 +29,7 @@ router.get('/task/:data', authenticateToken, async (req, res) => {
 });
 
 router.post('/task', authenticateToken, async (req, res) => {
-    const {titulo,descricao,data_inicio,hora,taskType} = req.body;
+    const {titulo,descricao,data_inicio,taskType} = req.body;
     try {
         let categoriaId = await agendaModel.findCategoriaByName(req.user.id,taskType);
         if (!categoriaId) {

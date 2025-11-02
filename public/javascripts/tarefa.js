@@ -110,7 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 tasks = await response.json();
-                console.log(tasks);
+
+                tasks.forEach(task => {
+                    console.log(task);
+                    //const rowTask = document.getElementById(task);
+                });
+
+                console.log(tasks.length);
             } else if (response.status === 404) {
 
             } else {
@@ -126,16 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const horas = Array.from({ length: 24 }, (_, i) => {
             return i.toString().padStart(2, '0') + ':00';
         });
-        const tasks = document.getElementById('task');
+        const htmlElement = document.getElementById('task');
 
-        tasks.innerHTML = horas.map(i => `
+        htmlElement.innerHTML = horas.map(i => `
             <div class="t-agenda-row" >
                 <div class="day-hora">
                     ${i}
                 </div>
-                <div class="task-row"></div>
+                <div id="${i}" class="task-row">
+                    
+                </div>
             </div>
         `).join('');
+
+
     }
 
 
@@ -147,10 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const hora = taskHours.options[taskHours.selectedIndex].text;
         const taskType = getRadioValue('btnradio');
 
+        const [horas, minuto] = hora.split(':').map(Number);
+        const n_date = new Date(data_inicio);
+        n_date.setHours(horas,minuto);
+
         const response = await fetch(`/task/`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({titulo,descricao,data_inicio,hora,taskType}),
+            body: JSON.stringify({titulo,descricao,n_date,hora,taskType}),
             credentials: 'include'
         });
         const taskDialog = document.querySelector('#exampleModal');

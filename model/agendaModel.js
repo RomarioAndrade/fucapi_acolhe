@@ -10,7 +10,7 @@ class agendaModel {
             [`${data}%`, userId]
         );
         await connection.end();
-        return rows[0];
+        return rows;
     }
 
     // Buscar todas as categorias
