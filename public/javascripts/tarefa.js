@@ -1,4 +1,6 @@
 let tasks = [];
+let currentTask = [];
+let today = new Date();
 const saveTask = document.getElementById('save-task');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -67,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentMonth === new Date().getMonth() &&
                         currentYear === new Date().getFullYear()) {
                         cell.classList.add('today');
+                    }else{
+                        cell.classList.add('dia-do-mes');
                     }
 
                     date++;
@@ -99,10 +103,30 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCalendar();
     });
 
+    const calendarioContainer = document.getElementById('calendar-body');
+
+    calendarioContainer.addEventListener('click', function(event) {
+        // Verifica se o elemento clicado tem a classe 'dia-do-mes'
+        if (event.target.classList.contains('dia-do-mes')) {
+            // A função a ser executada
+            alert('Você clicou no dia: ' + event.target.textContent);
+
+            // Adicione aqui sua lógica para agendar um evento, etc.
+        }
+    });
+
+    const agendaContainer = document.getElementById('task');
+    agendaContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('event-chip')) {
+            alert('Você clicou no dia: ' + event.target.textContent);
+        }
+    })
+
     async function loadTarefas() {
         try {
             const date = new Date(); // o dia de hoje
-            const formattedDate = date.toISOString().split('T')[0];
+            const formattedDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + (date.getDay() < 10? '0' + date.getDate() : date.getDate());
+            console.log(formattedDate);
             const response = await fetch(`/task/${formattedDate}`, {
                 method: 'GET',
                 credentials: 'include'
@@ -110,13 +134,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 tasks = await response.json();
-
-                tasks.forEach(task => {
-                    console.log(task);
-                    //const rowTask = document.getElementById(task);
-                });
-
                 console.log(tasks.length);
+                tasks.forEach(task => {
+                    const date = new Date(task.data_inicio);
+                    let hour =  date.getHours() < 10 ? '0'+date.getHours():date.getHours(); // Returns the hour (0-23)
+                    const newTask = document.getElementById(`${hour}:00`);
+                    newTask.innerHTML += `
+                        <div id="${task.id}" class="task" >
+                            <div class="event-chip">
+                                <div>${task.titulo}</div>
+                                <div>${task.categoria}</div>
+                                <div>${new Date(task.data_inicio).toLocaleString()}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                scrollTo();
+
             } else if (response.status === 404) {
 
             } else {
@@ -133,6 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return i.toString().padStart(2, '0') + ':00';
         });
         const htmlElement = document.getElementById('task');
+        const titleAgenda = document.getElementById('title-agenda');
+        const formatterBr = new Intl.DateTimeFormat('pt-BR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+        titleAgenda.innerHTML = formatterBr.format(today);
 
         htmlElement.innerHTML = horas.map(i => `
             <div class="t-agenda-row" >
@@ -152,19 +193,18 @@ document.addEventListener('DOMContentLoaded', () => {
     saveTask.addEventListener('click', async event => {
         const titulo = document.getElementById('tarefa-nome').value.trim();
         const descricao = document.getElementById('tarefa-descricao').value.trim();
-        const data_inicio = document.getElementById('date-tarefa').value;
+        const data = document.getElementById('date-tarefa').value;
         const taskHours = document.getElementById('hora-tarefa');
         const hora = taskHours.options[taskHours.selectedIndex].text;
         const taskType = getRadioValue('btnradio');
 
-        const [horas, minuto] = hora.split(':').map(Number);
-        const n_date = new Date(data_inicio);
-        n_date.setHours(horas,minuto);
+        const data_inicio = data +" "+hora;
+        console.log("data_inicio: "+data_inicio);
 
         const response = await fetch(`/task/`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({titulo,descricao,n_date,hora,taskType}),
+            body: JSON.stringify({titulo,descricao,data_inicio,hora,taskType}),
             credentials: 'include'
         });
         const taskDialog = document.querySelector('#exampleModal');
@@ -174,8 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.error || 'Erro ao criar conversa');
+        } else {
+            currentTask = await response.json();
         }
-        await loadTarefas();
+        addTaskToView();
     });
 
     // Renderiza o calendário na carga inicial
@@ -190,6 +232,32 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error getting radio value:', error);
             return null;
+        }
+    }
+
+    function addTaskToView() {
+        console.log(currentTask.tarefa.descricao);
+        const date = new Date(currentTask.tarefa.data_inicio);
+        let hour =  date.getHours() < 10 ? '0'+date.getHours():date.getHours(); // Returns the hour (0-23)
+        const newTask = document.getElementById(`${hour}:00`);
+        newTask.innerHTML += `
+            <div id="${currentTask.tarefa.id}" class="task" >
+                <div class="event-chip">
+                    <div>${currentTask.tarefa.titulo}</div>
+                    <div>${currentTask.tarefa.categoria}</div>
+                    <div>${new Date(currentTask.tarefa.data_inicio).toLocaleString()}</div>
+                </div>
+            </div>`;
+
+    }
+
+    function scrollTo(){
+        const hora = new Date().getHours();
+        const id = (hora < 10 ? '0' + hora : hora)+":00";
+        const toScroll = document.getElementById(id);
+
+        if (toScroll) {
+            toScroll.scrollIntoView({ behavior: 'smooth'});
         }
     }
 
