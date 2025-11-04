@@ -11,10 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/script.js"></script>
     <link rel="stylesheet" href="/stylesheets/temp.css">
@@ -50,24 +47,29 @@
             <div class="sidebar-menu">
                 <ul class="nav flex-column">
                     <li class="menu-item" onclick="navigation('dashboard')">
-                        <i class="fa-solid fa-house-user"></i>
+                        <i class="bi bi-columns-gap"></i>
                         Dashboard
                     </li>
                     <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">
-                        <i class="fa-solid fa-igloo"></i>
+                        <i class="bi bi-sunrise"></i>
                         Meu Dia FUCAPI
                     </li>
                     <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">
-                        <i class="fa-solid fa-people-arrows"></i>
+                        <i class="bi bi-people"></i>
                         Conecta FUCAPI
+
                     </li>
                     <li id="espacocalma" class="menu-item">
-                        <i class="fa-solid fa-spa"></i>
+                        <i class="bi bi-leaf"></i>
                         Espaço Calma
                     </li>
                     <li id="perfilusuario" class="menu-item">
-                        <i class="fa-solid fa-id-card-clip"></i>
+                        <i class="bi bi-person-workspace"></i>
                         Perfil de Usuário
+                    </li>
+                    <li id="perfilusuario" class="menu-item">
+                        <i class="bi bi-bell"></i>
+                        Notificações
                     </li>
                     <% if(user.papel !== 'aluno' ){ %>
                         <li class="menu-item">
@@ -89,152 +91,24 @@
                 <div class="t-container">
                     <div class="col-8 t-agenda">
                         <div class="t-agenda-title" >
-                            <h5 id="title-agenda" class="card-title title-agenda" >Outubro, 2025</h5>
                             <div class="title-agenda-nav">
-                                <button type="button" class="btn btn-outline-dark"
-                                style="margin: 0 5px 0 5px">
-                                <i class="fa-solid fa-chevron-left"></i>
+                                <button id="prev-btn" type="button" class="btn btn-light btn-date">
+                                    <i class="fa-solid fa-chevron-left"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline-dark"
-                                        style="margin: 0 5px 0 5px">
+                                <button id="now-btn" type="button" class="btn btn-light btn-date">
+                                    Hoje
+                                </button>
+                                <button id="next-btn" type="button" class="btn btn-light btn-date">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-
                             </div>
+                            <h5 id="title-agenda" class="card-title title-agenda" ></h5>
                         </div>
                         <div id="task" class="card t-agenda-card" >
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    00:00
-                                </div>
-                                <div class="task-row">
-                                    <div class="task" >
-                                        <div class="event-chip">
-                                            <div>Meeting With Stakeholder ERS</div>
-                                            <div>aula</div>
-                                            <div>00:35</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    01:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    02:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    03:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    04:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    05:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    06:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    07:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    08:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    09:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    10:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    11:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    12:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    13:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    14:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    15:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    16:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    17:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    18:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    19:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    20:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    21:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    22:00
-                                </div>
-                            </div>
-                            <div class="t-agenda-row" >
-                                <div class="day-hora">
-                                    23:00
-                                </div>
-                            </div>
+
                         </div>
                     </div>
-                    <div class="col-md-auto" style="flex-grow: 1;display: flex;flex-direction: column;">
+                    <div class="col-md-auto" style="flex-grow: 1;display: flex;flex-direction: column;max-width: 350px;">
                         <div style="padding: 10px 0 10px 0;">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal" style="width: 340px;">
@@ -243,7 +117,7 @@
                             </button>
                         </div>
 
-                        <div style="flex-grow: 1;">
+                        <div style="flex-grow: 1; ">
                             <div class="calendar-container">
                                 <div class="calendar-header">
                                     <button id="prev-month" class="btn btn-light">
@@ -282,7 +156,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="nova-tarefa" tabindex="-1" aria-labelledby="nova-tarefa" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -378,8 +252,160 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button id="save-task" type="button" class="btn btn-primary" >Salvar Tarefa</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar
+                    <i class="bi bi-x-circle" style="margin-left: 5px;"></i>
+                </button>
+                <button id="save-task" type="button" class="btn btn-primary btn-sm">Salvar Tarefa
+                    <i class="bi bi-save" style="margin-left: 5px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="task-view" tabindex="-1" aria-labelledby="task-view" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" >
+                <div id="task-id" style="display: none"></div>
+                <div style="display: flex;flex-direction: row;margin-bottom: 15px;justify-content: space-between;">
+                    <div><h1 class="modal-title fs-5" id="modal-task-title">Modal title</h1></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div style="display: flex;flex-direction: row;margin-bottom: 15px;">
+                    <div style="width: 21px;margin-right: 15px;">
+                        <i class="bi bi-calendar4-event"></i>
+                    </div>
+                    <div id="data-tarefa"></div>
+                </div>
+                <div style="display: flex;flex-direction: row;margin-bottom: 15px;">
+                    <div style="width: 21px;margin-right: 15px;">
+                        <i class="bi bi-textarea-resize"></i>
+                    </div>
+                    <div id="descricao-tarefa"></div>
+                </div>
+                <div style="display: flex;flex-direction: row;margin-bottom: 15px;">
+                    <div style="width: 21px;margin-right: 15px;">
+                        <i class="bi bi-menu-button-wide-fill"></i>
+                    </div>
+                    <div id="tipo-tarefa"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button id="btn-deletar-tarefa" type="button" class="btn btn-secondary btn-sm" >Deletar
+                    <i class="bi bi-trash" style="margin-left: 5px;"></i>
+                </button>
+                <button id="btn-editar-tarefa" type="button" class="btn btn-primary btn-sm" >Editar
+                    <i class="bi bi-pencil-fill" style="margin-left: 5px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-editar-tarefa" tabindex="-1" aria-labelledby="modal-editar-tarefa" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="tarefa-nome" class="form-label">Titulo da Tarefa</label>
+                    <input type="text" class="form-control" id="titulo"
+                           placeholder="Ex: Prova Calculo Diferencial">
+                </div>
+                <div class="mb-3">
+                    <label for="tarefa-descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" rows="2" placeholder="Uma descrição rapida"></textarea>
+                </div>
+                <div class="mb-3">
+                    <div class="col-auto">
+                        <label for="exampleDataList" class="form-label">Tipo de Tarefa</label>
+                        <div class="btn-group" style="width: 100%" role="group" aria-label="Basic radio toggle button group">
+
+                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa1" value="Aula" autocomplete="off" >
+                            <label class="btn btn-outline-primary" for="tipo-tarefa1">Aula</label>
+
+                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa2" value="Prova" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="tipo-tarefa2">Prova</label>
+
+
+                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa3" value="Trabalho" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="tipo-tarefa3">Trabalho</label>
+
+                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa4" value="Pausa" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="tipo-tarefa4">Pausa</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto" style="flex-grow: 1;">
+                        <label for="dia" class="form-label">Dia</label>
+                        <input type="date" class="form-control" id="dia">
+                    </div>
+                    <div class="col-auto" style="flex-grow: 1;">
+                        <label for="input-date" class="form-label">Hora</label>
+                        <select id="hora" class="form-select" aria-label="Default select example">
+                            <option selected>Selecione a hora</option>
+                            <option value="00:00">00:00</option>
+                            <option value="00:30">00:30</option>
+                            <option value="01:00">01:00</option>
+                            <option value="01:30">01:30</option>
+                            <option value="02:00">02:00</option>
+                            <option value="02:30">02:30</option>
+                            <option value="03:00">03:00</option>
+                            <option value="03:30">03:30</option>
+                            <option value="04:00">04:00</option>
+                            <option value="04:30">04:30</option>
+                            <option value="05:00">05:00</option>
+                            <option value="05:30">05:30</option>
+                            <option value="06:00">06:00</option>
+                            <option value="06:30">06:30</option>
+                            <option value="07:00">07:00</option>
+                            <option value="07:30">07:30</option>
+                            <option value="08:00">08:00</option>
+                            <option value="08:30">08:30</option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:30">09:30</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:30">10:30</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:30">14:30</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:30">21:30</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:30">22:30</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:30">23:30</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar
+                    <i class="bi bi-x-circle" style="margin-left: 5px;"></i>
+                </button>
+                <button id="save-task" type="button" class="btn btn-primary btn-sm">Guardar Alterações
+                    <i class="bi bi-floppy" style="margin-left: 5px;"></i>
+                </button>
             </div>
         </div>
     </div>

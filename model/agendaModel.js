@@ -109,6 +109,34 @@ class agendaModel {
             throw error;
         }
     }
+
+    // Remover tarefa pelo id
+    async removeTarefaById(id) {
+        const connection = await createConnection();
+        try {
+            const [result] = await connection.execute(`delete
+                                                     from tarefas
+                                                     where id = ?`, [id]);
+            return result.id;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async updateTarefa(tarefa) {
+        const connection = await createConnection();
+        try {
+            const {
+                id_usuario, id_categoria, titulo, descricao, data_inicio
+            } = tarefaData;
+
+            const [result] = await connection.execute(`UPDATE tarefas SET id_categoria = ?, titulo = ?, descricao = ?, data_inicio = ?
+                                                       WHERE id_usuario = ? `, [id_categoria, titulo, descricao, data_inicio, id_usuario]);
+            return result;
+        } finally {
+            await connection.end();
+        }
+    }
 }
 
 module.exports = new agendaModel();

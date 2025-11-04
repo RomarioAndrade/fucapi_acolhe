@@ -1,5 +1,5 @@
 let tasks = [];
-let currentTask = [];
+let currentTask;
 let today = new Date();
 const saveTask = document.getElementById('save-task');
 
@@ -82,7 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function updateCalendar(date){
 
+    }
 
     // Event listeners para os botões de navegação
     prevMonthBtn.addEventListener('click', () => {
@@ -104,91 +106,81 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const calendarioContainer = document.getElementById('calendar-body');
-
     calendarioContainer.addEventListener('click', function(event) {
         // Verifica se o elemento clicado tem a classe 'dia-do-mes'
         if (event.target.classList.contains('dia-do-mes')) {
+            const active = calendarioContainer.querySelector('.active');
+            if (active) {
+                active.classList.remove('active');
+            }
+            event.target.classList.add('active');
             // A função a ser executada
-            alert('Você clicou no dia: ' + event.target.textContent);
+            //alert('Você clicou no dia: ' + event.target.textContent);
 
             // Adicione aqui sua lógica para agendar um evento, etc.
         }
     });
 
     const agendaContainer = document.getElementById('task');
-    agendaContainer.addEventListener('click', function(event) {
+    agendaContainer.addEventListener('click', async function (event) {
         if (event.target.classList.contains('event-chip')) {
-            alert('Você clicou no dia: ' + event.target.textContent);
+            const myModal = new bootstrap.Modal('#task-view', {
+                keyboard: false
+            })
+            myModal.show();
+
+            currentTask = await getTarefa(event.target.id);
+            const id = document.getElementById('task-id');
+            const titulo = document.getElementById('modal-task-title');
+            const descricao = document.getElementById('descricao-tarefa');
+            const data = document.getElementById('data-tarefa');
+            const tipoTarefa = document.getElementById('tipo-tarefa');
+
+            id.innerHTML = currentTask.id;
+            titulo.innerHTML = currentTask.titulo;
+            descricao.innerHTML = currentTask.descricao;
+            const formatterBr = new Intl.DateTimeFormat('pt-BR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            });
+            data.innerHTML = formatterBr.format(new Date(currentTask.data_inicio));
+            tipoTarefa.innerHTML = currentTask.categoria;
         }
+    });
+
+    const btnPrev= document.getElementById('prev-btn');
+    btnPrev.addEventListener('click', () => {
+        today.setDate( today.getDate() -1);
+        console.log(today);
+        loadTarefas();
+    });
+
+    const btnNext= document.getElementById('next-btn');
+    btnNext.addEventListener('click', () => {
+        today.setDate( today.getDate() +1);
+        console.log(today);
+        /*currentMonth = today.getMonth();
+        currentYear = today.getFullYear();
+        const calendar = document.getElementById('calendar-body');
+        const tr = calendar.getElementsByTagName('td');
+        for (let i = 0; i < tr.length; i++) {
+            if (tr[i].innerText.includes(today.getDate())) {
+                tr[i].classList.add('active');
+                return;
+            }
+        }
+        renderCalendar();*/
+        loadTarefas();
     })
 
-    async function loadTarefas() {
-        try {
-            const date = new Date(); // o dia de hoje
-            const formattedDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + (date.getDay() < 10? '0' + date.getDate() : date.getDate());
-            console.log(formattedDate);
-            const response = await fetch(`/task/${formattedDate}`, {
-                method: 'GET',
-                credentials: 'include'
-            });
-
-            if (response.ok) {
-                tasks = await response.json();
-                console.log(tasks.length);
-                tasks.forEach(task => {
-                    const date = new Date(task.data_inicio);
-                    let hour =  date.getHours() < 10 ? '0'+date.getHours():date.getHours(); // Returns the hour (0-23)
-                    const newTask = document.getElementById(`${hour}:00`);
-                    newTask.innerHTML += `
-                        <div id="${task.id}" class="task" >
-                            <div class="event-chip">
-                                <div>${task.titulo}</div>
-                                <div>${task.categoria}</div>
-                                <div>${new Date(task.data_inicio).toLocaleString()}</div>
-                            </div>
-                        </div>
-                    `;
-                });
-                scrollTo();
-
-            } else if (response.status === 404) {
-
-            } else {
-                throw new Error('Failed to load tasks');
-            }
-        } catch (error) {
-            console.error('Error loading tasks:', error);
-            alert('Erro ao carregar tarefas: ' + error.message);
-        }
-    }
-
-    function displayTask(){
-        const horas = Array.from({ length: 24 }, (_, i) => {
-            return i.toString().padStart(2, '0') + ':00';
-        });
-        const htmlElement = document.getElementById('task');
-        const titleAgenda = document.getElementById('title-agenda');
-        const formatterBr = new Intl.DateTimeFormat('pt-BR', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
-        titleAgenda.innerHTML = formatterBr.format(today);
-
-        htmlElement.innerHTML = horas.map(i => `
-            <div class="t-agenda-row" >
-                <div class="day-hora">
-                    ${i}
-                </div>
-                <div id="${i}" class="task-row">
-                    
-                </div>
-            </div>
-        `).join('');
-
-
-    }
-
+    const btnNow = document.getElementById('now-btn');
+    btnNow.addEventListener('click', () => {
+        today = new Date();
+        loadTarefas();
+    });
 
     saveTask.addEventListener('click', async event => {
         const titulo = document.getElementById('tarefa-nome').value.trim();
@@ -213,17 +205,151 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Erro ao criar conversa');
+            throw new Error(errorData.error || 'Erro ao criar a tarefa');
         } else {
             currentTask = await response.json();
         }
         addTaskToView();
     });
 
+    const btnDelete = document.getElementById('btn-deletar-tarefa');
+    btnDelete.addEventListener('click', async event => {
+        const id = document.getElementById('task-id').textContent;
+        const response = await fetch(`/task/remove/${id}`,{
+            method: 'POST',
+            credentials: 'include'
+        });
+        if (response.ok) {
+            const taskDialog = document.querySelector('#task-view');
+            const modal = bootstrap.Modal.getInstance(taskDialog);
+            modal.hide();
+
+            const agendaContent = document.getElementById(`id-${id}`);
+            agendaContent.remove();
+
+        }
+    });
+
+    const btnEditarTarefa = document.getElementById('btn-editar-tarefa');
+    btnEditarTarefa.addEventListener('click', async event => {
+        const taskDialog = document.querySelector('#task-view');
+        let modal = bootstrap.Modal.getInstance(taskDialog);
+        modal.hide();
+
+        const titulo = document.getElementById('titulo');
+        const descricao = document.getElementById('descricao');
+        const data = document.getElementById('dia');
+        const hora = document.getElementById('hora');
+
+        const data_inicio = new Date(currentTask.data_inicio);
+
+        let formatterBr = new Intl.DateTimeFormat('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+        titulo.value = currentTask.titulo;
+        descricao.value = currentTask.descricao;
+        data.valueAsDate = data_inicio;
+        hora.value = formatterBr.format(data_inicio);
+
+        const radios = document.querySelectorAll('input[name="editradio"]');
+        radios.forEach((radio) => {
+            if (currentTask.categoria == radio.value ) {
+                radio.checked = true;
+            }
+        });
+
+
+
+        const myModal = new bootstrap.Modal('#modal-editar-tarefa')
+        myModal.show();
+    });
+
+    async function loadTarefas() {
+        try {
+            const formattedDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + (today.getDay() < 10? '0' + today.getDate() : today.getDate());
+            console.log(formattedDate);
+            const response = await fetch(`/task/${formattedDate}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                tasks = await response.json();
+                console.log(tasks.length);
+
+                const titleAgenda = document.getElementById('title-agenda');
+                let formatterBr = new Intl.DateTimeFormat('pt-BR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                });
+                titleAgenda.innerHTML = formatterBr.format(today);
+                cleanAgenda();
+                if (tasks.length > 1) {
+                    tasks.forEach(task => {
+                        const date = new Date(task.data_inicio);
+                        formatterBr = new Intl.DateTimeFormat('pt-BR', {
+                            hour: '2-digit',
+                        });
+                        const newTask = document.getElementById(`${formatterBr.format(date)}:00`);
+                        formatterBr = new Intl.DateTimeFormat('pt-BR', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                        });
+                        newTask.innerHTML += `
+                        <div id="id-${task.id}" class="task" >
+                            <div id="${task.id}" class="event-chip">
+                                ${task.titulo},${formatterBr.format(new Date(task.data_inicio))}
+                            </div>
+                        </div>
+                    `;
+                    });
+                }else {
+                    cleanAgenda();
+                }
+                scrollTo();
+
+            } else if (response.status === 404) {
+
+            }
+        } catch (error) {
+            console.error('Error loading tasks:', error);
+            alert('Erro ao carregar tarefas: ' + error.message);
+        }
+    }
+
+    function displayTask(){
+        const horas = Array.from({ length: 24 }, (_, i) => {
+            return i.toString().padStart(2, '0') + ':00';
+        });
+        const htmlElement = document.getElementById('task');
+
+
+        htmlElement.innerHTML = horas.map(i => `
+            <div class="t-agenda-row" >
+                <div class="day-hora">
+                    ${i}
+                </div>
+                <div id="${i}" class="task-row">
+                    
+                </div>
+            </div>
+        `).join('');
+    }
+
     // Renderiza o calendário na carga inicial
     renderCalendar();
     loadTarefas();
     displayTask();
+
+    function cleanAgenda(){
+        for(let i = 0; i < 24; i++){
+            const horaFormatada = i.toString().padStart(2, '0');
+            const newTask = document.getElementById(`${horaFormatada}:00`);
+            newTask.innerHTML = ``;
+        }
+    }
 
     function getRadioValue(name) {
         try {
@@ -240,15 +366,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const date = new Date(currentTask.tarefa.data_inicio);
         let hour =  date.getHours() < 10 ? '0'+date.getHours():date.getHours(); // Returns the hour (0-23)
         const newTask = document.getElementById(`${hour}:00`);
+        let formatterBr = new Intl.DateTimeFormat('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
         newTask.innerHTML += `
-            <div id="${currentTask.tarefa.id}" class="task" >
-                <div class="event-chip">
-                    <div>${currentTask.tarefa.titulo}</div>
-                    <div>${currentTask.tarefa.categoria}</div>
-                    <div>${new Date(currentTask.tarefa.data_inicio).toLocaleString()}</div>
+            <div id="id-${currentTask.tarefa.id}" class="task" >
+                <div id="${currentTask.tarefa.id}" class="event-chip">
+                    ${currentTask.tarefa.titulo},${formatterBr.format(date)}                    
                 </div>
             </div>`;
 
+    }
+
+    async function getTarefa(id) {
+        const response = await fetch(`/tarefa/${id}`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            return await response.json();
+        }
     }
 
     function scrollTo(){
@@ -257,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const toScroll = document.getElementById(id);
 
         if (toScroll) {
-            toScroll.scrollIntoView({ behavior: 'smooth'});
+            toScroll.scrollIntoView({ behavior: 'instant'});
         }
     }
 
