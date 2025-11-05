@@ -4,35 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="/stylesheets/temp.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
 <div class="main-container">
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
             <div style="display:flex;flex-direction: row">
-                <a class="navbar-brand" href="#">
-                    <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
-                         class="d-inline-block align-text-top">
-                    FUCAPI Acolhe
-                </a>
+                <div style="display:flex;flex-direction: row;width: 207px;">
+                    <a class="navbar-brand" href="#">
+                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
+                             class="d-inline-block align-text-top">
+                        FUCAPI Acolhe
+                    </a>
+                </div>
+                <div style="text-align: center;align-content: center;margin-left: 20px;border-radius: 5px;background: #eee;
+                            padding: 5px 10px 5px 10px;display: flex;flex-direction: row;justify-items: center;
+                            align-items: center;
+                            flex-wrap: nowrap;">
+                    <span class="material-symbols-outlined" style="margin-top: 4px">space_dashboard</span>
+                    Dashboard
+                    <span class="material-symbols-outlined" style="margin-top: 4px">chevron_forward</span>
+                    Agenda
+                </div>
             </div>
-            <div>Dashboard</div>
+
             <% if(user.papel === 'aluno' ){ %>
                 <div style="display:flex;align-items: center">
-                    <div style="margin: auto 10px auto 10px">
-                        Conected
-                        <i class="fa-solid fa-circle" style="color: chartreuse"></i>
+                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>
+                        Conectado
+                        <i class="fa-solid fa-circle" style="color: chartreuse;margin-left: 5px;"></i>
                     </div>
                     65 Bpm
                     <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>
@@ -47,28 +56,28 @@
             <div class="sidebar-menu">
                 <ul class="nav flex-column">
                     <li class="menu-item" onclick="navigation('dashboard')">
-                        <i class="bi bi-columns-gap"></i>
+                        <span class="material-symbols-outlined">space_dashboard</span>
                         Dashboard
                     </li>
                     <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">
-                        <i class="bi bi-sunrise"></i>
+                        <span class="material-symbols-outlined">clear_day</span>
                         Meu Dia FUCAPI
                     </li>
                     <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">
-                        <i class="bi bi-people"></i>
+                        <span class="material-symbols-outlined">diversity_2</span>
                         Conecta FUCAPI
 
                     </li>
                     <li id="espacocalma" class="menu-item">
-                        <i class="bi bi-leaf"></i>
+                        <span class="material-symbols-outlined">psychiatry</span>
                         Espaço Calma
                     </li>
                     <li id="perfilusuario" class="menu-item">
-                        <i class="bi bi-person-workspace"></i>
+                        <span class="material-symbols-outlined">ent</span>
                         Perfil de Usuário
                     </li>
                     <li id="perfilusuario" class="menu-item">
-                        <i class="bi bi-bell"></i>
+                        <span class="material-symbols-outlined">notifications</span>
                         Notificações
                     </li>
                     <% if(user.papel !== 'aluno' ){ %>
@@ -111,7 +120,7 @@
                     <div class="col-md-auto" style="flex-grow: 1;display: flex;flex-direction: column;max-width: 350px;">
                         <div style="padding: 10px 0 10px 0;">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" style="width: 340px;">
+                                    data-bs-target="#nova-tarefa" style="width: 340px;">
                                 <i class="fa-solid fa-plus"></i>
                                 Nova Tarefa
                             </button>
@@ -192,7 +201,7 @@
                 <div class="row g-3 align-items-center">
                     <div class="col-auto" style="flex-grow: 1;">
                         <label for="date-tarefa" class="form-label">Dia</label>
-                        <input type="date" class="form-control" id="date-tarefa">
+                        <input type="date" class="form-control" id="date-tarefa" value="<%new Date()%>">
                     </div>
                     <div class="col-auto" style="flex-grow: 1;">
                         <label for="input-date" class="form-label">Hora</label>
@@ -322,18 +331,18 @@
                         <label for="exampleDataList" class="form-label">Tipo de Tarefa</label>
                         <div class="btn-group" style="width: 100%" role="group" aria-label="Basic radio toggle button group">
 
-                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa1" value="Aula" autocomplete="off" >
-                            <label class="btn btn-outline-primary" for="tipo-tarefa1">Aula</label>
+                            <input type="radio" class="btn-check" name="editradio" id="categoria1" value="Aula" autocomplete="off" >
+                            <label class="btn btn-outline-primary" for="categoria1">Aula</label>
 
-                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa2" value="Prova" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="tipo-tarefa2">Prova</label>
+                            <input type="radio" class="btn-check" name="editradio" id="categoria2" value="Prova" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="categoria2">Prova</label>
 
 
-                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa3" value="Trabalho" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="tipo-tarefa3">Trabalho</label>
+                            <input type="radio" class="btn-check" name="editradio" id="categoria3" value="Trabalho" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="categoria3">Trabalho</label>
 
-                            <input type="radio" class="btn-check" name="editradio" id="tipo-tarefa4" value="Pausa" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="tipo-tarefa4">Pausa</label>
+                            <input type="radio" class="btn-check" name="editradio" id="categoria4" value="Pausa" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="categoria4">Pausa</label>
                         </div>
                     </div>
                 </div>
@@ -403,7 +412,7 @@
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar
                     <i class="bi bi-x-circle" style="margin-left: 5px;"></i>
                 </button>
-                <button id="save-task" type="button" class="btn btn-primary btn-sm">Guardar Alterações
+                <button id="atualizar-tarefa" type="button" class="btn btn-primary btn-sm">Guardar Alterações
                     <i class="bi bi-floppy" style="margin-left: 5px;"></i>
                 </button>
             </div>

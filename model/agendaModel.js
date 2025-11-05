@@ -127,11 +127,11 @@ class agendaModel {
         const connection = await createConnection();
         try {
             const {
-                id_usuario, id_categoria, titulo, descricao, data_inicio
-            } = tarefaData;
+                id,id_usuario, id_categoria, titulo, descricao, data_inicio
+            } = tarefa;
 
-            const [result] = await connection.execute(`UPDATE tarefas SET id_categoria = ?, titulo = ?, descricao = ?, data_inicio = ?
-                                                       WHERE id_usuario = ? `, [id_categoria, titulo, descricao, data_inicio, id_usuario]);
+            const [result] = await connection.execute(`UPDATE tarefas SET id_categoria = ?, titulo = ?, descricao = ?, data_inicio = ?, id_usuario = ?
+                                                       WHERE id = ? `, [id_categoria, titulo, descricao, data_inicio, id_usuario,id]);
             return result;
         } finally {
             await connection.end();

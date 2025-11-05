@@ -8,7 +8,7 @@ router.get('/dashboard/agenda', authenticateToken, async (req, res) => {
     res.render('agenda', {user: req.user});
 });
 
-router.get('/task/:data', authenticateToken, async (req, res) => {
+router.get('/task/data/:data', authenticateToken, async (req, res) => {
     console.log(req.params);
     try {
         const userId = req.user.id;
@@ -81,15 +81,15 @@ router.post('/task/remove/:id', authenticateToken, async (req, res) => {
 })
 
 router.post('/task/update', authenticateToken, async (req, res) => {
-    const {titulo, descricao, data_inicio, taskType} = req.body;
+    const {id,titulo, descricao, data_inicio, categoria} = req.body;
     try {
-        let categoriaId = await agendaModel.findCategoriaByName(req.user.id, taskType);
+        let categoriaId = await agendaModel.findCategoriaByName(req.user.id, categoria);
         if (!categoriaId) {
-            categoriaId = await agendaModel.createCategoria({id_usuario: req.user.id, nome: taskType});
+            categoriaId = await agendaModel.createCategoria({id_usuario: req.user.id, nome: categoria});
         }
 
-        const id = await agendaModel.updateTarefa({
-            id_usuario: req.user.id, id_categoria: categoriaId.id,
+        const result = await agendaModel.updateTarefa({
+            id:id,id_usuario: req.user.id, id_categoria: categoriaId.id,
             titulo: titulo, descricao: descricao, data_inicio: data_inicio
         });
         console.log("ID: "+id);

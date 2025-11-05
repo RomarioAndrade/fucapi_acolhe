@@ -39,20 +39,28 @@ html, body {
     justify-content: normal;
     display: flex;
     flex-direction: row;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 10px 5px 10px;
     cursor: pointer;
     border-radius: 5px;
     margin: 0 0 7px 0;
     line-height: 29px;
     letter-spacing: -0.1px;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
+    color: #515151;
 }
 
 .menu-item i {
     margin-right: 10px;
     font-size: 20px;
     line-height: 29px;
+}
+
+.menu-item span{
+    margin-right: 10px;
+    font-size: 25px;
+    line-height: 29px;
+    color: #515151;
 }
 
 .menu-item a {
@@ -67,8 +75,8 @@ html, body {
 .menu-item.active {
     background: rgb(230, 244, 254);
     color: rgb(13, 116, 206);
-    /*font-weight: bold;
-    border: solid 1.5px rgba(0, 32, 251, 0.16);*/
+    font-weight: 600;
+    /*border: solid 1.5px rgba(0, 32, 251, 0.16);*/
 }
 
 /*Css da pagina chat*/
@@ -300,7 +308,7 @@ html, body {
 
 .calendar-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: initial;
 }
 
 .calendar-table th, .calendar-table td {
@@ -328,7 +336,8 @@ html, body {
 }
 
 .calendar-table td.active{
-    background-color: rgb(171, 205, 255);
+    background-color: rgb(66, 214, 146);
+    font-weight: 600;
 }
 
 .calendar-table td.today {
@@ -353,7 +362,7 @@ html, body {
 }
 
 .event-chip:hover{
-    background-color: rgb(255, 214, 214);
+    background-color: rgb(172, 240, 255);
 }
 
 .t-content{
@@ -423,6 +432,7 @@ html, body {
 .task{
     margin: 5px;
     width: fit-content;
+    cursor: pointer;
 }
 
 .modal-body{

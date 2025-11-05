@@ -105,6 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCalendar();
     });
 
+    //quando o modal aparece
+    const taskModal = document.getElementById('nova-tarefa');
+    taskModal.addEventListener('show.bs.modal', () => {
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+        const day = String(today.getDate()).padStart(2, '0');
+        const dateField = document.getElementById('date-tarefa');
+        dateField.value = `${year}-${month}-${day}`;
+    })
+
     const calendarioContainer = document.getElementById('calendar-body');
     calendarioContainer.addEventListener('click', function(event) {
         // Verifica se o elemento clicado tem a classe 'dia-do-mes'
@@ -118,6 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
             //alert('Você clicou no dia: ' + event.target.textContent);
 
             // Adicione aqui sua lógica para agendar um evento, etc.
+            today.setMonth(currentMonth);
+            today.setDate(event.target.textContent);
+            activeDay();
+            loadTarefas();
         }
     });
 
@@ -125,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     agendaContainer.addEventListener('click', async function (event) {
         if (event.target.classList.contains('event-chip')) {
             const myModal = new bootstrap.Modal('#task-view', {
+                backdrop: true,
                 keyboard: false
             })
             myModal.show();
@@ -155,33 +170,27 @@ document.addEventListener('DOMContentLoaded', () => {
     btnPrev.addEventListener('click', () => {
         today.setDate( today.getDate() -1);
         console.log(today);
+        activeDay();
         loadTarefas();
     });
+
 
     const btnNext= document.getElementById('next-btn');
     btnNext.addEventListener('click', () => {
         today.setDate( today.getDate() +1);
         console.log(today);
-        /*currentMonth = today.getMonth();
-        currentYear = today.getFullYear();
-        const calendar = document.getElementById('calendar-body');
-        const tr = calendar.getElementsByTagName('td');
-        for (let i = 0; i < tr.length; i++) {
-            if (tr[i].innerText.includes(today.getDate())) {
-                tr[i].classList.add('active');
-                return;
-            }
-        }
-        renderCalendar();*/
+        activeDay();
         loadTarefas();
     })
 
     const btnNow = document.getElementById('now-btn');
     btnNow.addEventListener('click', () => {
         today = new Date();
+        activeDay();
         loadTarefas();
     });
 
+    //Botão salva a tarefa
     saveTask.addEventListener('click', async event => {
         const titulo = document.getElementById('tarefa-nome').value.trim();
         const descricao = document.getElementById('tarefa-descricao').value.trim();
@@ -199,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({titulo,descricao,data_inicio,hora,taskType}),
             credentials: 'include'
         });
-        const taskDialog = document.querySelector('#exampleModal');
+        const taskDialog = document.querySelector('#nova-tarefa');
         const modal = bootstrap.Modal.getInstance(taskDialog);
         modal.hide();
 
@@ -209,7 +218,16 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             currentTask = await response.json();
         }
-        addTaskToView();
+        const dataTarefa = new Date(data_inicio)
+        if(!(today.getMonth() == dataTarefa.getMonth() && today.getDate() == dataTarefa.getDate())) {
+            today = dataTarefa;
+            loadTarefas();
+            activeDay();
+        }else{
+            addTaskToView();
+
+        }
+
     });
 
     const btnDelete = document.getElementById('btn-deletar-tarefa');
@@ -249,7 +267,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         titulo.value = currentTask.titulo;
         descricao.value = currentTask.descricao;
-        data.valueAsDate = data_inicio;
+
+        const year = today.getFullYear();
+        const month = String(data_inicio.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+        const day = String(data_inicio.getDate()).padStart(2, '0');
+        data.value = `${year}-${month}-${day}`;
+
         hora.value = formatterBr.format(data_inicio);
 
         const radios = document.querySelectorAll('input[name="editradio"]');
@@ -259,17 +282,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-
-
         const myModal = new bootstrap.Modal('#modal-editar-tarefa')
         myModal.show();
     });
 
+    const atualizarTarefa = document.getElementById('atualizar-tarefa');
+    atualizarTarefa.addEventListener('click', async event => {
+        currentTask.titulo = document.getElementById('titulo').value.trim();
+        currentTask.descricao = document.getElementById('descricao').value.trim();
+        const data = document.getElementById('dia').value;
+        const hora = document.getElementById('hora').value;
+        currentTask.data_inicio = data +" "+hora;
+        currentTask.categoria = getRadioValue('editradio');
+
+        try{
+            await updateTarefa(currentTask);
+            const modalElement = document.getElementById('modal-editar-tarefa');
+            const myModal = bootstrap.Modal.getInstance(modalElement);
+            myModal.hide();
+        }catch (err){
+            console.log(err);
+        }
+
+        const dataTarefa = new Date(currentTask.data_inicio)
+        /*if(!(today.getMonth() == dataTarefa.getMonth() && today.getDate() == dataTarefa.getDate())) {
+            today = dataTarefa;
+            loadTarefas();
+        }else {
+            addTaskToView();
+        }*/
+        today = dataTarefa;
+        loadTarefas();
+
+
+    });
+
     async function loadTarefas() {
         try {
-            const formattedDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + (today.getDay() < 10? '0' + today.getDate() : today.getDate());
-            console.log(formattedDate);
-            const response = await fetch(`/task/${formattedDate}`, {
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+            const day = String(today.getDate()).padStart(2, '0');
+            const response = await fetch(`/task/data/${year}-${month}-${day}`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -286,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 titleAgenda.innerHTML = formatterBr.format(today);
                 cleanAgenda();
-                if (tasks.length > 1) {
+                if (!tasks.length == 0) {
                     tasks.forEach(task => {
                         const date = new Date(task.data_inicio);
                         formatterBr = new Intl.DateTimeFormat('pt-BR', {
@@ -299,13 +352,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         newTask.innerHTML += `
                         <div id="id-${task.id}" class="task" >
-                            <div id="${task.id}" class="event-chip">
-                                ${task.titulo},${formatterBr.format(new Date(task.data_inicio))}
-                            </div>
+                                <div id="${task.id}" class="event-chip">
+                                   ${task.titulo}, ${formatterBr.format(new Date(task.data_inicio))}
+                                </div>
                         </div>
                     `;
                     });
-                }else {
+                } else {
                     cleanAgenda();
                 }
                 scrollTo();
@@ -362,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addTaskToView() {
-        console.log(currentTask.tarefa.descricao);
+        //console.log(currentTask);
         const date = new Date(currentTask.tarefa.data_inicio);
         let hour =  date.getHours() < 10 ? '0'+date.getHours():date.getHours(); // Returns the hour (0-23)
         const newTask = document.getElementById(`${hour}:00`);
@@ -373,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newTask.innerHTML += `
             <div id="id-${currentTask.tarefa.id}" class="task" >
                 <div id="${currentTask.tarefa.id}" class="event-chip">
-                    ${currentTask.tarefa.titulo},${formatterBr.format(date)}                    
+                    ${currentTask.tarefa.titulo}, ${formatterBr.format(date)}
                 </div>
             </div>`;
 
@@ -390,6 +443,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function updateTarefa(tarefa) {
+        try {
+            const response = await fetch(`/task/update`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                credentials: 'include',
+                body: JSON.stringify(tarefa)
+            })
+
+            if (!response.ok) {
+
+            }
+            return await response.json();
+        }catch (error) {
+            alert("Erro ao atualizar tarefa",error);
+        }
+    }
+
     function scrollTo(){
         const hora = new Date().getHours();
         const id = (hora < 10 ? '0' + hora : hora)+":00";
@@ -398,6 +469,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (toScroll) {
             toScroll.scrollIntoView({ behavior: 'instant'});
         }
+    }
+
+    function activeDay(){
+        const months = today.getMonth();
+
+        if (months != currentMonth){
+            currentMonth = months;
+            renderCalendar();
+        }
+
+        const calendar_body = document.getElementById('calendar-body');
+        const day = calendar_body.querySelector('.active');
+        if (day){
+            day.classList.remove('active');
+        }
+        const daysInMonth = calendar_body.querySelectorAll('.dia-do-mes');
+        daysInMonth.forEach(day => {
+            if (day.textContent == today.getDate()) {
+                day.classList.add('active');
+            }
+        });
     }
 
 });

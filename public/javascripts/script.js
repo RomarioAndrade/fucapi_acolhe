@@ -293,8 +293,6 @@ async function startConversation(userId, username) {
         const contactDiv = document.getElementById(userId);
         contactDiv.classList.add('active');
 
-
-
         // Verifica se a conversa já existe localmente
         let conversation = conversations.find(c => c.other_user_id === userId);
 
@@ -320,7 +318,7 @@ async function startConversation(userId, username) {
         }
 
         // Seleciona a conversa
-        selectConversation(conversation.id, userId);
+        await selectConversation(conversation.id, userId);
 
     } catch (error) {
         console.error('Error starting conversation:', error);
