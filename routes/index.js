@@ -261,8 +261,8 @@ router.get('/conversations', authenticateToken, async (req, res) => {
     }
 });
 
-/*router.get('/dashboard/agenda', authenticateToken, async (req, res) => {
-    res.render('agenda',{user: req.user});
-});*/
+router.get('/questinario', authenticateToken, async (req, res) => {
+    res.render('questionario',{user: req.user});
+});
 
 module.exports = router;

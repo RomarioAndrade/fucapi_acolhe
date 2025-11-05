@@ -450,3 +450,10 @@ html, body {
 .hide   {
     display: none;
 }
+
+.q-bem-vindo{
+    width: 400px;
+    margin: auto;
+    font-weight: 600;
+    color: #003687;
+}

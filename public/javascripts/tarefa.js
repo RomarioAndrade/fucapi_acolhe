@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }*/
         today = dataTarefa;
         loadTarefas();
-
+        activeDay();
 
     });
 
@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const toScroll = document.getElementById(id);
 
         if (toScroll) {
-            toScroll.scrollIntoView({ behavior: 'instant'});
+            toScroll.scrollIntoView({ behavior: 'smooth'});
         }
     }
 

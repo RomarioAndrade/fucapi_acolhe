@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fucapi Acolhe - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="/stylesheets/temp.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+</head>
+<body>
+<div class="main-container">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <div style="display:flex;flex-direction: row">
+                <div style="display:flex;flex-direction: row;width: 207px;">
+                    <a class="navbar-brand" href="#">
+                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
+                             class="d-inline-block align-text-top">
+                        FUCAPI Acolhe
+                    </a>
+                </div>
+                <div style="text-align: center;align-content: center;margin-left: 20px;border-radius: 5px;background: #eee;
+                            padding: 5px 10px 5px 10px;display: flex;flex-direction: row;justify-items: center;
+                            align-items: center;
+                            flex-wrap: nowrap;">
+                    <span class="material-symbols-outlined" style="margin-right: 10px;">psychology_alt</span>
+                    Questinário
+                </div>
+            </div>
+
+<!--            <% if(user.papel === 'aluno' ){ %>-->
+<!--                <div style="display:flex;align-items: center">-->
+<!--                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">-->
+<!--                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>-->
+<!--                        Conectado-->
+<!--                        <i class="fa-solid fa-circle" style="color: chartreuse;margin-left: 5px;"></i>-->
+<!--                    </div>-->
+<!--                    65 Bpm-->
+<!--                    <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>-->
+<!--                </div>-->
+<!--            <% } %>-->
+        </div>
+
+
+    </nav>
+    <div class="container-sub">
+<!--        <div class="sidebar">-->
+<!--            <div class="sidebar-menu">-->
+<!--                <ul class="nav flex-column">-->
+<!--                    <li class="menu-item" onclick="navigation('dashboard')">-->
+<!--                        <span class="material-symbols-outlined">space_dashboard</span>-->
+<!--                        Dashboard-->
+<!--                    </li>-->
+<!--                    <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">-->
+<!--                        <span class="material-symbols-outlined">clear_day</span>-->
+<!--                        Meu Dia FUCAPI-->
+<!--                    </li>-->
+<!--                    <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">-->
+<!--                        <span class="material-symbols-outlined">diversity_2</span>-->
+<!--                        Conecta FUCAPI-->
+
+<!--                    </li>-->
+<!--                    <li id="espacocalma" class="menu-item">-->
+<!--                        <span class="material-symbols-outlined">psychiatry</span>-->
+<!--                        Espaço Calma-->
+<!--                    </li>-->
+<!--                    <li id="perfilusuario" class="menu-item">-->
+<!--                        <span class="material-symbols-outlined">ent</span>-->
+<!--                        Perfil de Usuário-->
+<!--                    </li>-->
+<!--                    <li id="perfilusuario" class="menu-item">-->
+<!--                        <span class="material-symbols-outlined">notifications</span>-->
+<!--                        Notificações-->
+<!--                    </li>-->
+<!--                    <% if(user.papel !== 'aluno' ){ %>-->
+<!--                        <li class="menu-item">-->
+<!--                            <i class="fa-solid fa-table-list"></i>-->
+<!--                            Lista Alunos-->
+<!--                        </li>-->
+<!--                        <li class="menu-item">-->
+<!--                            <i class="fa-solid fa-message"></i>-->
+<!--                            Chat-->
+<!--                        </li>-->
+<!--                    <% } %>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+        <div class="main-content">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <span class="material-symbols-outlined" style="color: #003687;font-size: 50px;margin-top: 30px;">hand_gesture</span>
+                        <h1 class="q-bem-vindo">Bem-vindo(a) ao Fucapi Acolhe!</h1>
+                        <div style="width: 500px;margin: auto;margin-top: 10px;">
+                            Para começarmos, faremos algumas perguntas rápidas. Suas respostas nos
+                            ajudarão a personalizar o nosso sistema para a sua necessidades e, com a
+                            sua permissão, fornecerão informações valiosas para a equipe de apoio
+                            psicopedagógico.</br></br>
+                            Suas respostas são confidenciais.
+                        </div>
+                        <div style="margin-top: 50px;">
+                            <button type="button" class="btn btn-primary btn-lg" style="background-color: #003687;">
+                                <strong>Iniciar</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--<script src="/javascripts/tarefa.js"></script>-->
+<script src="/javascripts/navigation.js"></script>
+</body>
+</html>
