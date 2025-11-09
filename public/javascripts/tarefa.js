@@ -352,8 +352,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         newTask.innerHTML += `
                         <div id="id-${task.id}" class="task" >
-                                <div id="${task.id}" class="event-chip">
-                                   ${task.titulo}, ${formatterBr.format(new Date(task.data_inicio))}
+                                <div id="${task.id}" class="event-chip" style="background:#${task.color}">
+                                   <strong>${task.categoria}:</strong> ${task.titulo}, ${formatterBr.format(new Date(task.data_inicio))}
                                 </div>
                         </div>
                     `;
@@ -425,8 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         newTask.innerHTML += `
             <div id="id-${currentTask.tarefa.id}" class="task" >
-                <div id="${currentTask.tarefa.id}" class="event-chip">
-                    ${currentTask.tarefa.titulo}, ${formatterBr.format(date)}
+                <div id="${currentTask.tarefa.id}" class="event-chip" style="background:#${task.color}">
+                    <strong>${currentTask.categoria}:</strong> ${currentTask.tarefa.titulo}, ${formatterBr.format(date)}
                 </div>
             </div>`;
 

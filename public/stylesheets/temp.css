@@ -33,6 +33,7 @@ html, body {
 .container-sub {
     display: flex;
     flex-grow: 1;
+    overflow: scroll;
 }
 
 .menu-item {
@@ -362,7 +363,7 @@ html, body {
 }
 
 .event-chip:hover{
-    background-color: rgb(172, 240, 255);
+    background-color: rgb(172, 240, 255)!important;
 }
 
 .t-content{
@@ -456,4 +457,366 @@ html, body {
     margin: auto;
     font-weight: 600;
     color: #003687;
+}
+/*Questionário*/
+.mb-2{
+    text-align: left;
+}
+
+#questionarioForm.hide{
+    height: 0;
+}
+
+#questionarioForm.show{
+    height: 0;
+}
+
+#perguntasContainer{
+
+}
+
+#perguntasContainer .card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+#perguntasContainer .card-body .card-title{
+    text-align: left;
+}
+
+.hidden-div {
+    /* Estado inicial: invisível e sem altura */
+    opacity: 0;
+    max-height: 0;
+    /* Importante: para que a transição de altura funcione, não use `display: none;` */
+}
+
+.visible-div {
+    /* Estado final: visível e com altura suficiente */
+    opacity: 1;
+    /*max-height: 200px; /* Deve ser um valor fixo maior que o conteúdo */
+}
+
+.row{
+    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+}
+
+/*pomodoro*/
+.pomodoro-container {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.timer-display {
+    font-size: 5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #dc3545;
+}
+.timer-controls {
+    margin: 20px 0;
+}
+.btn-pomodoro {
+    width: 100px;
+    margin: 0 5px;
+}
+.progress {
+    height: 10px;
+    margin: 20px 0;
+}
+.session-info {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+.settings-panel {
+    /*margin-top: 30px;*/
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+.work-mode {
+    background-color: #ffe6e6;
+}
+.break-mode {
+    background-color: #e6ffe6;
+}
+.pomodoro-title {
+    color: #dc3545;
+    font-weight: bold;
+}
+.btn-pomodoro{
+    width: fit-content;
+}
+.text-center{
+    margin: 0 auto;
+}
+.progress{
+    margin-top: 0;
+}
+
+
+/*diario de emoções*/
+:root {
+    --primary-color: #6a5acd;
+    --secondary-color: #98d8c8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+.diary{
+    display: flex;
+    flex-direction: column;
+}
+
+.emotion-card {
+    transition: transform 0.3s;
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.emotion-card:hover {
+    transform: translateY(-5px);
+}
+
+.emotion-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.selected-emotion {
+    border: 3px solid var(--primary-color);
+}
+
+.intensity-slider {
+    width: 100%;
+}
+
+.calendar-day {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.calendar-day.has-entry {
+    background-color: var(--secondary-color);
+}
+
+.calendar-day.selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.entry-card {
+    border-left: 5px solid var(--primary-color);
+}
+
+.emotion-color-1 { background-color: #ff6b6b; } /* Raiva */
+.emotion-color-2 { background-color: #ffd166; } /* Alegria */
+.emotion-color-3 { background-color: #06d6a0; } /* Calma */
+.emotion-color-4 { background-color: #118ab2; } /* Tristeza */
+.emotion-color-5 { background-color: #073b4c; } /* Medo */
+.emotion-color-6 { background-color: #7209b7; } /* Surpresa */
+
+.sensory-input {
+    border-radius: 20px;
+}
+
+.btn-sensory {
+    border-radius: 20px;
+    margin: 2px;
+}
+
+.accessibility-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.high-contrast {
+    background-color: black;
+    color: white;
+}
+
+.high-contrast .navbar {
+    background-color: black;
+}
+
+.high-contrast .emotion-card {
+    background-color: #333;
+    color: white;
+}
+
+.high-contrast .card {
+    background-color: #333;
+    color: white;
+}
+
+/* Dashboard buttons*/
+.d-button{
+    width: 13rem;
+    padding: 10px;
+    display: flex !important;
+    flex-direction: row !important;
+    border: solid 2px #cecece !important;
+    border-radius: 10px;
+    margin: 5px;
+    align-items: center;
+}
+
+
+
+/* Respiração Guiada*/
+.container {
+    max-width: 800px;
+}
+
+.card {
+    /*background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;*/
+}
+
+.m-row{
+    margin: auto;
+}
+
+.breathing-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.breathing-circle.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.breathing-circle.expand {
+    transform: scale(1.5);
+    background: rgba(76, 175, 80, 0.3);
+    border-color: rgba(76, 175, 80, 0.6);
+}
+
+.breathing-circle.hold {
+    background: rgba(255, 193, 7, 0.3);
+    border-color: rgba(255, 193, 7, 0.6);
+}
+
+.breathing-circle.shrink {
+    transform: scale(0.8);
+    background: rgba(33, 150, 243, 0.3);
+    border-color: rgba(33, 150, 243, 0.6);
+}
+
+.instruction {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 20px 0;
+    min-height: 60px;
+}
+
+.timer {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-breathing {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.btn-breathing:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.phase-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.phase {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 5px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
+.phase.active {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+.settings-panel {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.form-label {
+    color: white;
+}
+
+.form-range {
+    width: 100%;
+}
+
+.technique-info {
+    margin-top: 30px;
+}
+
+.benefits-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.benefits-list li {
+    margin-bottom: 10px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.benefits-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+    font-weight: bold;
 }

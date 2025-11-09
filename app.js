@@ -13,6 +13,7 @@ var agendaRouter = require('./routes/agenda');
 var pulseiraRouter = require('./routes/pulseira');
 var errorsRouter = require('./routes/errors');
 var chatRouter = require('./routes/chat');
+var questionarioRouter = require('./routes/questionario');
 
 
 const {initializeDatabase} = require('./database/db');
@@ -33,6 +34,7 @@ app.use('/api', chatRouter);
 app.use('/', indexRouter);
 app.use('/', agendaRouter);
 app.use('/', pulseiraRouter);
+app.use('/', questionarioRouter);
 app.use('/users', usersRouter);
 app.use('/errors', errorsRouter);
 

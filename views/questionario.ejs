@@ -50,52 +50,9 @@
 
     </nav>
     <div class="container-sub">
-<!--        <div class="sidebar">-->
-<!--            <div class="sidebar-menu">-->
-<!--                <ul class="nav flex-column">-->
-<!--                    <li class="menu-item" onclick="navigation('dashboard')">-->
-<!--                        <span class="material-symbols-outlined">space_dashboard</span>-->
-<!--                        Dashboard-->
-<!--                    </li>-->
-<!--                    <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">-->
-<!--                        <span class="material-symbols-outlined">clear_day</span>-->
-<!--                        Meu Dia FUCAPI-->
-<!--                    </li>-->
-<!--                    <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">-->
-<!--                        <span class="material-symbols-outlined">diversity_2</span>-->
-<!--                        Conecta FUCAPI-->
-
-<!--                    </li>-->
-<!--                    <li id="espacocalma" class="menu-item">-->
-<!--                        <span class="material-symbols-outlined">psychiatry</span>-->
-<!--                        Espaço Calma-->
-<!--                    </li>-->
-<!--                    <li id="perfilusuario" class="menu-item">-->
-<!--                        <span class="material-symbols-outlined">ent</span>-->
-<!--                        Perfil de Usuário-->
-<!--                    </li>-->
-<!--                    <li id="perfilusuario" class="menu-item">-->
-<!--                        <span class="material-symbols-outlined">notifications</span>-->
-<!--                        Notificações-->
-<!--                    </li>-->
-<!--                    <% if(user.papel !== 'aluno' ){ %>-->
-<!--                        <li class="menu-item">-->
-<!--                            <i class="fa-solid fa-table-list"></i>-->
-<!--                            Lista Alunos-->
-<!--                        </li>-->
-<!--                        <li class="menu-item">-->
-<!--                            <i class="fa-solid fa-message"></i>-->
-<!--                            Chat-->
-<!--                        </li>-->
-<!--                    <% } %>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-
-
         <div class="main-content">
-            <div class="container text-center">
-                <div class="row">
+            <div  class="container text-center">
+                <div id="bem-vindo" class="row visible-div">
                     <div class="col">
                         <span class="material-symbols-outlined" style="color: #003687;font-size: 50px;margin-top: 30px;">hand_gesture</span>
                         <h1 class="q-bem-vindo">Bem-vindo(a) ao Fucapi Acolhe!</h1>
@@ -107,9 +64,38 @@
                             Suas respostas são confidenciais.
                         </div>
                         <div style="margin-top: 50px;">
-                            <button type="button" class="btn btn-primary btn-lg" style="background-color: #003687;">
+                            <button id="questionario-iniciar" type="button" class="btn btn-primary btn-lg" style="background-color: #003687;">
                                 <strong>Iniciar</strong>
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="questionario-form" class="row justify-content-center hidden-div" >
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="text-center mb-0">Questionário de Sensibilidades</h2>
+                            </div>
+                            <div class="card-body">
+                                <form id="questionarioForm" class="hide">
+
+                                    <!-- Perguntas -->
+                                    <div id="perguntasContainer">
+                                        <!-- As perguntas serão carregadas aqui via JavaScript -->
+                                    </div>
+
+
+
+                                    <!-- Botão Enviar -->
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary btn-lg" id="btnEnviar">
+                                            <span class="spinner-border spinner-border-sm d-none" id="spinner"></span>
+                                            Enviar Questionário
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,10 +104,7 @@
     </div>
 </div>
 
-
-
-
-<!--<script src="/javascripts/tarefa.js"></script>-->
+<script src="/javascripts/survey.js"></script>
 <script src="/javascripts/navigation.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ class agendaModel {
     //Buscar todas as tarefas em uma data especifica
     async findTarefasByData(userId, data) {
         const connection = await createConnection();
-        const [rows] = await connection.execute('SELECT u.id,u.id_usuario,u.titulo,u.descricao,u.data_inicio,ct.nome as categoria FROM tarefas u inner join categorias_tarefas ct on id_categoria = ct.id WHERE u.data_inicio LIKE ? AND u.id_usuario = ?', [`${data}%`, userId]);
+        const [rows] = await connection.execute('SELECT u.id,u.id_usuario,u.titulo,u.descricao,u.data_inicio,ct.nome as categoria,ct.color FROM tarefas u inner join categorias_tarefas ct on id_categoria = ct.id WHERE u.data_inicio LIKE ? AND u.id_usuario = ?', [`${data}%`, userId]);
         await connection.end();
         return rows;
     }
@@ -81,7 +81,7 @@ class agendaModel {
     async getAll(userId) {
         const connection = await createConnection();
         try {
-            const [rows] = await connection.execute(`SELECT t.*, c.nome as categoria_nome
+            const [rows] = await connection.execute(`SELECT t.*, c.nome as categoria_nome, c.color
                                                      FROM tarefas t
                                                               LEFT JOIN categorias_tarefas c ON t.id_categoria = c.id
                                                      WHERE t.id_usuario = ?`, [userId]);

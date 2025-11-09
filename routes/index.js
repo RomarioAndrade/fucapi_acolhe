@@ -261,8 +261,17 @@ router.get('/conversations', authenticateToken, async (req, res) => {
     }
 });
 
-router.get('/questinario', authenticateToken, async (req, res) => {
-    res.render('questionario',{user: req.user});
+router.get('/dashboard/foco',authenticateToken,(req,res)=>{
+    res.render('pomodoro',{user: req.user});
 });
+
+router.get('/dashboard/diario-emocoes',authenticateToken,(req,res)=>{
+    res.render('diario-emocoes',{user: req.user});
+});
+
+router.get('/dashboard/respiracao-guiada',authenticateToken,(req,res)=>{
+    res.render('respiracao-guiada',{user: req.user});
+});
+
 
 module.exports = router;

@@ -114,6 +114,57 @@ const initializeDatabase = async () => {
           )
         `);
 
+        // Tabela de Questionários
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS questionarios (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                usuario_id INT NOT NULL,
+                descricao TEXT,
+                data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                ativo BOOLEAN DEFAULT TRUE,
+                FOREIGN KEY (usuario_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+        `);
+
+        // Tabela de Perguntas
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS perguntas (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                texto TEXT NOT NULL,
+                tipo_resposta ENUM('textual', 'multipla_escolha') NOT NULL,
+                ordem_exibicao INT,
+                ativa BOOLEAN DEFAULT TRUE
+            )
+        `);
+
+        // Tabela de Respostas Padrão
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS respostas_padrao (
+                                                            id INT PRIMARY KEY AUTO_INCREMENT,
+                                                            pergunta_id INT NOT NULL,
+                                                            valor INT NOT NULL,
+                                                            texto VARCHAR(200) NOT NULL,
+                FOREIGN KEY (pergunta_id) REFERENCES perguntas(id) ON DELETE CASCADE,
+                UNIQUE KEY unique_pergunta_valor (pergunta_id, valor)
+                )
+        `);
+
+        // Tabela de Respostas do Usuário
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS respostas_usuario (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                questionario_id INT NOT NULL,
+                id_usuario INT,
+                pergunta_id INT NOT NULL,
+                resposta_id INT,
+                resposta_textual TEXT,
+                FOREIGN KEY (questionario_id) REFERENCES questionarios(id) ON DELETE CASCADE,
+                FOREIGN KEY (pergunta_id) REFERENCES perguntas(id),
+                FOREIGN KEY (resposta_id) REFERENCES respostas_padrao(id),
+                CHECK (resposta_id IS NOT NULL OR resposta_textual IS NOT NULL)
+            )
+        `);
+
         console.log('Database initialized successfully');
         await connection.end();
     } catch (error) {
