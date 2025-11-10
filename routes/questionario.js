@@ -11,7 +11,7 @@ router.get('/questionario', authenticateToken, async (req, res) => {
 
 router.post('/api/questionario', authenticateToken, async (req, res) => {
     try {
-        const resultado = await questionarioModel.salvarQuestionario(req.body);
+        const resultado = await questionarioModel.salvarQuestionario(req.body,req.user.id);
         res.json(resultado);
     } catch (error) {
         console.error('Erro ao salvar questionário:', error);
@@ -35,6 +35,10 @@ router.get('/api/perguntas', authenticateToken, async (req, res) => {
         console.error("Erro ao obter perguntas",error);
         res.status(500).json({ error: 'Erro interno do servidor' });
     }
+});
+
+router.get('/obrigado', authenticateToken, async (req, res) => {
+    res.render('obrigado');
 });
 
 module.exports = router;

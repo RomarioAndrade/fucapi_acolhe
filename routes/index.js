@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../model/userModel');
 const chatModel = require('../model/chatModel');
+const questionModel = require('../model/questionarioModel');
 
 const JWT_SECRET = 'your-secret-key';
 
@@ -64,9 +65,15 @@ router.post('/login', async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000 // 24 horas
         });
 
-        res.json({message: "Login realizado com sucesso"});
+        const question = await questionModel.isAnswered(user.id);
+        if (!question) {
+            res.json({message: "Login realizado com sucesso",question:true});
+        }else{
+            res.json({message: "Login realizado com sucesso",question:false});
 
+        }
     } catch (error) {
+        console.log(error);
         res.status(500).json({error: 'Internal server error'});
     }
 });
@@ -275,6 +282,10 @@ router.get('/dashboard/respiracao-guiada',authenticateToken,(req,res)=>{
 
 router.get('/dashboard/relax',authenticateToken,(req,res)=>{
     res.render('sons-relaxantes',{user: req.user});
+});
+
+router.get('/dashboard/perfil-necessidades',authenticateToken,(req,res)=>{
+    res.render('perfil-necessidades',{user: req.user});
 });
 
 

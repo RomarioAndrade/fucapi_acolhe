@@ -119,10 +119,10 @@ const initializeDatabase = async () => {
             CREATE TABLE IF NOT EXISTS questionarios (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 usuario_id INT NOT NULL,
-                descricao TEXT,
-                data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                data_preenchimento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 ativo BOOLEAN DEFAULT TRUE,
-                FOREIGN KEY (usuario_id) REFERENCES users(id) ON DELETE CASCADE
+                FOREIGN KEY (usuario_id) REFERENCES users(id) ON DELETE CASCADE,
+                INDEX idx_usuario_data (usuario_id, data_preenchimento)
             )
         `);
 
@@ -174,6 +174,41 @@ const initializeDatabase = async () => {
                 FOREIGN KEY (id_usuario) REFERENCES users(id) ON DELETE CASCADE
             );
         `);
+
+        //Tabela de Possibilidades
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS acao (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                texto TEXT NOT NULL
+            );
+        `);
+
+        //Tabela Diario de Emoções
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS diario_emocoes(
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                emocao_inicial ENUM('feliz', 'calmo','neutro','ansioso','triste','raiva','aliviado') NOT NULL,
+                influenciado ENUM('Provas/Trabalhos', 'Interação Social','Barulho/Ambiente','Mudança na Rotina','Cansaço') NOT NULL,
+                diario TEXT,
+                primeira_possibilidade INT,
+                segunda_possibilidade INT,
+                terceira_possibilidade INT,
+                emocao_final ENUM('feliz', 'calmo','neutro','ansioso','triste','raiva','aliviado') NOT NULL,
+                FOREIGN KEY (primeira_possibilidade) REFERENCES acao(id),
+                FOREIGN KEY (segunda_possibilidade) REFERENCES acao(id),
+                FOREIGN KEY (terceira_possibilidade) REFERENCES acao(id)                
+            )
+        `);
+
+        //Tabela Cardio
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS cardio (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                usuario_id INT NOT NULL,
+                bpm INT NOT NULL,
+                data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (usuario_id) REFERENCES users(id) ON DELETE CASCADE
+        );`);
 
         console.log('Database initialized successfully');
         await connection.end();

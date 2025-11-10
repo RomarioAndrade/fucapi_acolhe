@@ -98,7 +98,6 @@ html, body {
 .main-content{
     padding:10px;
     flex-grow: 1;
-    background: #f7fafc;
 }
 
 .card-body-main{
@@ -500,6 +499,11 @@ html, body {
 
 .row{
     transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+}
+
+.py-5{
+    display: flex;
+    flex-direction: column;
 }
 
 /*pomodoro*/

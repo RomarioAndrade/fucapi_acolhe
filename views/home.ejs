@@ -32,6 +32,18 @@
                     <span class="material-symbols-outlined" style="margin-top: 4px">space_dashboard</span>
                     Dashboard
                 </div>
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <Dropdown button>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -43,9 +55,6 @@
                         <span class="material-symbols-outlined">space_dashboard</span>
                         Dashboard
                     </li>
-                    <div>
-                        teste
-                    </div>
                     <li id="meudiafucapi" class="menu-item" onclick="navigation('meudiafucapi')">
                         <span class="material-symbols-outlined">clear_day</span>
                         Meu Dia FUCAPI
@@ -66,14 +75,21 @@
             </div>
         </div>
         <div class="main-content">
-            <div class="card" style="padding: 20px;background: #e6f4fe">
+            <div class="card" style="padding: 20px;background: #e6f4fe;display: flex;flex-direction: row;">
                 <span class="material-symbols-outlined">aod_watch</span>
+                <div style="margin-left: 10px;margin-right: 10px;">Status da Pulseira:</div>
+                <p style="color: green"><strong>conectado</strong></p>
+                <div style="margin-left: 10px;">Batimentos Cardíacos:</div>
+                <div style="margin-left: 10px;display: flex;flex-direction: row;"><strong>-- Bpm</strong>
+                    <span class="material-symbols-outlined" style="margin:0px 10px;color: red">cardiology</span>
+                </div>
+                <div style="margin-left: 10px;">Ultima Atualização:</div>
+                <div>10/11/2025 00:00</div>
             </div>
             <div style="padding: 10px;">
                 <h2>Acesso Rápido</h2>
             </div>
             <div style="display: flex;flex-direction: row;">
-
                 <div class="col" style="display: flex;">
                     <div class="d-button">
                         <span class="material-symbols-outlined"
@@ -90,10 +106,11 @@
                               style="margin-right: 10px;color: #ff0062;font-size: 35px;">nest_clock_farsight_analog</span>
                         <strong>Gestor de Foco</strong>
                     </div>
-
                 </div>
             </div>
-
+            <div>
+                Grafico
+            </div>
         </div>
     </div>
 </div>

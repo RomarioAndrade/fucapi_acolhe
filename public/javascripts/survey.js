@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    const questinario_id = '';
     const form = document.getElementById('questionarioForm');
     const perguntasContainer = document.getElementById('perguntasContainer');
     const btnEnviar = document.getElementById('btnEnviar');
@@ -7,12 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carregar perguntas da API
     async function carregarPerguntas() {
         try {
-            const response = await fetch('/api/perguntas',{
+            const response = await fetch('/api/perguntas', {
                 method: 'GET',
                 credentials: 'include'
             });
             if (response.ok) {
                 const perguntas = await response.json();
+
                 exibirPerguntas(perguntas);
             }
 
@@ -24,11 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Exibir perguntas no formulário
     function exibirPerguntas(perguntas) {
-        console.log(perguntas[0]);
+        console.log(perguntas);
         perguntasContainer.innerHTML = '';
 
         perguntas.forEach((pergunta, index) => {
-            const perguntaHTML = `
+            if (pergunta.tipo_resposta == 'multipla_escolha') {
+                const perguntaHTML = `
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">${index + 1}. ${pergunta.texto}</h5>
@@ -37,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${pergunta.respostas.map(resposta => `
                             <div class="form-check mb-2">
                                     <input class="form-check-input" type="radio" 
-                                           name="pergunta_${pergunta.id}" 
+                                           name="pergunta_${pergunta.id}"
+                                           typequestion="${pergunta.tipo_resposta}"
                                            id="resposta_${resposta.id}" 
                                            value="${resposta.id}" required>
                                     <label class="form-check-label" for="resposta_${resposta.id}">
@@ -49,22 +53,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
-            perguntasContainer.innerHTML += perguntaHTML;
-        });
-        perguntasContainer.innerHTML += `
-            <!-- Observações sobre crises -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">5. Descreva com suas palavras como você se sente em um momento de crise ou o que seria mais útil para você nesses momentos:</h5>
-                    <div class="mt-3">
-                        <div class="form-group">
-                            <textarea class="form-control" id="observacoes_crise" name="observacoes_crise" rows="4"
-                            placeholder="Compartilhe suas experiências e necessidades..."></textarea>
+                perguntasContainer.innerHTML += perguntaHTML;
+            } else if (pergunta.tipo_resposta == 'textual'){
+                const perguntaHTML = `
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">${index + 1}. ${pergunta.texto}</h5>
+                        <div class="mt-3">
+                            <div class="form-group">
+                                <textarea  class="form-control" id="pergunta_${pergunta.id}" name="observacoes_crise" typequestion="${pergunta.tipo_resposta}" rows="4"
+                                placeholder="Compartilhe suas experiências e necessidades..." required></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        `;
+                `;
+                perguntasContainer.innerHTML += perguntaHTML;
+            }
+        });
     }
 
     const botaoIniciar = document.getElementById('questionario-iniciar');
@@ -79,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Enviar formulário
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         // Validar formulário
@@ -89,11 +95,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Coletar dados do formulário
-        const formData = new FormData(form);
+        //const formData = new FormData(form);
         const dados = {
-            observacoes_crise: formData.get('observacoes_crise'),
+            textual: {},
             respostas: {}
         };
+
+        const textAreas = document.querySelectorAll('textarea');
+        textAreas.forEach((textArea) => {
+            const perguntaId = textArea.id.replace('pergunta_', '');
+            dados.textual[perguntaId] = textArea.value;
+        });
+
 
         // Coletar respostas das perguntas
         const radios = document.querySelectorAll('input[type="radio"]:checked');
@@ -129,6 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Erro ao salvar questionário');
             }
         } catch (error) {
+            console.log(dados);
             console.error('Erro ao enviar questionário:', error);
             alert('Erro ao enviar questionário. Tente novamente.');
         } finally {

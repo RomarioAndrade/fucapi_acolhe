@@ -2,19 +2,18 @@ const {createConnection} = require('../database/db');
 
 class QuestionarioModel {
     // Salvar questionário completo
-    async salvarQuestionario(dados) {
+    async salvarQuestionario(dados,usuarioId) {
         const connection = await createConnection();
-
         try {
             await connection.beginTransaction();
 
             // Inserir questionário
-            /*const [questionarioResult] = await connection.execute(
+            const [questionarioResult] = await connection.execute(
                 'INSERT INTO questionarios (usuario_id) VALUES (?)',
                 [usuarioId]
             );
 
-            const questionarioId = questionarioResult.insertId;*/
+            const questionarioId = questionarioResult.insertId;
 
             // Inserir respostas
             for (const perguntaId in dados.respostas) {
@@ -22,15 +21,25 @@ class QuestionarioModel {
                     const respostaId = dados.respostas[perguntaId];
 
                     await connection.execute(
-                        'INSERT INTO respostas_usuario (questionario_id, pergunta_id, resposta_id,resposta_textual) VALUES (?, ?, ?,?)',
+                        'INSERT INTO respostas_usuario (questionario_id, pergunta_id, resposta_id) VALUES (?, ?, ? )',
                         [questionarioId, perguntaId, respostaId]
                     );
                 }
             }
 
-            await connection.commit();
-            return {success: true, questionarioId, pontuacaoTotal};
+            for (const perguntaId in dados.textual) {
+                if (dados.respostas.hasOwnProperty(perguntaId)) {
+                    const resposta_textual = dados.respostas[perguntaId];
 
+                    await connection.execute(
+                        'INSERT INTO respostas_usuario (questionario_id, pergunta_id,resposta_textual) VALUES (?, ?, ? )',
+                        [questionarioId, perguntaId, resposta_textual]
+                    );
+                }
+            }
+
+            await connection.commit();
+            return {success: true, questionarioId};
         } catch (error) {
             await connection.rollback();
             throw error;
@@ -73,6 +82,22 @@ class QuestionarioModel {
         } finally {
             await connection.end();
         }
+    }
+
+    async isAnswered(id) {
+        const connection = await createConnection();
+        try {
+            const [result] = await connection.execute(`
+                    SELECT id from questionarios WHERE usuario_id=${id}`);
+
+            return result[0];
+        }catch (error) {
+            await connection.rollback();
+            throw error;
+        } finally {
+            await connection.end();
+        }
+
     }
 }
 

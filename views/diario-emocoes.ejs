@@ -91,10 +91,10 @@
         </div>
 
         <div class="main-content">
-            <div class="container mt-4">
+            <div class="container mt-2">
                 <!-- Nova Entrada -->
                 <div id="newEntrySection">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm col-9" style="margin: auto">
                         <div class="card-header bg-white">
                             <h4 class="mb-0"></i> Nova Entrada no Diário</h4>
                         </div>
@@ -103,12 +103,68 @@
                             <div class="mb-4">
                                 <h5>Como você está se sentindo?</h5>
                                 <div class="row g-3" id="emotionsGrid">
-                                    <!-- Emoções serão adicionadas via JavaScript -->
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_satisfied</i>
+                                            </div>
+                                            <h6>Feliz</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_calm</i>
+                                            </div>
+                                            <h6>Calmo</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_neutral</i>
+                                            </div>
+                                            <h6>Neutro</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_worried</i>
+                                            </div>
+                                            <h6>Ansioso</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_sad</i>
+                                            </div>
+                                            <h6>Triste</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_extremely_dissatisfied</i>
+                                            </div>
+                                            <h6>Raiva</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">mood</i>
+                                            </div>
+                                            <h6>Aliviado</h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="mb-4" id="intensitySection" style="display: none;">
                                 <h5>Intensidade da emoção</h5>
+
                                 <input type="range" class="intensity-slider" id="emotionIntensity" min="1" max="10"
                                        value="5">
                                 <div class="d-flex justify-content-between">
@@ -119,65 +175,130 @@
                             </div>
 
                             <div class="mb-4">
-                                <h5>O que está acontecendo?</h5>
+                                <h5>O que pode estar Influenciando?</h5>
+                                <div class="d-flex flex-wrap mb-2">
+                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="luz">
+                                        Provas/Trabalhos
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="som">Interação
+                                        Social
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="toque">
+                                        Barulho/Ambiente
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="multidao">
+                                        Mudança de Rotina
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="cheiro">Cansaço
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h5>O que está acontecendo? Diário do Dia</h5>
                                 <textarea class="form-control" id="entryDescription" rows="4"
                                           placeholder="Descreva o que está sentindo e o que aconteceu..."></textarea>
                             </div>
 
                             <div class="mb-4">
-                                <h5>Estímulos sensoriais</h5>
-                                <div class="d-flex flex-wrap mb-2">
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="luz">Luz forte
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="som">Som alto
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="toque">Toque
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="multidao">
-                                        Multidão
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="cheiro">Cheiro
-                                        forte
-                                    </button>
+                                <h5>Como posso lidar com isso?</h5>
+                                <div class="mb-4">
+                                    <textarea class="form-control" id="entryDescription" rows="1"
+                                              placeholder="Possibilidade 1..."></textarea>
                                 </div>
-                                <input type="text" class="form-control sensory-input" id="customSensory"
-                                       placeholder="Outro estímulo...">
+                                <div class="mb-4">
+                                    <textarea class="form-control" id="entryDescription" rows="1"
+                                              placeholder="Possibilidade 2..."></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <textarea class="form-control" id="entryDescription" rows="1"
+                                              placeholder="Possibilidade 2..."></textarea>
+                                </div>
                             </div>
-
                             <div class="mb-4">
-                                <h5>Estratégias de regulação</h5>
-                                <div class="d-flex flex-wrap mb-2">
-                                    <button class="btn btn-outline-success btn-sensory" data-strategy="respiracao">
-                                        Respiração
-                                    </button>
-                                    <button class="btn btn-outline-success btn-sensory" data-strategy="isolamento">
-                                        Isolamento
-                                    </button>
-                                    <button class="btn btn-outline-success btn-sensory" data-strategy="movimento">
-                                        Movimento
-                                    </button>
-                                    <button class="btn btn-outline-success btn-sensory" data-strategy="estimulo">
-                                        Estímulo sensorial
-                                    </button>
-                                    <button class="btn btn-outline-success btn-sensory" data-strategy="comunicacao">
-                                        Comunicação
-                                    </button>
+                                <h5>Depois de refletir, como você se sente agora?</h5>
+                            </div>
+                            <div class="mb-4">
+                                <div class="row g-3" id="emotionsGrid">
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_satisfied</i>
+                                            </div>
+                                            <h6>Feliz</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_calm</i>
+                                            </div>
+                                            <h6>Calmo</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_neutral</i>
+                                            </div>
+                                            <h6>Neutro</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_worried</i>
+                                            </div>
+                                            <h6>Ansioso</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_sad</i>
+                                            </div>
+                                            <h6>Triste</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_extremely_dissatisfied</i>
+                                            </div>
+                                            <h6>Raiva</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">mood</i>
+                                            </div>
+                                            <h6>Aliviado</h6>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input type="text" class="form-control sensory-input" id="customStrategy"
-                                       placeholder="Outra estratégia...">
+                            </div>
+                            <div class="mb-4">
+                                <h5>Você ainda precisa de ajuda?</h5>
+                                <div>
+                                    Busque ajuda presencialmente nas salas: <strong>D-19 ou D-01</strong>
+                                </div>
+
                             </div>
 
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-secondary me-md-2" id="clearEntryBtn">Limpar</button>
-                                <button class="btn btn-primary" id="saveEntryBtn">Salvar Entrada</button>
-                            </div>
+                        </div>
+
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-secondary me-md-2" id="clearEntryBtn">Limpar</button>
+                            <button class="btn btn-primary" id="saveEntryBtn">Salvar Entrada</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="/javascripts/navigation.js"></script>
+<script src="/javascripts/navigation.js"></script>
 </body>
 </html>
