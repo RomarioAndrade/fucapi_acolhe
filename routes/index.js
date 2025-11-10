@@ -273,5 +273,9 @@ router.get('/dashboard/respiracao-guiada',authenticateToken,(req,res)=>{
     res.render('respiracao-guiada',{user: req.user});
 });
 
+router.get('/dashboard/relax',authenticateToken,(req,res)=>{
+    res.render('sons-relaxantes',{user: req.user});
+});
+
 
 module.exports = router;

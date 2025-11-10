@@ -165,6 +165,16 @@ const initializeDatabase = async () => {
             )
         `);
 
+        //Tabela Perfil de Necessidades
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS perfil_necessidades (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                necessidades TEXT NOT NULL,
+                id_usuario INT NOT NULL,
+                FOREIGN KEY (id_usuario) REFERENCES users(id) ON DELETE CASCADE
+            );
+        `);
+
         console.log('Database initialized successfully');
         await connection.end();
     } catch (error) {

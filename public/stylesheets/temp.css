@@ -98,6 +98,7 @@ html, body {
 .main-content{
     padding:10px;
     flex-grow: 1;
+    background: #f7fafc;
 }
 
 .card-body-main{
@@ -532,7 +533,6 @@ html, body {
     font-size: 1.2rem;
 }
 .settings-panel {
-    /*margin-top: 30px;*/
     padding: 15px;
     background-color: #f8f9fa;
     border-radius: 10px;
@@ -698,11 +698,11 @@ html, body {
 }
 
 .breathing-circle {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0 auto;
+    background: rgba(4, 55, 253, 0.26);
+    margin: 25px auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -738,7 +738,7 @@ html, body {
     font-size: 1.5rem;
     font-weight: 500;
     text-align: center;
-    margin: 20px 0;
+    margin: 35px 0 0 0;
     min-height: 60px;
 }
 
@@ -779,19 +779,27 @@ html, body {
 }
 
 .phase.active {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgb(95, 223, 210);
     font-weight: bold;
 }
 
 .settings-panel {
-    margin-top: 20px;
     padding: 15px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
 }
 
+.settings-panel h5{
+    display: flex;
+    align-items: center;
+}
+
+.settings-panel span{
+    margin-right: 10px;
+}
+
 .form-label {
-    color: white;
+    color: black;
 }
 
 .form-range {
