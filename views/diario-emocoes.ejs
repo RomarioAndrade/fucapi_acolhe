@@ -104,7 +104,7 @@
                                 <h5>Como você está se sentindo?</h5>
                                 <div class="row g-3" id="emotionsGrid">
                                     <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
+                                        <div class="card emotion-card text-center p-3 emotion-color-2">
                                             <div class="emotion-icon">
                                                 <i class="material-symbols-outlined">sentiment_satisfied</i>
                                             </div>
@@ -112,7 +112,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
+                                        <div class="card emotion-card text-center p-3 emotion-color-3">
                                             <div class="emotion-icon">
                                                 <i class="material-symbols-outlined">sentiment_calm</i>
                                             </div>
@@ -120,7 +120,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
+                                        <div class="card emotion-card text-center p-3 emotion-color-6">
                                             <div class="emotion-icon">
                                                 <i class="material-symbols-outlined">sentiment_neutral</i>
                                             </div>
@@ -128,7 +128,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
+                                        <div class="card emotion-card text-center p-3 emotion-color-5">
                                             <div class="emotion-icon">
                                                 <i class="material-symbols-outlined">sentiment_worried</i>
                                             </div>
@@ -136,7 +136,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
+                                        <div class="card emotion-card text-center p-3 emotion-color-4">
                                             <div class="emotion-icon">
                                                 <i class="material-symbols-outlined">sentiment_sad</i>
                                             </div>
@@ -144,7 +144,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
+                                        <div class="card emotion-card text-center p-3 emotion-color-1">
                                             <div class="emotion-icon">
                                                 <i class="material-symbols-outlined">sentiment_extremely_dissatisfied</i>
                                             </div>
@@ -177,20 +177,22 @@
                             <div class="mb-4">
                                 <h5>O que pode estar Influenciando?</h5>
                                 <div class="d-flex flex-wrap mb-2">
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="luz">
-                                        Provas/Trabalhos
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="som">Interação
-                                        Social
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="toque">
-                                        Barulho/Ambiente
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="multidao">
-                                        Mudança de Rotina
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="cheiro">Cansaço
-                                    </button>
+                                    <div class="" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck1">Provas/Trabalhos</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck2">Interação Social</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck3">Barulho/Ambiente</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck4">Mudança de Rotina</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck5">Cansaço</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-4">

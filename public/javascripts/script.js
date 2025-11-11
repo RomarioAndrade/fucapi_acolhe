@@ -3,6 +3,7 @@ var currentUser;
 let currentConversation = null;
 let conversations = [];
 
+
 // Initialize the chat
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -36,6 +37,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert(`New message from ${notification.sender}: ${notification.message}`);
         }
     });
+
+    socket.on('connect', () => {
+
+        const connectionStatus = document.getElementById('connectionStatus');
+        console.log('Conectado ao servidor');
+
+        connectionStatus.innerHTML = 'Conectado';
+        //connectionStatus.classList.remove('disconnected');
+        //connectionStatus.classList.add('connected');
+    });
+
+    socket.on('heartRate', (simulatedData) => {
+        const currentBpm = document.getElementById('currentBpm');
+        currentBpm.innerHTML = `<strong>${simulatedData.bpm.toString().padStart(3,0)}</strong><span class="material-symbols-outlined" style="margin:0px 10px;color: red">cardiology</span>
+        `;
+        const ultimaAtualizacao = document.getElementById('ultimaAtualizacao');
+        ultimaAtualizacao.innerText = new Date(simulatedData.timestamp).toLocaleString();
+    })
 });
 
 

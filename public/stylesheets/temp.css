@@ -37,10 +37,9 @@ html, body {
 }
 
 .menu-item {
-    justify-content: normal;
     display: flex;
     flex-direction: row;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 0 5px 10px;
     cursor: pointer;
     border-radius: 5px;
     margin: 0 0 7px 0;
@@ -59,9 +58,14 @@ html, body {
 
 .menu-item span{
     margin-right: 10px;
-    font-size: 25px;
+    font-size: 20px;
     line-height: 29px;
     color: #515151;
+}
+.r-text {
+    position: relative;
+    right: -5px;
+    transition: transform 0.3s;
 }
 
 .menu-item a {
@@ -76,8 +80,62 @@ html, body {
 .menu-item.active {
     background: rgb(230, 244, 254);
     color: rgb(13, 116, 206);
-    font-weight: 600;
+    /*font-weight: 600;
     /*border: solid 1.5px rgba(0, 32, 251, 0.16);*/
+}
+
+.menu-item.active .r-text{
+    transform: rotate(90deg);
+}
+
+.menu-item.active .submenu {
+    max-height: 500px;
+}
+
+/* Submenu Styles */
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.submenu.active{
+    max-height: 500px;
+}
+
+.submenu-link {
+    display: flex;
+    align-items: center;
+    padding: 6px 20px 6px 45px;
+    color: #515151;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.submenu-link:hover {
+    background: rgb(234, 234, 234);
+    color: rgb(13, 116, 206);
+}
+
+.submenu-link.active {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.submenu-icon {
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.submenu-text{
+    align-items: center;
+    display: flex;
+}
+
+.submenu-text i {
+    margin-right: 5px;
 }
 
 /*Css da pagina chat*/
@@ -623,12 +681,12 @@ html, body {
     border-left: 5px solid var(--primary-color);
 }
 
-.emotion-color-1 { background-color: #ff6b6b; } /* Raiva */
-.emotion-color-2 { background-color: #ffd166; } /* Alegria */
-.emotion-color-3 { background-color: #06d6a0; } /* Calma */
-.emotion-color-4 { background-color: #118ab2; } /* Tristeza */
-.emotion-color-5 { background-color: #073b4c; } /* Medo */
-.emotion-color-6 { background-color: #7209b7; } /* Surpresa */
+.emotion-color-1 { background-color: #ff6b6b!important; } /* Raiva */
+.emotion-color-2 { background-color: #ffd166!important; } /* Alegria */
+.emotion-color-3 { background-color: #06d6a0!important; } /* Calma */
+.emotion-color-4 { background-color: #118ab2!important; } /* Tristeza */
+.emotion-color-5 { background-color: #FFA239!important; } /* Medo */
+.emotion-color-6 { background-color: #777C6D!important; } /* Surpresa */
 
 .sensory-input {
     border-radius: 20px;
@@ -831,4 +889,21 @@ html, body {
     left: 0;
     color: #4CAF50;
     font-weight: bold;
+}
+
+
+/*Dashboard*/
+.cardio-card{
+    display: flex!important;
+    flex-direction: row!important;
+    padding: 20px;
+    background: #e6f4fe!important;
+    align-items: center;
+}
+
+.cardio-item{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+
 }

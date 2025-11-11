@@ -14,6 +14,8 @@ var pulseiraRouter = require('./routes/pulseira');
 var errorsRouter = require('./routes/errors');
 var chatRouter = require('./routes/chat');
 var questionarioRouter = require('./routes/questionario');
+var necessidadesRouter = require('./routes/necessidades');
+var diarioRouter = require('./routes/diario');
 
 
 const {initializeDatabase} = require('./database/db');
@@ -35,6 +37,8 @@ app.use('/', indexRouter);
 app.use('/', agendaRouter);
 app.use('/', pulseiraRouter);
 app.use('/', questionarioRouter);
+app.use('/', necessidadesRouter);
+app.use('/', diarioRouter);
 app.use('/users', usersRouter);
 app.use('/errors', errorsRouter);
 

@@ -37,42 +37,21 @@
     </nav>
     <div class="container-sub">
         <div class="sidebar">
-            <div class="sidebar-menu">
-                <ul class="nav flex-column">
-                    <li class="menu-item active" onclick="navigation('dashboard')">
-                        <span class="material-symbols-outlined">space_dashboard</span>
-                        Dashboard
-                    </li>
-                    <li id="meudiafucapi" class="menu-item" onclick="navigation('meudiafucapi')">
-                        <span class="material-symbols-outlined">clear_day</span>
-                        Meu Dia FUCAPI
-                    </li>
-                    <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">
-                        <span class="material-symbols-outlined">diversity_2</span>
-                        Conecta FUCAPI
-                    </li>
-                    <li id="espacocalma" class="menu-item">
-                        <span class="material-symbols-outlined">psychiatry</span>
-                        Espaço Calma
-                    </li>
-                    <li id="perfilusuario" class="menu-item">
-                        <span class="material-symbols-outlined">ent</span>
-                        Perfil de Usuário
-                    </li>
-                </ul>
-            </div>
+            <%- include('partials/sidebar')%>
         </div>
         <div class="main-content">
-            <div class="card" style="padding: 20px;background: #e6f4fe;display: flex;flex-direction: row;">
+            <div class="card cardio-card" style="">
                 <span class="material-symbols-outlined">aod_watch</span>
-                <div style="margin-left: 10px;margin-right: 10px;">Status da Pulseira:</div>
-                <p style="color: green"><strong>conectado</strong></p>
-                <div style="margin-left: 10px;">Batimentos Cardíacos:</div>
-                <div style="margin-left: 10px;display: flex;flex-direction: row;"><strong>-- Bpm</strong>
+                <div class="cardio-item">Status da Pulseira:</div>
+                <div id="connectionStatus" class="cardio-item" style="color: green">--</div>
+                <div class="cardio-item">Batimentos Cardíacos:</div>
+                <div id="currentBpm" class="cardio-item"><strong>-- Bpm</strong>
                     <span class="material-symbols-outlined" style="margin:0px 10px;color: red">cardiology</span>
                 </div>
-                <div style="margin-left: 10px;">Ultima Atualização:</div>
-                <div>10/11/2025 00:00</div>
+                <div class="cardio-item">Ultima Atualização:
+                    <div id="ultimaAtualizacao">10/11/2025 00:00</div>
+                </div>
+
             </div>
             <div style="padding: 10px;">
                 <h2>Acesso Rápido</h2>

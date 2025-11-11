@@ -10,3 +10,23 @@ async  function navigation(nav) {
         window.location.href = '/dashboard';
     }
 };
+
+const meudiafucapi = document.getElementById('meudiafucapi');
+meudiafucapi.addEventListener('click', function(){
+    // Toggle submenus
+    const menuItems = document.querySelectorAll('.menu');
+
+    console.log(menuItems);
+
+    menuItems.forEach(item => {
+        const menuLink = item.querySelector('.menu-item');
+        const submenu = item.querySelector('.submenu');
+
+        console.log(menuLink);
+        console.log(submenu);
+
+        menuLink.classList.toggle('active');
+        submenu.classList.toggle('active');
+    });
+
+});
