@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     socket.on('heartRate', (simulatedData) => {
         const currentBpm = document.getElementById('currentBpm');
-        currentBpm.innerHTML = `<strong>${simulatedData.bpm.toString().padStart(3,0)}</strong><span class="material-symbols-outlined" style="margin:0px 10px;color: red">cardiology</span>
+        currentBpm.innerHTML = `<strong>${simulatedData.bpm.toString().padStart(3,0)}</strong>
         `;
         const ultimaAtualizacao = document.getElementById('ultimaAtualizacao');
         ultimaAtualizacao.innerText = new Date(simulatedData.timestamp).toLocaleString();
