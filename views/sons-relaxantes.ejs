@@ -35,13 +35,7 @@
             </div>
 
             <% if(user.papel === 'aluno' ){ %>
-                <div style="display:flex;align-items: center">
-                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">
-                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>
-                    </div>
-                    <div id="connectionStatus">Conectado</div>
-                    <div id="currentBpm">65 Bpm</div>
-                </div>
+                <%- include('partials/cardio')%>
             <% } %>
         </div>
     </nav>

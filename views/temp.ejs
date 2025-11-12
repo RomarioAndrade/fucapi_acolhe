@@ -18,25 +18,26 @@
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
             <div style="display:flex;flex-direction: row">
-                <a class="navbar-brand" href="#">
-                    <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
-                         class="d-inline-block align-text-top">
-                    FUCAPI Acolhe
-                </a>
-
-            </div>
-            <div>Meu Dia FUCAPI</div>
-
-            <div style="display:flex;align-items: center">
-                <div style="margin: auto 10px auto 10px">
-                    Conected
-                    <i class="fa-solid fa-circle" style="color: chartreuse"></i>
+                <div style="display:flex;flex-direction: row;width: 207px;">
+                    <a class="navbar-brand" href="#">
+                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
+                             class="d-inline-block align-text-top">
+                        FUCAPI Acolhe
+                    </a>
                 </div>
-                65 Bpm
-                <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>
+                <div style="text-align: center;align-content: center;margin-left: 20px;border-radius: 5px;background: #eee;
+                            padding: 5px 10px 5px 10px;display: flex;flex-direction: row;justify-items: center;
+                            align-items: center;
+                            flex-wrap: nowrap;">
+                    <span class="material-symbols-outlined" style="margin-right: 10px">chat</span>
+                    Canal de Comunicação
+                </div>
             </div>
-        </div>
 
+            <% if(user.papel === 'aluno' ){ %>
+                <%- include('partials/cardio')%>
+            <% } %>
+        </div>
     </nav>
     <div class="container-sub">
         <div class="sidebar">

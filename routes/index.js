@@ -139,9 +139,9 @@ router.get('/chat/users', async function (req, res) {
 router.get('/dashboard/chat', authenticateToken, function (req, res) {
     console.log(req.user);
     if (req.user.papel !== 'aluno') {
-        res.render('admin', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
+        res.render('admin', {title: 'FUCAPI Acolhe - Dashboard', message: '',user: req.user});
     }
-    res.render('temp', {title: 'FUCAPI Acolhe - Dashboard', message: ''});
+    res.render('temp', {title: 'FUCAPI Acolhe - Dashboard', message: '',user: req.user});
 });
 
 

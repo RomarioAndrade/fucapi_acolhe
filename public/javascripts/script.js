@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     //console.log('Current page: ', current_page);
     //console.log('Current User: ', currentUser);
 
-    if(current_page === '/dashboard/chat'){
+    if (current_page === '/dashboard/chat') {
         // Load conversations
-        if(currentUser.papel === 'aluno'){
+        if (currentUser.papel === 'aluno') {
             await loadFixedContacts();
-        }else {
+        } else {
             await loadConversations();
         }
     }
@@ -50,10 +50,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     socket.on('heartRate', (simulatedData) => {
         const currentBpm = document.getElementById('currentBpm');
-        currentBpm.innerHTML = `<strong>${simulatedData.bpm.toString().padStart(3,0)}</strong>
+        currentBpm.innerHTML = `<strong>${simulatedData.bpm.toString().padStart(3, 0)}</strong>
         `;
-        const ultimaAtualizacao = document.getElementById('ultimaAtualizacao');
-        ultimaAtualizacao.innerText = new Date(simulatedData.timestamp).toLocaleString();
+        //const ultimaAtualizacao = document.getElementById('ultimaAtualizacao');
+        //ultimaAtualizacao.innerText = new Date(simulatedData.timestamp).toLocaleString();
     })
 });
 

@@ -183,21 +183,39 @@ const initializeDatabase = async () => {
             );
         `);
 
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS estimulos(
+                id INT PRIMARY KEY auto_increment,
+                influenciado ENUM('Provas/Trabalhos', 'Interação Social','Barulho/Ambiente','Mudança na Rotina','Cansaço')
+            );
+        `);
+
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS infuenciado(
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                estimulo_id INT NOT NULL ,
+                data DATETIME,
+                FOREIGN KEY (estimulo_id) REFERENCES estimulos(id)
+                );
+        `);
+
         //Tabela Diario de Emoções
         await connection.execute(`
             CREATE TABLE IF NOT EXISTS diario_emocoes(
                 id INT PRIMARY KEY AUTO_INCREMENT,
-                emocao_inicial ENUM('feliz', 'calmo','neutro','ansioso','triste','raiva','aliviado') NOT NULL,
-                influenciado ENUM('Provas/Trabalhos', 'Interação Social','Barulho/Ambiente','Mudança na Rotina','Cansaço') NOT NULL,
+                emocao_inicial INT NOT NULL ,
+                emocao_final INT NOT NULL ,
+                influenciado INT NOT NULL ,
+                primeira_acao INT,
+                segunda_acao INT,
+                terceira_acao INT,
                 diario TEXT,
-                primeira_possibilidade INT,
-                segunda_possibilidade INT,
-                terceira_possibilidade INT,
-                emocao_final ENUM('feliz', 'calmo','neutro','ansioso','triste','raiva','aliviado') NOT NULL,
-                FOREIGN KEY (primeira_possibilidade) REFERENCES acao(id),
-                FOREIGN KEY (segunda_possibilidade) REFERENCES acao(id),
-                FOREIGN KEY (terceira_possibilidade) REFERENCES acao(id)                
-            )
+                FOREIGN KEY (emocao_inicial) REFERENCES infuenciado(id),
+                FOREIGN KEY (emocao_final) REFERENCES infuenciado(id),
+                FOREIGN KEY (primeira_acao) REFERENCES acao(id),
+                FOREIGN KEY (segunda_acao) REFERENCES acao(id),
+                FOREIGN KEY (terceira_acao) REFERENCES acao(id)                
+            );
         `);
 
         //Tabela Cardio
