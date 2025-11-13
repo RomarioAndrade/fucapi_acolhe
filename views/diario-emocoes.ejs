@@ -49,52 +49,14 @@
     </nav>
     <div class="container-sub">
         <div class="sidebar">
-            <div class="sidebar-menu">
-                <ul class="nav flex-column">
-                    <li class="menu-item" onclick="navigation('dashboard')">
-                        <span class="material-symbols-outlined">space_dashboard</span>
-                        Dashboard
-                    </li>
-                    <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">
-                        <span class="material-symbols-outlined">clear_day</span>
-                        Meu Dia FUCAPI
-                    </li>
-                    <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">
-                        <span class="material-symbols-outlined">diversity_2</span>
-                        Conecta FUCAPI
-
-                    </li>
-                    <li id="espacocalma" class="menu-item">
-                        <span class="material-symbols-outlined">psychiatry</span>
-                        Espaço Calma
-                    </li>
-                    <li id="perfilusuario" class="menu-item">
-                        <span class="material-symbols-outlined">ent</span>
-                        Perfil de Usuário
-                    </li>
-                    <li id="perfilusuario" class="menu-item">
-                        <span class="material-symbols-outlined">notifications</span>
-                        Notificações
-                    </li>
-                    <% if(user.papel !== 'aluno' ){ %>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-table-list"></i>
-                            Lista Alunos
-                        </li>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-message"></i>
-                            Chat
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
+            <%- include('partials/sidebar')%>
         </div>
 
         <div class="main-content">
             <div class="container mt-2">
                 <!-- Nova Entrada -->
                 <div id="newEntrySection">
-                    <div class="card shadow-sm col-9" style="margin: auto">
+                    <div class="card shadow-sm col-9" style="margin: 0 auto 15px auto;">
                         <div class="card-header bg-white">
                             <h4 class="mb-0"></i> Nova Entrada no Diário</h4>
                         </div>
@@ -102,63 +64,8 @@
 
                             <div class="mb-4">
                                 <h5>Como você está se sentindo?</h5>
-                                <div class="row g-3" id="emotionsGrid">
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_satisfied</i>
-                                            </div>
-                                            <h6>Feliz</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_calm</i>
-                                            </div>
-                                            <h6>Calmo</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_neutral</i>
-                                            </div>
-                                            <h6>Neutro</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_worried</i>
-                                            </div>
-                                            <h6>Ansioso</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_sad</i>
-                                            </div>
-                                            <h6>Triste</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_extremely_dissatisfied</i>
-                                            </div>
-                                            <h6>Raiva</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">mood</i>
-                                            </div>
-                                            <h6>Aliviado</h6>
-                                        </div>
-                                    </div>
+                                <div class="row g-3 emotionsGrid" id="emotionsGrid">
+
                                 </div>
                             </div>
 
@@ -177,20 +84,22 @@
                             <div class="mb-4">
                                 <h5>O que pode estar Influenciando?</h5>
                                 <div class="d-flex flex-wrap mb-2">
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="luz">
-                                        Provas/Trabalhos
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="som">Interação
-                                        Social
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="toque">
-                                        Barulho/Ambiente
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="multidao">
-                                        Mudança de Rotina
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sensory" data-sensory="cheiro">Cansaço
-                                    </button>
+                                    <div class="" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck1">Provas/Trabalhos</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck2">Interação Social</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck3">Barulho/Ambiente</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck4">Mudança de Rotina</label>
+
+                                        <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck5">Cansaço</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-4">
@@ -218,63 +127,8 @@
                                 <h5>Depois de refletir, como você se sente agora?</h5>
                             </div>
                             <div class="mb-4">
-                                <div class="row g-3" id="emotionsGrid">
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_satisfied</i>
-                                            </div>
-                                            <h6>Feliz</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_calm</i>
-                                            </div>
-                                            <h6>Calmo</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_neutral</i>
-                                            </div>
-                                            <h6>Neutro</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_worried</i>
-                                            </div>
-                                            <h6>Ansioso</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_sad</i>
-                                            </div>
-                                            <h6>Triste</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">sentiment_extremely_dissatisfied</i>
-                                            </div>
-                                            <h6>Raiva</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="card emotion-card text-center p-3">
-                                            <div class="emotion-icon">
-                                                <i class="material-symbols-outlined">mood</i>
-                                            </div>
-                                            <h6>Aliviado</h6>
-                                        </div>
-                                    </div>
+                                <div class="row g-3 emotionsGrid" id="emotionsGrid">
+
                                 </div>
                             </div>
                             <div class="mb-4">
@@ -298,7 +152,127 @@
         </div>
     </div>
 </div>
-
 <script src="/javascripts/navigation.js"></script>
+<script>
+    // Emoções disponíveis
+    const emotions = [
+        {id: 1, name: "Feliz", icon: "sentiment_excited", color: "emotion-color-1"},
+        {id: 2, name: "Calmo", icon: "sentiment_calm", color: "emotion-color-2"},
+        {id: 3, name: "Neutro", icon: "sentiment_neutral", color: "emotion-color-3"},
+        {id: 4, name: "Ansioso", icon: "sentiment_stressed", color: "emotion-color-4"},
+        {id: 5, name: "Triste", icon: "sentiment_dissatisfied", color: "emotion-color-5"},
+        {id: 6, name: "Raiva", icon: "sentiment_extremely_dissatisfied", color: "emotion-color-6"},
+        {id: 7, name: "Aliviado", icon: "sentiment_content", color: "emotion-color-7"},
+    ];
+
+    // Inicialização da aplicação
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeEmotionsGrid();
+    });
+
+    // Inicializa a grade de emoções
+    function initializeEmotionsGrid() {
+        const emotionsGrid = document.querySelectorAll('.emotionsGrid');
+        emotionsGrid.forEach(emotion => {
+            renderEmotionsGrid(emotion);
+        })
+    }
+
+    function renderEmotionsGrid(emotionsGrid) {
+        emotions.forEach(emotion => {
+            const col = document.createElement('div');
+            col.className = 'col-6 col-md-4 col-lg-2';
+
+            const card = document.createElement('div');
+            card.className = `card emotion-card text-center p-3 ${emotion.color}`;
+            card.dataset.emotionId = emotion.id;
+
+            card.innerHTML = `
+                    <div class="emotion-icon">
+                        <i class="material-symbols-outlined ">${emotion.icon}</i>
+                    </div>
+                    <h6>${emotion.name}</h6>
+                `;
+
+            card.addEventListener('click', function () {
+                selectEmotion(emotion.id);
+            });
+
+            col.appendChild(card);
+            emotionsGrid.appendChild(col);
+        });
+    }
+
+    // Seleciona uma emoção
+    function selectEmotion(emotionId) {
+        selectedEmotion = emotionId;
+
+        // Remove a seleção anterior
+        document.querySelectorAll('.emotion-card').forEach(card => {
+            card.classList.remove('selected-emotion');
+        });
+
+        // Adiciona a seleção à emoção clicada
+        const selectedCard = document.querySelector(`.emotion-card[data-emotion-id="${emotionId}"]`);
+        selectedCard.classList.add('selected-emotion');
+    }
+
+    function saveEntry() {
+        if (!selectedEmotion) {
+            alert('Por favor, selecione uma emoção.');
+            return;
+        }
+
+        const entry = {
+            id: Date.now(),
+            dateTime: dateTime,
+            location: location,
+            emotion: selectedEmotion,
+            intensity: parseInt(intensity),
+            description: description,
+            sensoryInputs: allSensoryInputs,
+            strategies: allStrategies
+        };
+
+        diaryEntries.push(entry);
+        localStorage.setItem('diaryEntries', JSON.stringify(diaryEntries));
+
+        alert('Entrada salva com sucesso!');
+        clearEntryForm();
+        updateEntriesView();
+    }
+
+    // Limpa o formulário de nova entrada
+    function clearEntryForm() {
+        selectedEmotion = null;
+        selectedSensoryInputs = [];
+        selectedStrategies = [];
+
+        document.getElementById('entryDateTime').value = '';
+        document.getElementById('entryLocation').value = '';
+        document.getElementById('emotionIntensity').value = 5;
+        document.getElementById('entryDescription').value = '';
+        document.getElementById('customSensory').value = '';
+        document.getElementById('customStrategy').value = '';
+
+        document.querySelectorAll('.emotion-card').forEach(card => {
+            card.classList.remove('selected-emotion');
+        });
+
+        document.getElementById('intensitySection').style.display = 'none';
+
+        document.querySelectorAll('.btn-sensory').forEach(btn => {
+            if (btn.classList.contains('btn-primary')) {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-primary');
+            }
+            if (btn.classList.contains('btn-success')) {
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-success');
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

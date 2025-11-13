@@ -3,6 +3,7 @@ var currentUser;
 let currentConversation = null;
 let conversations = [];
 
+
 // Initialize the chat
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -16,11 +17,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     //console.log('Current page: ', current_page);
     //console.log('Current User: ', currentUser);
 
-    if(current_page === '/dashboard/chat'){
+    if (current_page === '/dashboard/chat') {
         // Load conversations
-        if(currentUser.papel === 'aluno'){
+        if (currentUser.papel === 'aluno') {
             await loadFixedContacts();
-        }else {
+        } else {
             await loadConversations();
         }
     }
@@ -36,6 +37,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert(`New message from ${notification.sender}: ${notification.message}`);
         }
     });
+
+    socket.on('connect', () => {
+
+        const connectionStatus = document.getElementById('connectionStatus');
+        console.log('Conectado ao servidor');
+
+        connectionStatus.innerHTML = 'Conectado';
+        //connectionStatus.classList.remove('disconnected');
+        //connectionStatus.classList.add('connected');
+    });
+
+    socket.on('heartRate', (simulatedData) => {
+        const currentBpm = document.getElementById('currentBpm');
+        currentBpm.innerHTML = `<strong>${simulatedData.bpm.toString().padStart(3, 0)}</strong>
+        `;
+        //const ultimaAtualizacao = document.getElementById('ultimaAtualizacao');
+        //ultimaAtualizacao.innerText = new Date(simulatedData.timestamp).toLocaleString();
+    })
 });
 
 

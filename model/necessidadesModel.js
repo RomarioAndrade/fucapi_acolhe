@@ -1,9 +1,9 @@
 const {createConnection} = require('../database/db');
 
-class perfilModel {
+class diarioModel {
 
     //
-    async perfil(data) {
+    async createDiario(data) {
 
     }
 }

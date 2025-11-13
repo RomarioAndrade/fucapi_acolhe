@@ -110,23 +110,6 @@ io.on('connection', (socket) => {
     });
 });
 
-function simulateData() {
-    setInterval(() => {
-        const simulatedBpm = Math.floor(Math.random() * 60) + 60; // Entre 60 e 120 BPM
-        const simulatedData = {
-            bpm: simulatedBpm,
-            timestamp: new Date().toISOString(),
-            user:'aluno@gmail.com'
-        };
-
-        // Dispara o evento como se fosse do servidor
-        if (typeof socket !== 'undefined' && socket.connected) {
-            console.log('heartRate', simulatedData);
-            socket.emit('heartRate', simulatedData);
-        }
-    }, 3000);
-}
-
 /**
  * Normalize a port into a number, string, or false.
  */

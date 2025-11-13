@@ -1,9 +1,10 @@
 // Playlist inicial: troque ou adicione URLs se desejar
 const initialTracks = [
-    { title: 'Chuva Suave', artist: 'Relax', src: '/sounds/mixkit-light-rain-loop-2393.wav' },
-    { title: 'Ondas do Mar', artist: 'Nature', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-    { title: 'Piano Calmo', artist: 'Instrumental', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-    { title: 'Rain loop', artist: 'Nature', src: '/sounds/mixkit-light-rain-loop-2393.wav' }
+    { title: 'Sons da Floresta', artist: 'Nature', src: '/sounds/amazon-florest-14836.mp3' },
+    { title: 'Ondas do Mar', artist: 'freesound_community', src: '/sounds/night-cyprus-sea-53355.mp3' },
+    { title: 'Ruido Branco', artist: 'Instrumental', src: '/sounds/air-conditioning-ambient-sound-loop-32396.mp3' },
+    { title: 'Chuva Suave', artist: 'Nature', src: '/sounds/real-rain-sound-379215.mp3' },
+    { title: 'Fogueira', artist: 'Bonfire', src: '/sounds/bonfire-6449.mp3' }
 ];
 
 const playlistEl = document.getElementById('playlist');

@@ -11,13 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const phase3 = document.getElementById('phase3');
 
     // Elementos de configuração
-    /*
     const inhaleTime = document.getElementById('inhaleTime');
     const holdTime = document.getElementById('holdTime');
     const exhaleTime = document.getElementById('exhaleTime');
     const inhaleValue = document.getElementById('inhaleValue');
     const holdValue = document.getElementById('holdValue');
-    const exhaleValue = document.getElementById('exhaleValue');*/
+    const exhaleValue = document.getElementById('exhaleValue');
 
     // Variáveis de estado
     let isRunning = false;
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let countdown;
     let timeLeft;
 
-    /*
+
     // Atualizar valores dos sliders
     inhaleTime.addEventListener('input', function() {
         inhaleValue.textContent = `${this.value} segundos`;
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     exhaleTime.addEventListener('input', function() {
         exhaleValue.textContent = `${this.value} segundos`;
     });
-    */
+
 
     // Iniciar a técnica
     startBtn.addEventListener('click', function() {
@@ -93,22 +92,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Definir duração e instrução com base na fase atual
         switch(currentPhase) {
             case 1: // Inspirar
-                //duration = parseInt(inhaleTime.value);
-                duration = 4;
+                duration = parseInt(inhaleTime.value);
+                //duration = 4;
                 breathingCircle.className = 'breathing-circle expand';
                 instruction.textContent = 'Inspire lentamente pelo nariz';
                 setActivePhase(1);
                 break;
             case 2: // Segurar
-                //duration = parseInt(holdTime.value);
-                duration = 7;
+                duration = parseInt(holdTime.value);
+                //duration = 7;
                 breathingCircle.className = 'breathing-circle hold';
                 instruction.textContent = 'Segure a respiração';
                 setActivePhase(2);
                 break;
             case 3: // Expirar
-                //duration = parseInt(exhaleTime.value);
-                duration = 8;
+                duration = parseInt(exhaleTime.value);
+                //duration = 8;
                 breathingCircle.className = 'breathing-circle shrink';
                 instruction.textContent = 'Expire lentamente pela boca';
                 setActivePhase(3);

@@ -49,45 +49,7 @@
     </nav>
     <div class="container-sub">
         <div class="sidebar">
-            <div class="sidebar-menu">
-                <ul class="nav flex-column">
-                    <li class="menu-item" onclick="navigation('dashboard')">
-                        <span class="material-symbols-outlined">space_dashboard</span>
-                        Dashboard
-                    </li>
-                    <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">
-                        <span class="material-symbols-outlined">clear_day</span>
-                        Meu Dia FUCAPI
-                    </li>
-                    <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">
-                        <span class="material-symbols-outlined">diversity_2</span>
-                        Conecta FUCAPI
-
-                    </li>
-                    <li id="espacocalma" class="menu-item">
-                        <span class="material-symbols-outlined">psychiatry</span>
-                        Espaço Calma
-                    </li>
-                    <li id="perfilusuario" class="menu-item">
-                        <span class="material-symbols-outlined">ent</span>
-                        Perfil de Usuário
-                    </li>
-                    <li id="perfilusuario" class="menu-item">
-                        <span class="material-symbols-outlined">notifications</span>
-                        Notificações
-                    </li>
-                    <% if(user.papel !== 'aluno' ){ %>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-table-list"></i>
-                            Lista Alunos
-                        </li>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-message"></i>
-                            Chat
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
+            <%- include('partials/sidebar')%>
         </div>
 
         <div class="main-content">
@@ -102,7 +64,7 @@
 
                             <div class="mb-4">
                                 <div>
-                                    Este é um espaço privado e opcinal. As informações aqui ´so serão compartilhadas
+                                    Este é um espaço privado e opcional. As informações aqui só serão compartilhadas
                                     com os professores que você escolher.
                                 </div>
                             </div>
@@ -114,12 +76,20 @@
                                 <button class="btn btn-primary" id="saveEntryBtn">Salvar Entrada</button>
                             </div>
                             <div class="mb-4">
-                                <div style="display: flex;flex-direction: row;padding: 15px;
+                                <div id="addprofessor" style="display: flex;flex-direction: row;padding: 15px;
                                             background: #abd1f4;border-radius: 10px;margin: 20px auto">
                                     <span class="material-symbols-outlined" style="color: #0a53be;">add</span>
                                     <div style="font-weight: 600;color: #0a53be;">Compartilhar com um professor</div>
+
+                                </div>
+                                <div id="searchProf">
+
+                                </div>
+                                <div id="professor-list" >
+
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -127,7 +97,58 @@
         </div>
     </div>
 </div>
-
     <script src="/javascripts/navigation.js"></script>
+    <script>
+
+
+
+        const addprofessor = document.getElementById("addprofessor");
+        addprofessor.addEventListener("click", () => {
+            const searchProf = document.getElementById("searchProf");
+            searchProf.innerHTML = `
+                <div class="mb-3">
+                  <label for="professor-name" class="form-label">Pesquise pelo nome do Professor</label>
+                  <input type="text" class="form-control" id="professor-name" placeholder="Pesquise o Professor ...">
+                </div>
+            `;
+        });
+
+        async function searchUsers(query) {
+            const resultsContainer = document.getElementById('search-results');
+
+            if (query.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/users/search?query=${encodeURIComponent(query)}`, {
+                    headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+                });
+
+                if (response.ok) {
+                    const users = await response.json();
+
+                    if (users.length > 0) {
+                        resultsContainer.innerHTML = users.map(user => `
+          <div style="padding: 8px; cursor: pointer; border-bottom: 1px solid #eee;"
+               onclick="startConversation(${user.id}, '${user.username.replace(/'/g, "\\'")}')">
+            <strong>${user.username}</strong> (${user.email})
+          </div>
+        `).join('');
+                        resultsContainer.style.display = 'block';
+                    } else {
+                        resultsContainer.innerHTML = '<div style="padding: 8px; color: #666;">Nenhum usuário encontrado</div>';
+                        resultsContainer.style.display = 'block';
+                    }
+                } else {
+                    resultsContainer.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                resultsContainer.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

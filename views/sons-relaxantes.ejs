@@ -35,59 +35,13 @@
             </div>
 
             <% if(user.papel === 'aluno' ){ %>
-                <div style="display:flex;align-items: center">
-                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">
-                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>
-                        Conectado
-                        <i class="fa-solid fa-circle" style="color: chartreuse;margin-left: 5px;"></i>
-                    </div>
-                    65 Bpm
-                    <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>
-                </div>
+                <%- include('partials/cardio')%>
             <% } %>
         </div>
     </nav>
     <div class="container-sub">
         <div class="sidebar">
-            <div class="sidebar-menu">
-                <ul class="nav flex-column">
-                    <li class="menu-item" onclick="navigation('dashboard')">
-                        <span class="material-symbols-outlined">space_dashboard</span>
-                        Dashboard
-                    </li>
-                    <li id="meudiafucapi" class="menu-item active" onclick="navigation('meudiafucapi')">
-                        <span class="material-symbols-outlined">clear_day</span>
-                        Meu Dia FUCAPI
-                    </li>
-                    <li id="conectafucapi" class="menu-item" onclick="navigation('conectafucapi')">
-                        <span class="material-symbols-outlined">diversity_2</span>
-                        Conecta FUCAPI
-
-                    </li>
-                    <li id="espacocalma" class="menu-item">
-                        <span class="material-symbols-outlined">psychiatry</span>
-                        Espaço Calma
-                    </li>
-                    <li id="perfilusuario" class="menu-item">
-                        <span class="material-symbols-outlined">ent</span>
-                        Perfil de Usuário
-                    </li>
-                    <li id="perfilusuario" class="menu-item">
-                        <span class="material-symbols-outlined">notifications</span>
-                        Notificações
-                    </li>
-                    <% if(user.papel !== 'aluno' ){ %>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-table-list"></i>
-                            Lista Alunos
-                        </li>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-message"></i>
-                            Chat
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
+            <%- include('partials/sidebar')%>
         </div>
 
 
@@ -99,7 +53,6 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
                                     <h4 class="mb-0">Sons Relaxante</h4>
-                                    <div class="small-muted">Toque sons prontos ou carregue os seus</div>
                                 </div>
                             </div>
 
