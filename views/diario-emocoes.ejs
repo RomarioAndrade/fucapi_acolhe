@@ -20,8 +20,8 @@
             <div style="display:flex;flex-direction: row">
                 <div style="display:flex;flex-direction: row;width: 207px;">
                     <a class="navbar-brand" href="#">
-                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
-                             class="d-inline-block align-text-top">
+<!--                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"-->
+<!--                             class="d-inline-block align-text-top">-->
                         FUCAPI Acolhe
                     </a>
                 </div>
@@ -35,15 +35,7 @@
             </div>
 
             <% if(user.papel === 'aluno' ){ %>
-                <div style="display:flex;align-items: center">
-                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">
-                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>
-                        Conectado
-                        <i class="fa-solid fa-circle" style="color: chartreuse;margin-left: 5px;"></i>
-                    </div>
-                    65 Bpm
-                    <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>
-                </div>
+                <%- include('partials/cardio')%>
             <% } %>
         </div>
     </nav>
@@ -69,57 +61,45 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4" id="intensitySection" style="display: none;">
-                                <h5>Intensidade da emoção</h5>
-
-                                <input type="range" class="intensity-slider" id="emotionIntensity" min="1" max="10"
-                                       value="5">
-                                <div class="d-flex justify-content-between">
-                                    <small>Leve</small>
-                                    <small>Moderada</small>
-                                    <small>Intensa</small>
-                                </div>
-                            </div>
-
                             <div class="mb-4">
                                 <h5>O que pode estar Influenciando?</h5>
                                 <div class="d-flex flex-wrap mb-2">
-                                    <div class="" role="group" aria-label="Basic checkbox toggle button group">
-                                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                                    <div id="influencias" class="" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value="Provas/Trabalhos">
                                         <label class="btn btn-outline-primary" for="btncheck1">Provas/Trabalhos</label>
 
-                                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" value="Interação Social">
                                         <label class="btn btn-outline-primary" for="btncheck2">Interação Social</label>
 
-                                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" value="Barulho/Ambiente">
                                         <label class="btn btn-outline-primary" for="btncheck3">Barulho/Ambiente</label>
 
-                                        <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                                        <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" value="Mudança de Rotina">
                                         <label class="btn btn-outline-primary" for="btncheck4">Mudança de Rotina</label>
 
-                                        <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+                                        <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off" value="Cansaço">
                                         <label class="btn btn-outline-primary" for="btncheck5">Cansaço</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <h5>O que está acontecendo? Diário do Dia</h5>
-                                <textarea class="form-control" id="entryDescription" rows="4"
+                                <textarea class="form-control" id="diario_text" rows="4"
                                           placeholder="Descreva o que está sentindo e o que aconteceu..."></textarea>
                             </div>
 
                             <div class="mb-4">
                                 <h5>Como posso lidar com isso?</h5>
                                 <div class="mb-4">
-                                    <textarea class="form-control" id="entryDescription" rows="1"
+                                    <textarea class="form-control" id="possibilidade1" rows="1"
                                               placeholder="Possibilidade 1..."></textarea>
                                 </div>
                                 <div class="mb-4">
-                                    <textarea class="form-control" id="entryDescription" rows="1"
+                                    <textarea class="form-control" id="possibilidade2" rows="1"
                                               placeholder="Possibilidade 2..."></textarea>
                                 </div>
                                 <div class="mb-4">
-                                    <textarea class="form-control" id="entryDescription" rows="1"
+                                    <textarea class="form-control" id="possibilidade3" rows="1"
                                               placeholder="Possibilidade 2..."></textarea>
                                 </div>
                             </div>
@@ -127,8 +107,63 @@
                                 <h5>Depois de refletir, como você se sente agora?</h5>
                             </div>
                             <div class="mb-4">
-                                <div class="row g-3 emotionsGrid" id="emotionsGrid">
-
+                                <div class="row g-3" id="emotionsGrid2">
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3 emotion-color-1" data-emotion-id="1">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_satisfied</i>
+                                            </div>
+                                            <h6>Feliz</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3 emotion-color-2" data-emotion-id="2">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_calm</i>
+                                            </div>
+                                            <h6>Calmo</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3 emotion-color-3" data-emotion-id="3">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_neutral</i>
+                                            </div>
+                                            <h6>Neutro</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3 emotion-color-4" data-emotion-id="4">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_worried</i>
+                                            </div>
+                                            <h6>Ansioso</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3 emotion-color-5" data-emotion-id="5">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_sad</i>
+                                            </div>
+                                            <h6>Triste</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3 emotion-color-6" data-emotion-id="6">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">sentiment_extremely_dissatisfied</i>
+                                            </div>
+                                            <h6>Raiva</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="card emotion-card text-center p-3 emotion-color-7" data-emotion-id="7">
+                                            <div class="emotion-icon">
+                                                <i class="material-symbols-outlined">mood</i>
+                                            </div>
+                                            <h6>Aliviado</h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-4">
@@ -146,6 +181,9 @@
                             <button class="btn btn-secondary me-md-2" id="clearEntryBtn">Limpar</button>
                             <button class="btn btn-primary" id="saveEntryBtn">Salvar Entrada</button>
                         </div>
+
+
+
                     </div>
                 </div>
             </div>
@@ -153,6 +191,7 @@
     </div>
 </div>
 <script src="/javascripts/navigation.js"></script>
+<script src="/javascripts/oaut.js"></script>
 <script>
     // Emoções disponíveis
     const emotions = [
@@ -191,7 +230,7 @@
                     <div class="emotion-icon">
                         <i class="material-symbols-outlined ">${emotion.icon}</i>
                     </div>
-                    <h6>${emotion.name}</h6>
+                    <h6 id="name">${emotion.name}</h6>
                 `;
 
             card.addEventListener('click', function () {
@@ -203,12 +242,14 @@
         });
     }
 
+
     // Seleciona uma emoção
     function selectEmotion(emotionId) {
         selectedEmotion = emotionId;
 
         // Remove a seleção anterior
-        document.querySelectorAll('.emotion-card').forEach(card => {
+        const emotionsGrid = document.getElementById('emotionsGrid');
+        emotionsGrid.querySelectorAll('.emotion-card').forEach(card => {
             card.classList.remove('selected-emotion');
         });
 
@@ -217,61 +258,119 @@
         selectedCard.classList.add('selected-emotion');
     }
 
-    function saveEntry() {
-        if (!selectedEmotion) {
-            alert('Por favor, selecione uma emoção.');
+    const emotionsGrid2 = document.getElementById('emotionsGrid2');
+    const emotinsCards = emotionsGrid2.querySelectorAll('.emotion-card');
+
+    emotinsCards.forEach(emotion => {
+        emotion.addEventListener('click', function () {
+            emotinsCards.forEach(card => {
+                card.classList.remove('selected-emotion');
+            });
+            emotion.classList.add('selected-emotion');
+        });
+    });
+
+    async function saveEntry() {
+        const diario = {
+            emocao_inicial: '',
+            emocao_final: '',
+            influenciado: [],
+            acoes: [],
+            diario: ''
+        }
+
+        const emotionsGrid1 = document.getElementById('emotionsGrid');
+        const emocoes_inicial = emotionsGrid1.querySelectorAll('.selected-emotion');
+        if (emocoes_inicial.length > 0) {
+            emocoes_inicial.forEach(emotion => {
+                const id = emotion.getAttribute('data-emotion-id');
+                diario.emocao_inicial = emotions[id - 1].name;
+            })
+        } else {
+            alert('Selecione uma Emoção');
             return;
         }
 
-        const entry = {
-            id: Date.now(),
-            dateTime: dateTime,
-            location: location,
-            emotion: selectedEmotion,
-            intensity: parseInt(intensity),
-            description: description,
-            sensoryInputs: allSensoryInputs,
-            strategies: allStrategies
-        };
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                diario.influenciado.push(checkbox.value);
+            }
+        });
 
-        diaryEntries.push(entry);
-        localStorage.setItem('diaryEntries', JSON.stringify(diaryEntries));
+        if (!diario.influenciado.length > 0) {
+            alert('Selecione uma Influencia para a Emoção');
+            return;
+        }
 
-        alert('Entrada salva com sucesso!');
-        clearEntryForm();
-        updateEntriesView();
+        const diario_text = document.getElementById('diario_text');
+        diario.diario = diario_text.value;
+        const poss1 = document.getElementById('possibilidade1');
+        const poss2 = document.getElementById('possibilidade2');
+        const poss3 = document.getElementById('possibilidade3');
+        diario.acoes.push(poss1.value);
+        diario.acoes.push(poss2.value);
+        diario.acoes.push(poss3.value);
+
+        console.log(diario.acoes);
+
+        const emotionsGrid2 = document.getElementById('emotionsGrid2');
+        const emocoes_inicial2 = emotionsGrid2.querySelectorAll('.selected-emotion');
+        if (emocoes_inicial2.length > 0) {
+            emocoes_inicial2.forEach(emotion => {
+                const id = emotion.getAttribute('data-emotion-id');
+                diario.emocao_final = emotions[id - 1].name;
+            })
+        } else {
+            alert('Selecione uma Emoção de como sente agora?');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/diario/novo', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+                body: JSON.stringify(diario)
+            });
+            const resultado = await response.json();
+            if (resultado.success) {
+                alert('Diario Salvo com Sucesso!');
+            }
+        } catch (error) {
+            console.error('Erro ao enviar questionário:', error);
+            alert('Erro ao enviar o Diario de Emoções. Tente novamente.');
+        }
     }
 
     // Limpa o formulário de nova entrada
     function clearEntryForm() {
-        selectedEmotion = null;
-        selectedSensoryInputs = [];
-        selectedStrategies = [];
-
-        document.getElementById('entryDateTime').value = '';
-        document.getElementById('entryLocation').value = '';
-        document.getElementById('emotionIntensity').value = 5;
-        document.getElementById('entryDescription').value = '';
-        document.getElementById('customSensory').value = '';
-        document.getElementById('customStrategy').value = '';
-
-        document.querySelectorAll('.emotion-card').forEach(card => {
-            card.classList.remove('selected-emotion');
+        const emotionsGrid1 = document.getElementById('emotionsGrid');
+        const emocoes_inicial = emotionsGrid1.querySelectorAll('.selected-emotion');
+        emocoes_inicial.forEach(emotion => {
+            emotion.classList.remove('selected-emotion');
         });
-
-        document.getElementById('intensitySection').style.display = 'none';
-
-        document.querySelectorAll('.btn-sensory').forEach(btn => {
-            if (btn.classList.contains('btn-primary')) {
-                btn.classList.remove('btn-primary');
-                btn.classList.add('btn-outline-primary');
-            }
-            if (btn.classList.contains('btn-success')) {
-                btn.classList.remove('btn-success');
-                btn.classList.add('btn-outline-success');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checkbox.checked = false;
             }
         });
+        document.getElementById('diario_text').value = '';
+        document.getElementById('possibilidade1').value = '';
+        document.getElementById('possibilidade2').value = '';
+        document.getElementById('possibilidade3').value = '';
+
+        const emotionsGrid2 = document.getElementById('emotionsGrid2');
+        const emocoes_final = emotionsGrid2.querySelectorAll('.selected-emotion');
+        emocoes_final.forEach(emotion => {
+            emotion.classList.remove('selected-emotion');
+        });
+
     }
+
+    document.getElementById('saveEntryBtn').addEventListener('click', saveEntry);
+    document.getElementById('clearEntryBtn').addEventListener('click', clearEntryForm);
 
 </script>
 </body>

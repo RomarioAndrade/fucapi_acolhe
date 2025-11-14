@@ -179,7 +179,7 @@ const initializeDatabase = async () => {
         await connection.execute(`
             CREATE TABLE IF NOT EXISTS acao (
                 id INT PRIMARY KEY AUTO_INCREMENT,
-                texto TEXT NOT NULL
+                texto varchar(255) NOT NULL
             );
         `);
 
@@ -190,32 +190,33 @@ const initializeDatabase = async () => {
             );
         `);
 
-        await connection.execute(`
-            CREATE TABLE IF NOT EXISTS infuenciado(
-                id INT PRIMARY KEY AUTO_INCREMENT,
-                estimulo_id INT NOT NULL ,
-                data DATETIME,
-                FOREIGN KEY (estimulo_id) REFERENCES estimulos(id)
-                );
-        `);
-
         //Tabela Diario de Emoções
         await connection.execute(`
             CREATE TABLE IF NOT EXISTS diario_emocoes(
                 id INT PRIMARY KEY AUTO_INCREMENT,
-                emocao_inicial INT NOT NULL ,
-                emocao_final INT NOT NULL ,
-                influenciado INT NOT NULL ,
+                usuario_id INT NOT NULL,
+                emocao_inicial VARCHAR(100) NOT NULL ,
+                emocao_final VARCHAR(100) NOT NULL ,
                 primeira_acao INT,
                 segunda_acao INT,
                 terceira_acao INT,
                 diario TEXT,
-                FOREIGN KEY (emocao_inicial) REFERENCES infuenciado(id),
-                FOREIGN KEY (emocao_final) REFERENCES infuenciado(id),
                 FOREIGN KEY (primeira_acao) REFERENCES acao(id),
                 FOREIGN KEY (segunda_acao) REFERENCES acao(id),
-                FOREIGN KEY (terceira_acao) REFERENCES acao(id)                
+                FOREIGN KEY (terceira_acao) REFERENCES acao(id),
+                FOREIGN KEY (usuario_id) REFERENCES users(id)
             );
+        `);
+
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS influenciado(
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                diario_id INT NOT NULL,
+                estimulo_id INT NOT NULL ,
+                data DATETIME,
+                FOREIGN KEY (estimulo_id) REFERENCES estimulos(id),
+                FOREIGN KEY (diario_id) REFERENCES diario_emocoes(id)
+                );
         `);
 
         //Tabela Cardio
@@ -227,6 +228,16 @@ const initializeDatabase = async () => {
                 data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (usuario_id) REFERENCES users(id) ON DELETE CASCADE
         );`);
+
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS perfil(
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                usuario_id INT NOT NULL ,
+                first_name varchar(255),
+                last_name varchar(255),
+                FOREIGN KEY (usuario_id) REFERENCES users(id)
+                );
+        `);
 
         console.log('Database initialized successfully');
         await connection.end();

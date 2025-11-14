@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
 
         // Dispara o evento como se fosse do servidor
         if (typeof socket !== 'undefined' && socket.connected) {
-            console.log('heartRate', simulatedData);
+            //console.log('heartRate', simulatedData);
             socket.emit('heartRate', simulatedData);
         }
     }, 3000);

@@ -20,8 +20,8 @@
             <div style="display:flex;flex-direction: row">
                 <div style="display:flex;flex-direction: row;width: 207px;">
                     <a class="navbar-brand" href="#">
-                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
-                             class="d-inline-block align-text-top">
+<!--                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"-->
+<!--                             class="d-inline-block align-text-top">-->
                         FUCAPI Acolhe
                     </a>
                 </div>
@@ -31,70 +31,20 @@
                             flex-wrap: nowrap;">
                     <span class="material-symbols-outlined" style="margin-top: 4px">space_dashboard</span>
                     Dashboard
-                    <span class="material-symbols-outlined" style="margin-top: 4px">chevron_forward</span>
-                    Agenda
                 </div>
             </div>
-
-            <% if(user.papel === 'aluno' ){ %>
-                <div style="display:flex;align-items: center">
-                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">
-                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>
-                        Conectado
-                        <i class="fa-solid fa-circle" style="color: chartreuse;margin-left: 5px;"></i>
-                    </div>
-                    65 Bpm
-                    <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>
-                </div>
-            <% } %>
         </div>
     </nav>
     <div class="container-sub">
         <div class="sidebar">
-            <div class="sidebar-menu">
-                <ul class="nav flex-column">
-                    <li class="menu-item active">
-                        <i class="fa-solid fa-house-user"></i>
-                        Dashboard
-                    </li>
-                    <% if(user.papel !== 'aluno'){ %>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-table-list"></i>
-                            Lista Alunos
-                        </li>
-                        <li class="menu-item">
-                            <i class="fa-solid fa-message"></i>
-                            Chat
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-            <div style="height: 50px;
-                        border-top: 1px solid rgba(0, 0, 0, 0.1);">
-                <div>
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="fa-solid fa-gear"></i><%= user.username %>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" onclick="logout()">Logout</a></li>
-                            <li><a class="dropdown-item" href="#">Configurações</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <%- include('partials/sidebar')%>
         </div>
 
         <div class="main-content">
-            <div class="card">
-
-            </div>
-
         </div>
     </div>
 </div>
 <script src="/javascripts/navigation.js"></script>
+<script src="/javascripts/oaut.js"></script>
 </body>
 </html>

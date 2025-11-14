@@ -20,8 +20,8 @@
             <div style="display:flex;flex-direction: row">
                 <div style="display:flex;flex-direction: row;width: 207px;">
                     <a class="navbar-brand" href="#">
-                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
-                             class="d-inline-block align-text-top">
+<!--                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"-->
+<!--                             class="d-inline-block align-text-top">-->
                         FUCAPI Acolhe
                     </a>
                 </div>
@@ -35,15 +35,7 @@
             </div>
 
             <% if(user.papel === 'aluno' ){ %>
-                <div style="display:flex;align-items: center">
-                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">
-                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>
-                        Conectado
-                        <i class="fa-solid fa-circle" style="color: chartreuse;margin-left: 5px;"></i>
-                    </div>
-                    65 Bpm
-                    <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>
-                </div>
+                <%- include('partials/cardio')%>
             <% } %>
         </div>
     </nav>
@@ -129,7 +121,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="tarefa-nome" class="form-label">Titulo da Tarefa</label>
-                    <input type="text" class="form-control" id="tarefa-nome"
+                    <input type="text" class="form-control" id="tarefa-nome" required
                            placeholder="Ex: Prova Calculo Diferencial">
                 </div>
                 <div class="mb-3">
@@ -214,6 +206,7 @@
                             <option value="23:00">23:00</option>
                             <option value="23:30">23:30</option>
                         </select>
+                        <div class="valid-feedback">Looks good!</div>
                     </div>
                 </div>
 
