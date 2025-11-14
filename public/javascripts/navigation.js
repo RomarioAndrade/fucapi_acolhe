@@ -9,6 +9,16 @@ async function navigation(nav) {
     if (nav === 'dashboard') {
         window.location.href = '/dashboard';
     }
+    if (nav === 'perfil') {
+        window.location.href = '/dashboard/perfil-usuario';
+    }
+    if (nav === 'chat') {
+        window.location.href = '/dashboard/chat';
+    }
+    if (nav === 'foco') {
+        window.location.href = '/dashboard/foco';
+    }
+
 };
 
 const meudiafucapi = document.getElementById('meudiafucapi');

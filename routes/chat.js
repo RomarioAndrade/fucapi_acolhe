@@ -157,7 +157,7 @@ router.get('/users/search', authenticateToken, async (req, res) => {
             return res.json([]);
         }
 
-        const connection = await require('../config/database').createConnection();
+        const connection = await require('../database/db').createConnection();
         const [rows] = await connection.execute(
             'SELECT id, username, email FROM users WHERE username LIKE ? AND id != ?',
             [`%${query}%`, req.user.id]
@@ -166,6 +166,7 @@ router.get('/users/search', authenticateToken, async (req, res) => {
 
         res.json(rows);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

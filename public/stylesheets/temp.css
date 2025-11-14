@@ -593,7 +593,7 @@ html, body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 .timer-display {
-    font-size: 5rem;
+    font-size: 60px;
     font-weight: bold;
     margin: 20px 0;
     color: #dc3545;
@@ -708,8 +708,9 @@ html, body {
 .emotion-color-2 { background-color: #94e482 !important; } /* Alegria */
 .emotion-color-3 { background-color: #b3b3b3 !important; } /* Calma */
 .emotion-color-4 { background-color: #ffa700 !important; } /* Tristeza */
-.emotion-color-5 { background-color: #98a7f3 !important; } /* Medo */
+.emotion-color-5 { background-color: #c6d0ff !important; } /* Medo */
 .emotion-color-6 { background-color: #ff8181 !important; } /* Surpresa */
+.emotion-color-7 { background-color: #b2a8df !important; }
 
 .sensory-input {
     border-radius: 20px;
@@ -755,6 +756,7 @@ html, body {
 /* Dashboard buttons*/
 .d-button{
     width: 13rem;
+    height: 72px;
     padding: 10px;
     display: flex !important;
     flex-direction: row !important;
@@ -764,7 +766,25 @@ html, body {
     align-items: center;
 }
 
+.d-button:hover {
+    background: #ffe9e9;
+}
 
+.d-spam{
+    margin-right: 10px;
+    color: #814343;
+    font-size: 35px;
+}
+
+.btn-logout{
+    display: flex!important;
+    flex-direction: row!important;
+    line-height: 1!important;
+}
+
+.btn-logout span{
+    margin-right: 10px;
+}
 
 /* Respiração Guiada*/
 .container {
@@ -929,4 +949,12 @@ html, body {
     flex-direction: row;
     margin-right: 10px;
 
+}
+
+/*Perfil Necessidade*/
+.select-profissional{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

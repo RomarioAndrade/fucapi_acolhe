@@ -1,7 +1,7 @@
 let tasks = [];
 let currentTask;
 let today = new Date();
-const saveTask = document.getElementById('save-task');
+
 
 document.addEventListener('DOMContentLoaded', () => {
     // Referências para os elementos do HTML
@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     //Botão salva a tarefa
+    const saveTask = document.getElementById('save-task');
     saveTask.addEventListener('click', async event => {
         const titulo = document.getElementById('tarefa-nome').value.trim();
         const descricao = document.getElementById('tarefa-descricao').value.trim();
@@ -199,8 +200,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const hora = taskHours.options[taskHours.selectedIndex].text;
         const taskType = getRadioValue('btnradio');
 
+        console.log(hora);
+
+        if(titulo == ''){
+            alert('titulo null');
+            return;
+        }
+
+        if (taskType == null){
+            alert('taskType null');
+            return;
+        }
+
+        if (hora == 'Selecione a hora'){
+            alert('hora null');
+            return;
+        }
+
         const data_inicio = data +" "+hora;
-        console.log("data_inicio: "+data_inicio);
 
         const response = await fetch(`/task/`, {
             method: 'POST',
@@ -426,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newTask.innerHTML += `
             <div id="id-${currentTask.tarefa.id}" class="task" >
                 <div id="${currentTask.tarefa.id}" class="event-chip" style="background:#${task.color}">
-                    <strong>${currentTask.categoria}:</strong> ${currentTask.tarefa.titulo}, ${formatterBr.format(date)}
+                    <strong>${currentTask.tarefa.categoria}:</strong> ${currentTask.tarefa.titulo}, ${formatterBr.format(date)}
                 </div>
             </div>`;
 

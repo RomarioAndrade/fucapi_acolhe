@@ -10,9 +10,10 @@ async function login() {
     });
 
     const data = await response.json();
+    console.log("Teste"+data);
 
     if (response.ok) {
-        if (data.question){
+        if (data.question && data.user.papel == 'aluno') {
             window.location.href = '/questionario';
         }else {
             window.location.href = '/dashboard';

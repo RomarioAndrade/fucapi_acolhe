@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../model/userModel');
 const chatModel = require('../model/chatModel');
 const questionModel = require('../model/questionarioModel');
+const diarioModel = require("../model/diarioModel");
 
 const JWT_SECRET = 'your-secret-key';
 
@@ -64,10 +65,9 @@ router.post('/login', async (req, res) => {
             secure: process.env.NODE_ENV === 'production',
             maxAge: 24 * 60 * 60 * 1000 // 24 horas
         });
-
         const question = await questionModel.isAnswered(user.id);
         if (!question) {
-            res.json({message: "Login realizado com sucesso",question:true});
+            res.json({message: "Login realizado com sucesso",question:true,user:user});
         }else{
             res.json({message: "Login realizado com sucesso",question:false});
 
@@ -87,7 +87,7 @@ router.get('/dashboard', authenticateToken, function (req, res) {
         case 'secretaria':
             res.render('dashboard', {user:  req.user});
         default:
-            res.render('home', {title: req.user});
+            res.render('home', {user: req.user});
 
     }
 
@@ -272,9 +272,7 @@ router.get('/dashboard/foco',authenticateToken,(req,res)=>{
     res.render('pomodoro',{user: req.user});
 });
 
-router.get('/dashboard/diario-emocoes',authenticateToken,(req,res)=>{
-    res.render('diario-emocoes',{user: req.user});
-});
+
 
 router.get('/dashboard/respiracao-guiada',authenticateToken,(req,res)=>{
     res.render('respiracao-guiada',{user: req.user});
@@ -286,6 +284,29 @@ router.get('/dashboard/sons-relaxantes',authenticateToken,(req,res)=>{
 
 router.get('/dashboard/perfil-necessidades',authenticateToken,(req,res)=>{
     res.render('perfil-necessidades',{user: req.user});
+});
+
+router.get('/dashboard/perfil-usuario',authenticateToken,(req,res)=>{
+    res.render('perfil-usuario',{user: req.user});
+});
+
+router.get('/api/perfil-necessidades/:id',authenticateToken,(req,res)=>{
+    try {
+
+    }catch (e) {
+        console.error('Erro ao salvar o perfil:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+});
+
+router.post('/api/perfil-necessidades', authenticateToken, async (req, res) => {
+    try {
+        const resultado = await diarioModel.createDiario(req.body,req.user.id);
+        res.json(resultado);
+    } catch (error) {
+        console.error('Erro ao salvar o perfil:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
 });
 
 
