@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fucapi Acolhe - Perfil de Necessidades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="/stylesheets/temp.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+</head>
+<body>
+<div class="main-container">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <div style="display:flex;flex-direction: row">
+                <div style="display:flex;flex-direction: row;width: 207px;">
+                    <a class="navbar-brand" href="#">
+                        <img src="/images/logo 64x64.png" alt="Logo" width="30" height="24"
+                             class="d-inline-block align-text-top">
+                        FUCAPI Acolhe
+                    </a>
+                </div>
+                <div style="text-align: center;align-content: center;margin-left: 20px;border-radius: 5px;background: #eee;
+                            padding: 5px 10px 5px 10px;display: flex;flex-direction: row;justify-items: center;
+                            align-items: center;
+                            flex-wrap: nowrap;">
+                    <span class="material-symbols-outlined" style="margin-right: 10px">record_voice_over</span>
+                    Perfil de Necessidades
+                </div>
+            </div>
+
+            <% if(user.papel === 'aluno' ){ %>
+                <div style="display:flex;align-items: center">
+                    <div style="margin: auto 10px auto 10px;text-align: center;align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-top: 4px;">aod_watch</span>
+                        Conectado
+                        <i class="fa-solid fa-circle" style="color: chartreuse;margin-left: 5px;"></i>
+                    </div>
+                    65 Bpm
+                    <i class="fa-solid fa-heart" style="color: red;margin: auto"></i>
+                </div>
+            <% } %>
+        </div>
+    </nav>
+    <div class="container-sub">
+        <div class="sidebar">
+            <%- include('partials/sidebar')%>
+        </div>
+
+        <div class="main-content">
+            <div class="container mt-2">
+                <!-- Nova Entrada -->
+                <div id="newEntrySection">
+                    <div class="card shadow-sm col-8" style="margin: auto;">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Meu Perfil de Necessidade</h4>
+                        </div>
+                        <div class="card-body diary">
+
+                            <div class="mb-4">
+                                <div>
+                                    Este é um espaço privado e opcional. As informações aqui só serão compartilhadas
+                                    com os professores que você escolher.
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <textarea class="form-control" id="entryDescription" rows="4"
+                                          placeholder="Descreva suas Preferências/Necessidades ..."></textarea>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button class="btn btn-primary" id="saveEntryBtn">Salvar Entrada</button>
+                            </div>
+                            <div class="mb-4">
+                                <div id="addprofessor" style="display: flex;flex-direction: row;padding: 15px;
+                                            background: #abd1f4;border-radius: 10px;margin: 20px auto">
+                                    <span class="material-symbols-outlined" style="color: #0a53be;">add</span>
+                                    <div style="font-weight: 600;color: #0a53be;">Compartilhar com um professor</div>
+
+                                </div>
+                                <div id="searchProf">
+
+                                </div>
+                                <div id="professor-list" >
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/javascripts/navigation.js"></script>
+    <script>
+
+
+
+        const addprofessor = document.getElementById("addprofessor");
+        addprofessor.addEventListener("click", () => {
+            const searchProf = document.getElementById("searchProf");
+            searchProf.innerHTML = `
+                <div class="mb-3">
+                  <label for="professor-name" class="form-label">Pesquise pelo nome do Professor</label>
+                  <input type="text" class="form-control" id="professor-name" placeholder="Pesquise o Professor ...">
+                </div>
+            `;
+        });
+
+        async function searchUsers(query) {
+            const resultsContainer = document.getElementById('search-results');
+
+            if (query.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/users/search?query=${encodeURIComponent(query)}`, {
+                    headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+                });
+
+                if (response.ok) {
+                    const users = await response.json();
+
+                    if (users.length > 0) {
+                        resultsContainer.innerHTML = users.map(user => `
+          <div style="padding: 8px; cursor: pointer; border-bottom: 1px solid #eee;"
+               onclick="startConversation(${user.id}, '${user.username.replace(/'/g, "\\'")}')">
+            <strong>${user.username}</strong> (${user.email})
+          </div>
+        `).join('');
+                        resultsContainer.style.display = 'block';
+                    } else {
+                        resultsContainer.innerHTML = '<div style="padding: 8px; color: #666;">Nenhum usuário encontrado</div>';
+                        resultsContainer.style.display = 'block';
+                    }
+                } else {
+                    resultsContainer.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                resultsContainer.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

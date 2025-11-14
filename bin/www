@@ -8,6 +8,9 @@ var app = require('../app');
 var debug = require('debug')('fucapi-acolhe:server');
 var http = require('http');
 
+const socketIo = require('socket.io');
+const chatModel = require('../model/chatModel');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -28,6 +31,84 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+const io = socketIo(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+
+// Socket.io for real-time messaging
+io.on('connection', (socket) => {
+    console.log('User connected:', socket.id);
+
+    socket.on('join_conversation', async (conversationId) => {
+        socket.join(conversationId);
+        console.log(`User joined conversation: ${conversationId}`);
+    });
+
+    setInterval(() => {
+        const simulatedBpm = Math.floor(Math.random() * 60) + 60; // Entre 60 e 120 BPM
+        const simulatedData = {
+            bpm: simulatedBpm,
+            timestamp: new Date().toISOString()
+        };
+
+        // Dispara o evento como se fosse do servidor
+        if (typeof socket !== 'undefined' && socket.connected) {
+            console.log('heartRate', simulatedData);
+            socket.emit('heartRate', simulatedData);
+        }
+    }, 3000);
+
+    socket.on('send_message', async (data) => {
+        try {
+            const {conversationId, senderId, message, receiverId} = data;
+
+            // Save message to database
+            const messageId = await chatModel.createMessage(conversationId, senderId, message);
+
+            // Get the saved message with sender info
+            const connection = await require('../database/db').createConnection();
+            const [messages] = await connection.execute(`
+                SELECT m.*, u.username as sender_name
+                FROM messages m
+                         JOIN users u ON m.sender_id = u.id
+                WHERE m.id = ?
+            `, [messageId]);
+            await connection.end();
+
+            // Emit to all users in the conversation
+            io.to(conversationId).emit('receive_message', messages[0]);
+
+            // Notify the receiver if they're not in the conversation
+            socket.to(conversationId).emit('message_notification', {
+                conversationId,
+                message: message.substring(0, 50) + '...',
+                sender: messages[0].sender_name
+            });
+
+        } catch (error) {
+            console.error('Error sending message:', error);
+            socket.emit('message_error', {error: 'Failed to send message'});
+        }
+    });
+
+    socket.on('mark_as_read', async (data) => {
+        try {
+            const {conversationId, userId} = data;
+            await chatModel.markMessagesAsRead(conversationId, userId);
+            io.to(conversationId).emit('messages_read', {conversationId, userId});
+        } catch (error) {
+            console.error('Error marking messages as read:', error);
+        }
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
+    });
+});
 
 /**
  * Normalize a port into a number, string, or false.

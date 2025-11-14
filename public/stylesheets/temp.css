@@ -1,0 +1,932 @@
+html, body {
+    height: 100%;
+}
+
+/* cardio */
+.pulse-animation {
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.main-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.navbar {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: solid 1px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    min-width: 220px;
+}
+
+.sidebar-menu {
+    padding: 10px;
+}
+
+.container-fluid {
+    flex-grow: 1;
+}
+
+.container-sub {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 0 7px 0;
+    line-height: 29px;
+    letter-spacing: -0.1px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #515151;
+}
+
+.menu-item i {
+    margin-right: 10px;
+    font-size: 20px;
+    line-height: 29px;
+}
+
+.menu-item span{
+    margin-right: 10px;
+    font-size: 20px;
+    line-height: 29px;
+    color: #515151;
+}
+.r-text {
+    position: relative;
+    right: -5px;
+    transition: transform 0.3s;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: rgb(33, 37, 41);
+}
+
+.menu-item:hover {
+    background: rgb(234, 234, 234);
+}
+
+.menu-item.active {
+    background: rgb(230, 244, 254);
+    color: rgb(13, 116, 206);
+    /*font-weight: 600;
+    /*border: solid 1.5px rgba(0, 32, 251, 0.16);*/
+}
+
+.menu-item.active .r-text{
+    transform: rotate(90deg);
+}
+
+.menu-item.active .submenu {
+    max-height: 500px;
+}
+
+.menu.active .submenu {
+    max-height: 500px;
+}
+
+/* Submenu Styles */
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.submenu.active{
+    max-height: 500px;
+}
+
+.submenu-link {
+    display: flex;
+    align-items: center;
+    padding: 6px 20px 6px 40px;
+    color: #515151;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.submenu-link:hover {
+    background: rgb(234, 234, 234);
+    color: rgb(13, 116, 206);
+}
+
+.submenu-link.active {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.submenu-icon {
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.submenu-text{
+    align-items: center;
+    display: flex;
+}
+
+.submenu-text i {
+    margin-right: 5px;
+}
+
+/*Css da pagina chat*/
+.c-height {
+    height: 87vh!important;
+}
+
+.card-body {
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+}
+
+.c-body{
+    padding: 0 !important;
+}
+
+#contatos_lista {
+    padding: 5px;
+}
+
+.main-content{
+    padding:10px;
+    flex-grow: 1;
+    overflow: scroll;
+}
+
+.card-body-main{
+    display: flex;
+    flex-direction: row;
+    flex-grow:1;
+}
+
+.contato-chat{
+    width: 300px;
+    border-right: solid 1px rgb(200,200,200);
+}
+.contato-chat-title{
+    padding: 10px 10px 10px 15px;
+    border-bottom: solid 1px rgb(200,200,200);
+}
+.contato-chat-title label{
+    padding: 5px;
+    font-weight: 500;
+}
+
+.c-user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.c-user:hover {
+    background: rgb(234, 234, 234);
+    cursor: pointer;
+}
+.c-user.active{
+    background: rgb(230, 244, 254);
+    border-radius: 5px;
+}
+.c-user-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.c-user-icon{
+    width: 40px;
+    height: 40px;
+    background-color: rgb(200,200,200);
+    border-radius: 25px;
+    text-align: center;
+    align-content: center;
+}
+.c-user-name{
+    margin-left: 5px
+}
+.c-user-badge{
+    width: 30px;
+    height: 25px;
+    background-color: rgb(255,140,95);
+    border-radius: 12px;
+    text-align: center;
+    align-content: center;
+    font-size: 13px;
+    margin-left: 5px;
+}
+.chat-main{
+    display:flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.chat-main-title{
+    padding: 10px 10px 10px 15px;
+    border-bottom: solid 1px rgb(200,200,200);
+    font-weight: bold;
+    min-height: 45px;
+}
+.chat-main-content{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.chat-conversation{
+    flex-grow: 1;
+    padding: 10px 10px 10px 15px;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    overflow-wrap: initial;
+}
+.chat-conversation-input{
+    display: flex;
+    padding: 10px 10px 10px 15px;
+}
+.chat-file{
+    margin-right: 10px;
+    align-items: center;
+    display: flex;
+}
+.chat-input{
+    flex-grow: 1;
+    flex-shrink: 0;
+    margin-right: 10px
+}
+.chat-message{
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0 5px 0;
+}
+.chat-message.recipient{
+    align-items: end
+}
+.chat-message-info{
+    flex-direction: row;
+    display: flex;
+}
+.message-avatar{
+    width: 22px;height: 22px;
+    background-color: rgb(0,32,251);
+    border-radius: 25px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+    line-height: 1.6;
+}
+.message-username{
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.message-date{
+    margin-left: 10px;
+    font-size: 13px;
+    color: #707070;
+    font-weight: normal;
+}
+.message-text{
+    width: fit-content;
+    max-width: 615px;
+    padding: 15px;
+    background: rgb(204,255,210);
+    border-radius: 10px;
+    margin: 5px 0 5px 0;
+    overflow-wrap: break-word;
+}
+.conversation-user{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(200,200,200);
+}
+.conversation-user:hover{
+    background: rgb(204, 255, 210);
+}
+.conversation-avatar{
+    width: 50px;
+    height: 50px;
+    background-color: rgb(200, 200, 200);
+    border-radius: 25px;
+    text-align: center;
+    align-content: center;
+}
+
+.conv-user-name{
+    margin-left: 10px;
+}
+
+.conv-user-name p{
+    margin: 0;
+}
+
+/*calendario*/
+.calendar-container {
+    width: 340px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+    background-color: #fff;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    font-size: 10px;
+    cursor: pointer;
+    color: #555;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: initial;
+}
+
+.calendar-table th, .calendar-table td {
+    text-align: center;
+    padding: 5px;
+    /*border: 1px solid #eee;*/
+    font-weight: 400;
+    /*width: calc(100% / 7);*/
+}
+
+.calendar-table th {
+    /*background-color: #f4f4f4;*/
+    width: 38px;
+}
+
+.calendar-table td {
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.calendar-table td:hover {
+    background-color: #e9e9e9;
+}
+
+.calendar-table td.active{
+    background-color: rgb(66, 214, 146);
+    font-weight: 600;
+}
+
+.calendar-table td.today {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-table td.outside-month {
+    color: #ccc;
+    cursor: default;
+}
+
+/* Agenda */
+
+.event-chip{
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: rgb(66, 214, 146);
+    padding: 10px;
+    transition: background-color 0.2s ease-in-out, transform 0.3s ease;
+}
+
+.event-chip:hover{
+    background-color: rgb(172, 240, 255)!important;
+}
+
+.t-content{
+    display: flex;
+}
+
+.t-container{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-grow: 1;
+}
+
+.t-agenda{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.t-agenda-title{
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between*/;
+    align-items: center;
+    padding: 10px 0 10px 0;
+}
+
+.title-agenda{
+    font-weight: 500;
+}
+
+.title-agenda-nav{
+    margin-right: 10px;
+    display: flex;
+}
+
+.t-agenda-card{
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: scroll;
+    scrollbar-width: none
+}
+
+.t-agenda-row{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.day-hora{
+    border-right: solid 1px rgb(200,200,200);
+    padding: 10px;
+}
+
+.task-row{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgb(200,200,200);
+}
+
+.task-row.active{
+    background-color: rgb(223, 249, 255);
+}
+
+.task{
+    margin: 5px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.modal-body{
+    padding: 30px;
+}
+
+.modal-content{
+    border-radius: 30px;
+}
+
+.btn-date{
+    margin:0 5px 0 0;
+}
+
+.hide   {
+    display: none;
+}
+
+.q-bem-vindo{
+    width: 400px;
+    margin: auto;
+    font-weight: 600;
+    color: #003687;
+}
+/*Questionário*/
+.mb-2{
+    text-align: left;
+}
+
+#questionarioForm.hide{
+    height: 0;
+}
+
+#questionarioForm.show{
+    height: 0;
+}
+
+#perguntasContainer{
+
+}
+
+#perguntasContainer .card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+#perguntasContainer .card-body .card-title{
+    text-align: left;
+}
+
+.hidden-div {
+    /* Estado inicial: invisível e sem altura */
+    opacity: 0;
+    max-height: 0;
+    /* Importante: para que a transição de altura funcione, não use `display: none;` */
+}
+
+.visible-div {
+    /* Estado final: visível e com altura suficiente */
+    opacity: 1;
+    /*max-height: 200px; /* Deve ser um valor fixo maior que o conteúdo */
+}
+
+.row{
+    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+}
+
+.py-5{
+    display: flex;
+    flex-direction: column;
+}
+
+/*pomodoro*/
+.pomodoro-container {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.timer-display {
+    font-size: 5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #dc3545;
+}
+.timer-controls {
+    margin: 20px 0;
+}
+.btn-pomodoro {
+    width: 100px;
+    margin: 0 5px;
+}
+.progress {
+    height: 10px;
+    margin: 20px 0;
+}
+.session-info {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+.settings-panel {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+.work-mode {
+    background-color: #ffe6e6;
+}
+.break-mode {
+    background-color: #e6ffe6;
+}
+.pomodoro-title {
+    color: #dc3545;
+    font-weight: bold;
+}
+.btn-pomodoro{
+    width: fit-content;
+}
+.text-center{
+    margin: 0 auto;
+}
+.progress{
+    margin-top: 0;
+}
+
+
+/*diario de emoções*/
+:root {
+    --primary-color: #6a5acd;
+    --secondary-color: #98d8c8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+.diary{
+    display: flex;
+    flex-direction: column;
+}
+
+.emotion-card {
+    transition: transform 0.3s;
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.emotion-card:hover {
+    transform: translateY(-5px);
+}
+
+.emotion-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.selected-emotion {
+    border: 3px solid var(--primary-color) !important;
+}
+
+.intensity-slider {
+    width: 100%;
+}
+
+.calendar-day {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.calendar-day.has-entry {
+    background-color: var(--secondary-color);
+}
+
+.calendar-day.selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.entry-card {
+    border-left: 5px solid var(--primary-color);
+}
+
+.d-grid{
+    padding: 10px;
+}
+
+.emotion-color-1 { background-color: #ffd600 !important; } /* Raiva */
+.emotion-color-2 { background-color: #94e482 !important; } /* Alegria */
+.emotion-color-3 { background-color: #b3b3b3 !important; } /* Calma */
+.emotion-color-4 { background-color: #ffa700 !important; } /* Tristeza */
+.emotion-color-5 { background-color: #98a7f3 !important; } /* Medo */
+.emotion-color-6 { background-color: #ff8181 !important; } /* Surpresa */
+
+.sensory-input {
+    border-radius: 20px;
+}
+
+.btn-sensory {
+    border-radius: 20px;
+    margin: 2px;
+}
+
+.accessibility-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.high-contrast {
+    background-color: black;
+    color: white;
+}
+
+.high-contrast .navbar {
+    background-color: black;
+}
+
+.high-contrast .emotion-card {
+    background-color: #333;
+    color: white;
+}
+
+.high-contrast .card {
+    background-color: #333;
+    color: white;
+}
+
+/* Dashboard buttons*/
+.d-button{
+    width: 13rem;
+    padding: 10px;
+    display: flex !important;
+    flex-direction: row !important;
+    border: solid 2px #cecece !important;
+    border-radius: 10px;
+    margin: 5px;
+    align-items: center;
+}
+
+
+
+/* Respiração Guiada*/
+.container {
+    max-width: 800px;
+}
+
+.card {
+    /*background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;*/
+}
+
+.m-row{
+    margin: auto;
+}
+
+.breathing-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(4, 55, 253, 0.26);
+    margin: 25px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.breathing-circle.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.breathing-circle.expand {
+    transform: scale(1.5);
+    background: rgba(76, 175, 80, 0.3);
+    border-color: rgba(76, 175, 80, 0.6);
+}
+
+.breathing-circle.hold {
+    background: rgba(255, 193, 7, 0.3);
+    border-color: rgba(255, 193, 7, 0.6);
+}
+
+.breathing-circle.shrink {
+    transform: scale(0.8);
+    background: rgba(33, 150, 243, 0.3);
+    border-color: rgba(33, 150, 243, 0.6);
+}
+
+.instruction {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 35px 0 0 0;
+    min-height: 60px;
+}
+
+.timer {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-breathing {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.btn-breathing:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.phase-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.phase {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 5px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
+.phase.active {
+    background: rgb(95, 223, 210);
+    font-weight: bold;
+}
+
+.settings-panel {
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.settings-panel h5{
+    display: flex;
+    align-items: center;
+}
+
+.settings-panel span{
+    margin-right: 10px;
+}
+
+.form-label {
+    color: black;
+}
+
+.form-range {
+    width: 100%;
+}
+
+.technique-info {
+    margin-top: 30px;
+}
+
+.benefits-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.benefits-list li {
+    margin-bottom: 10px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.benefits-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+
+/*Dashboard*/
+.cardio-card{
+    display: flex!important;
+    flex-direction: row!important;
+    padding: 20px;
+    background: #e6f4fe!important;
+    align-items: center;
+}
+
+.cardio-item{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+
+}
