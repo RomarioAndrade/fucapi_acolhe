@@ -62,6 +62,16 @@ class UserModel {
         await connection.end();
         return rows;
     }
+
+    async searchUsers(query) {
+        const connection = await createConnection();
+        try {
+            const [rows] = await connection.execute(``);
+            return rows;
+        }catch (e) {
+
+        }
+    }
 }
 
 module.exports = new UserModel();

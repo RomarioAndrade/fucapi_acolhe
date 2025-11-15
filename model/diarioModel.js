@@ -7,30 +7,31 @@ class diarioModel {
         try {
             await connection.beginTransaction();
             let acoes_id = [];
-
             for (const element of data.acoes) {
                 const result = await this.createAcao(element);
-                acoes_id.push(result);
+                acoes_id.push(result.insertId);
             }
 
-            console.log(data);
+            //console.log(data);
+            //console.log(usuarioId);
+            //console.log(acoes_id);
 
             const [result] = await connection.execute(`
                 insert into diario_emocoes(usuario_id, emocao_inicial, emocao_final, primeira_acao, segunda_acao,
-                                           terceira_acao, diario)
+                                           terceira_acao, diario,data)
                 values (?, ?, ?, ?, ?, ?,
-                        ?)`, [usuarioId, data.emocao_inicial, data.emocao_final, acoes_id[0], acoes_id[1], acoes_id[2], data.diario]);
+                        ?, ?)`, [usuarioId, data.emocao_inicial, data.emocao_final, acoes_id[0], acoes_id[1], acoes_id[2], data.diario, new Date()]);
 
             for (const element of data.influenciado) {
-                console.log(`influenciado: ${element}`);
-                const estimulo_id = await this.findEstimulo(element).insertId;
+                //console.log(`influenciado: ${element}`);
+                const estimulo_id = await this.findEstimulo(element);
 
-                console.log("estimulo id" + estimulo_id);
-                console.log(`result ${result.insertId}`);
+                //console.log(estimulo_id.id);
+                //console.log(`result ${result.insertId}`);
 
                 const resultado = await connection.execute(`
                     insert into influenciado(diario_id, estimulo_id)
-                    values (?, ?)`, [result.insertId, estimulo_id]);
+                    values (?, ?)`, [result.insertId, estimulo_id.id]);
             }
 
             await connection.commit();
@@ -48,11 +49,11 @@ class diarioModel {
     async createAcao(acao) {
         const connection = await createConnection();
         try {
-            const [row] = await connection.execute(`
+            const [result] = await connection.execute(`
                 insert into acao(texto)
                 values (?)
             `, [acao]);
-            return row;
+            return result;
         } catch (error) {
             throw error;
         } finally {
@@ -68,7 +69,7 @@ class diarioModel {
                 from estimulos
                 where influenciado = ?;
             `, [estimulo]);
-            return row;
+            return row[0];
         } catch (error) {
             throw error;
         } finally {

@@ -103,13 +103,19 @@
     let chart;
     let diarios
 
+    /*document.addEventListener("DOMContentLoaded", () => {
+        initializeChart();
+        updateChart();
+    })*/
+
     // Configuração do gráfico
     function initializeChart() {
         const ctx = document.getElementById('emotionChart').getContext('2d');
         chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [],
+                //labels: ['Feliz','Calmo','Neutro','Ansioso','Triste','Raiva','Aliviado'],
+                labels:[],
                 datasets: [{
                     label: 'Diario de Emoções',
                     data: [],
@@ -148,18 +154,18 @@
 
             if (response.ok) {
                 diarios = await response.json();
-
+                console.log(diarios);
                 if (diarios.length > 0) {
                     diarios.forEach((diario) => {
                         const timeLabel = new Date(diario.data).toLocaleTimeString();
-                        chart.data.labels.push(timeLabel);
                         chart.data.datasets[0].data.push(diario.emocao_inicial);
+                        chart.data.labels.push(timeLabel);
 
                         // Mantém apenas os últimos 20 pontos no gráfico
-                        if (chart.data.labels.length > 20) {
-                            chart.data.labels.shift();
-                            chart.data.datasets[0].data.shift();
-                        }
+                        /*if// (chart.data.labels.length > 20) {
+                         //   chart.data.labels.shift();
+                          //  chart.data.datasets[0].data.shift();
+                        }*/
 
 
                     });
